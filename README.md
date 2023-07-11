@@ -1,14 +1,8 @@
-# vtaskr-frontend
+# vTaskr Frontend
 
-This template should help get you started developing with Vue 3 in Vite.
+An open-source to do list application for personnal use.
+[API vTaskr](https://api.vtaskr.com "vTaskr API") - [OpenAPI](https://api.vtaskr.com/documentation)
 
-## Recommended IDE Setup
-
-[VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur) + [TypeScript Vue Plugin (Volar)](https://marketplace.visualstudio.com/items?itemName=Vue.vscode-typescript-vue-plugin).
-
-## Customize configuration
-
-See [Vite Configuration Reference](https://vitejs.dev/config/).
 
 ## Project Setup
 
@@ -19,6 +13,7 @@ npm install
 ### Compile and Hot-Reload for Development
 
 ```sh
+npm run test:unit  # or npx vittest
 npm run dev
 ```
 
@@ -26,16 +21,4 @@ npm run dev
 
 ```sh
 npm run build
-```
-
-### Run Unit Tests with [Vitest](https://vitest.dev/)
-
-```sh
-npm run test:unit
-```
-
-### Lint with [ESLint](https://eslint.org/)
-
-```sh
-npm run lint
 ```

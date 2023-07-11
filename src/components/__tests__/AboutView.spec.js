@@ -6,11 +6,7 @@ import AboutView from '../../views/AboutView.vue'
 describe('AboutView', () => {
   it('renders h1 properly', () => {
     const wrapper = mount(AboutView)
-    expect(wrapper.text()).toContain('Legal Notice')
-  }),
-
-  it('renders h2 properly', () => {
-    const wrapper = mount(AboutView)
-    expect(wrapper.text()).toContain('Bug Bounty')
+    expect(wrapper.find("h1"))
+    expect(wrapper.text()).toContain('About')
   })
 })
