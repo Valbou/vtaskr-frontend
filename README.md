@@ -3,6 +3,8 @@
 An open-source to do list application for personnal use.
 [API vTaskr](https://api.vtaskr.com "vTaskr API") - [OpenAPI](https://api.vtaskr.com/documentation)
 
+[vTaskr Backend](https://github.com/Valbou/vtaskr-backend)
+
 
 ## Project Setup
 
