@@ -1,0 +1,109 @@
+:root {
+  --dark: #181818;
+  --light: #f9f9f9;
+  --lb: #9be4ff;
+  --mb: #1f93cc;
+  --db: #193254;
+  --error: #9c2b2e;
+  --success: #1C7330;
+}
+
+body {
+  height: 100vh;
+  background-color: var(--dark);
+  color: var(--light);
+  font-family: Ubuntu, Roboto, "Segoe UI", "Droid Sans", "Helvetica Neue", "sans-serif";
+}
+
+#app {
+  height: 100%;
+  display: flex;
+  flex-flow: column;
+  justify-content: center;
+  align-items: center;
+}
+
+#app > header {
+  text-align: center;
+}
+
+#app > footer {
+  justify-self: end;
+  text-align: center;
+}
+
+a {
+  color: var(--lb);
+  transition: color 0.2s;
+}
+
+a:hover, a:visited {
+  color: var(--mb);
+}
+
+form {
+  min-width: 250px;
+  max-width: 350px;
+  margin: auto;
+}
+
+form div {
+  margin: 25px;
+}
+
+form div p {
+  margin: 5px 0;
+}
+
+.error {
+  background-color: var(--error);
+  color: var(--light);
+  padding: 5px 10px;
+  border-radius: 10px;
+  border: var(--light) 1px solid;
+}
+
+.success {
+  background-color: var(--success);
+  color: var(--light);
+  padding: 5px 10px;
+  border-radius: 10px;
+  border: var(--light) 1px solid;
+}
+
+label {
+  display: block;
+  padding: 5px;
+  line-height: 1.5rem;
+  font-size: 1.2rem;
+}
+
+input {
+  display: block;
+  width: 100%;
+  background-color: transparent;
+  border: 1px solid rgb(90, 90, 90);
+  border-radius: 10px;
+  padding: 5px;
+  color: var(--light);
+  line-height: 1.5rem;
+  font-size: 1.2rem;
+  box-sizing: border-box;
+}
+
+button {
+  display: block;
+  width: 100%;
+  background-color: var(--db);
+  border: none;
+  padding: 10px 20px;
+  border-radius: 10px;
+  font-size: 1.2rem;
+  color: var(--light);
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: var(--mb);
+  transition: background-color 0.2s;
+}
