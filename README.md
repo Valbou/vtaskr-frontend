@@ -1,5 +1,7 @@
 # vTaskr Frontend
 
+[![CodeFactor](https://www.codefactor.io/repository/github/valbou/vtaskr-frontend/badge)](https://www.codefactor.io/repository/github/valbou/vtaskr-frontend)
+
 An open-source to do list application for personnal use.
 [API vTaskr](https://api.vtaskr.com "vTaskr API") - [OpenAPI](https://api.vtaskr.com/documentation)
 
