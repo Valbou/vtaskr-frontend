@@ -62,5 +62,11 @@
             <button>Se Connecter</button>
         </div>
     </form>
+    <nav>
+        <RouterLink to="/about">About</RouterLink>
+    </nav>
 </template>
 
+<style scoped>
+    nav {text-align: center;}
+</style>
