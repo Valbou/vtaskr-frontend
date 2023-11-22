@@ -29,7 +29,7 @@ body {
 
 #app > footer {
   justify-self: end;
-  text-align: center;
+  width: 350px;
 }
 
 a {
@@ -106,4 +106,15 @@ button {
 button:hover {
   background-color: var(--mb);
   transition: background-color 0.2s;
+}
+
+footer nav {
+  display: flex;
+  justify-content: space-around;
+  align-self: center;
+  flex-flow: row nowrap;
+}
+
+footer nav a {
+  text-align: center;
 }

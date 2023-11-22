@@ -1,14 +1,13 @@
 <script setup>
     import { reactive, ref, computed } from 'vue'
     import useValidate from '@vuelidate/core'
-    import { required, email, minLength } from '@vuelidate/validators'
+    import { required, minLength, maxLength } from '@vuelidate/validators'
 
-    import { login } from '../../persistence/api/user'
+    import { confirm2fa as api_confirm2fa } from '../../persistence/api/user'
     import { delay } from '../../services/utils_service'
 
     const state = reactive({
-        email: '',
-        password: '',
+        confirm2fa: '',
         api_error: '',
         api_success: '',
     })
@@ -16,8 +15,7 @@
 
     const rules = computed(() => {
         return {
-            email: { required, email },
-            password: { required, minLength: minLength(8) }
+            confirm2fa: { required, minLength: minLength(6), maxLength: maxLength(6) },
         }
     })
 
@@ -39,13 +37,13 @@
 
         if(result) {
             console.log("Form submitted !");
-            const data = await login(state.email, state.password)
+            const data = await api_confirm2fa(state.confirm2fa)
 
             if (data.email) {
-                state.api_success = "Login ok"
+                state.api_success = "Confirm ok"
 
                 await delay(1000);
-                this.$router.push('/2fa')
+                this.$router.push('/')
             }
             else if(data.error) {
                 state.api_error = "Error "+ data.status +": "+ data.error
@@ -58,7 +56,7 @@
 </script>
 
 <template>
-    <form class="form login" method="post" @submit.prevent="handleSubmit">
+    <form class="form confirm2fa" method="post" @submit.prevent="handleSubmit">
         <div v-if="state.api_error || state.api_success">
             <p v-if="state.api_success" class="success">
                 {{ state.api_success }}
@@ -68,17 +66,12 @@
             </p>
         </div>
         <div>
-            <label for="user">User</label>
-            <p class="error" v-if="v.email.$error">{{ v.email.$errors[0].$message }}</p>
-            <input type="email" id="user" name="user" v-model="state.email" />
+            <label for="confirm2fa">Code 2FA (sent by email)</label>
+            <p class="error" v-if="v.confirm2fa.$error">{{ v.confirm2fa.$errors[0].$message }}</p>
+            <input type="text" id="confirm2fa" name="confirm2fa" v-model="state.confirm2fa" />
         </div>
         <div>
-            <label for="pass">Password</label>
-            <p class="error" v-if="v.password.$error">{{ v.password.$errors[0].$message }}</p>
-            <input type="password" id="pass" name="pass" v-model="state.password" />
-        </div>
-        <div>
-            <button>Login</button>
+            <button>Confirm</button>
         </div>
     </form>
 </template>
