@@ -14,7 +14,7 @@ export async function register(email, firstName, lastName, password, locale, tim
     }
 
     const url = env.backend_api + "/api/v1/users/register"
-    const response = await request(url, "POST", formData)
+    const response = await request(url, "POST", JSON.stringify(formData))
 
     const data = await response.json()
     return data
@@ -27,7 +27,7 @@ export async function login(email, password) {
     }
 
     const url = env.backend_api + "/api/v1/users/login"
-    const response = await request(url, "POST", formData)
+    const response = await request(url, "POST", JSON.stringify(formData))
 
     const data = await response.json()
     return data
@@ -39,7 +39,7 @@ export async function confirm2fa(code) {
     }
 
     const url = env.backend_api + "/api/v1/users/2fa"
-    const response = await request(url, "POST", formData)
+    const response = await request(url, "POST", JSON.stringify(formData))
 
     const data = await response.json()
     return data
