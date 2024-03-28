@@ -15,6 +15,10 @@ body {
   font-family: Ubuntu, Roboto, "Segoe UI", "Droid Sans", "Helvetica Neue", "sans-serif";
 }
 
+img {
+  width: 100%;
+}
+
 #app {
   height: 100%;
   display: flex;
