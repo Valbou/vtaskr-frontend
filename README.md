@@ -17,8 +17,13 @@ npm install
 ### Compile and Hot-Reload for Development
 
 ```sh
-npm run test:unit  # or npx vittest
 npm run dev
+```
+
+### Run test suite
+
+```sh
+npm run test
 ```
 
 ### Compile and Minify for Production
