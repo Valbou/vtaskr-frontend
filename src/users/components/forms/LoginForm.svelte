@@ -23,7 +23,7 @@
 
             updateToken(loginResult.token)
 
-            if (loginResult) {
+            if (loginResult && loginResult.token) {
                 window.location.replace('/mfa')
             }
         }

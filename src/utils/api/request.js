@@ -15,10 +15,12 @@ export async function request(url, method = 'GET', body = null, headers = {'Cont
     try {
         const response = await fetch(url, requestData)
         result = await response.json()
+        error = null
+
         if (!response.ok) {
             if (response.status == 401) {
                 cleanupSession()
-                window.location.replace('/login')
+                window.location.replace('/')
             }
 
             throw new Error(`Error ${result.status}: ${result.error}`)
