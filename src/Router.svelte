@@ -11,6 +11,8 @@
     import MFA from '@/users/pages/MFA.svelte'
     import Logout from '@/users/pages/Logout.svelte'
 
+    import Dashboard from '@/tasks/pages/Dashboard.svelte'
+
     export let url = '';
 </script>
 
@@ -21,12 +23,14 @@
         </nav>
     </header>
     <section>
-        <Route path='/register'><Register /></Route>
         <Route path='/'><Login /></Route>
         <Route path='/about'><About /></Route>
         {#if isUserAuthenticated()}
+        <Route path='/dashboard'><Dashboard /></Route>
         <Route path='/mfa'><MFA /></Route>
         <Route path='/logout'><Logout /></Route>
+        {:else}
+        <Route path='/register'><Register /></Route>
         {/if}
         <Route path="*">Not Found</Route>
     </section>
@@ -34,7 +38,11 @@
         <nav>
             <Link to="/">Login</Link>
             <Link to="/about">About</Link>
+            {#if isUserAuthenticated()}
+            <Link to="/dashboard">Dashboard</Link>
+            {:else}
             <Link to="/register">Register</Link>
+            {/if}
         </nav>
     </footer>
 </Router>

@@ -4,7 +4,7 @@
 
     onMount(() => {
         if (isAuthenticated()) {
-            window.location.replace('/')
+            window.location.replace('/dashboard')
         }
     })
 </script>
