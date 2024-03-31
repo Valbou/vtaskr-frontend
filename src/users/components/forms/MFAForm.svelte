@@ -15,11 +15,11 @@
     let showMessage = false
 
     async function handleSubmit() {
-        [userState, validatedUser] = mfa.getValidatedObjectFields()
+        ;[userState, validatedUser] = mfa.getValidatedObjectFields()
         showMessage = true
 
-        if(userState) {
-            [mfaResult, mfaError] = await mfaCall(mfa)
+        if (userState) {
+            ;[mfaResult, mfaError] = await mfaCall(mfa)
 
             if (mfaResult) {
                 window.location.replace('/')
@@ -29,20 +29,20 @@
 </script>
 
 {#if mfaError}
-<Toast typeMessage="error" bind:showMessage={ showMessage }>
-    <p slot="message">
-        { mfaError }
-    </p>
-</Toast>
+    <Toast typeMessage="error" bind:showMessage>
+        <p slot="message">
+            {mfaError}
+        </p>
+    </Toast>
 {/if}
 
 <form class="form mfa" method="post" on:submit|preventDefault={() => handleSubmit()}>
     <div>
         <label for="code">Code</label>
         {#if validatedUser && validatedUser.code_2FA}
-            <p class="error">{ validatedUser.code_2FA }</p>
+            <p class="error">{validatedUser.code_2FA}</p>
         {/if}
-        <input type="text" id="code" name="code" bind:value={ mfa.code_2FA } />
+        <input type="text" id="code" name="code" bind:value={mfa.code_2FA} />
     </div>
     <div>
         <button>Send</button>

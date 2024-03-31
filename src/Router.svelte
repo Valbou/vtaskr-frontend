@@ -1,5 +1,5 @@
 <script>
-    import { Router, Link, Route } from 'svelte-routing';
+    import { Router, Link, Route } from 'svelte-routing'
     import { isUserAuthenticated } from '@/lib/iam/authentication.js'
 
     import VTaskr from '@/global/components/vTaskrLogo.svelte'
@@ -13,24 +13,24 @@
 
     import Dashboard from '@/tasks/pages/Dashboard.svelte'
 
-    export let url = '';
+    export let url = ''
 </script>
 
 <Router {url}>
     <header>
         <nav>
-            <Link class='navlink' to='/'><VTaskr /></Link>
+            <Link class="navlink" to="/"><VTaskr /></Link>
         </nav>
     </header>
     <section>
-        <Route path='/'><Login /></Route>
-        <Route path='/about'><About /></Route>
+        <Route path="/"><Login /></Route>
+        <Route path="/about"><About /></Route>
         {#if isUserAuthenticated()}
-        <Route path='/dashboard'><Dashboard /></Route>
-        <Route path='/mfa'><MFA /></Route>
-        <Route path='/logout'><Logout /></Route>
+            <Route path="/dashboard"><Dashboard /></Route>
+            <Route path="/mfa"><MFA /></Route>
+            <Route path="/logout"><Logout /></Route>
         {:else}
-        <Route path='/register'><Register /></Route>
+            <Route path="/register"><Register /></Route>
         {/if}
         <Route path="*">Not Found</Route>
     </section>
@@ -39,9 +39,9 @@
             <Link to="/">Login</Link>
             <Link to="/about">About</Link>
             {#if isUserAuthenticated()}
-            <Link to="/dashboard">Dashboard</Link>
+                <Link to="/dashboard">Dashboard</Link>
             {:else}
-            <Link to="/register">Register</Link>
+                <Link to="/register">Register</Link>
             {/if}
         </nav>
     </footer>

@@ -1,6 +1,12 @@
-import { BaseDTO } from "../../utils/api/base_dto"
-import { checks, validateEmail, minLength, maxLength, sameAs } from "../../utils/api/validators"
-
+import { BaseDTO } from '../../utils/api/base_dto'
+import {
+    checks,
+    validateEmail,
+    minLength,
+    maxLength,
+    sameAs,
+    required
+} from '../../utils/api/validators'
 
 export class UserDTO extends BaseDTO {
     email
@@ -18,10 +24,23 @@ export class UserDTO extends BaseDTO {
 
     getValidatedObject(password2) {
         return {
-            email: checks([validateEmail(this.email)]),
-            first_name: checks([minLength(this.first_name, 3), maxLength(this.first_name, 90)]),
-            last_name: checks([minLength(this.last_name, 3), maxLength(this.last_name, 90)]),
-            password: checks([minLength(this.password, 12), maxLength(this.password, 90), sameAs(this.password, password2)]),
+            email: checks([required(this.email), validateEmail(this.email)]),
+            first_name: checks([
+                required(this.first_name),
+                minLength(this.first_name, 3),
+                maxLength(this.first_name, 90)
+            ]),
+            last_name: checks([
+                required(this.last_name),
+                minLength(this.last_name, 3),
+                maxLength(this.last_name, 90)
+            ]),
+            password: checks([
+                required(this.password),
+                minLength(this.password, 12),
+                maxLength(this.password, 90),
+                sameAs(this.password, password2)
+            ])
         }
     }
 }
@@ -39,7 +58,7 @@ export class LoginDTO extends BaseDTO {
     getValidatedObject() {
         return {
             email: checks([validateEmail(this.email)]),
-            password: checks([minLength(this.password, 12), maxLength(this.password, 90)]),
+            password: checks([minLength(this.password, 12), maxLength(this.password, 90)])
         }
     }
 }
@@ -54,7 +73,7 @@ export class MFADTO extends BaseDTO {
 
     getValidatedObject() {
         return {
-            code: checks([minLength(this.code_2FA, 6), maxLength(this.code_2FA, 12)]),
+            code: checks([minLength(this.code_2FA, 6), maxLength(this.code_2FA, 12)])
         }
     }
 }

@@ -15,11 +15,11 @@
     let showMessage = false
 
     async function handleSubmit() {
-        [userState, validatedUser] = user.getValidatedObjectFields()
+        ;[userState, validatedUser] = user.getValidatedObjectFields()
         showMessage = true
 
-        if(userState) {
-            [loginResult, loginError] = await authenticate(user)
+        if (userState) {
+            ;[loginResult, loginError] = await authenticate(user)
 
             updateToken(loginResult.token)
 
@@ -31,27 +31,27 @@
 </script>
 
 {#if loginError}
-<Toast typeMessage="error" bind:showMessage={ showMessage }>
-    <p slot="message">
-        { loginError }
-    </p>
-</Toast>
+    <Toast typeMessage="error" bind:showMessage>
+        <p slot="message">
+            {loginError}
+        </p>
+    </Toast>
 {/if}
 
 <form class="form login" method="post" on:submit|preventDefault={() => handleSubmit()}>
     <div>
         <label for="email">Email (User)</label>
         {#if validatedUser && validatedUser.email}
-            <p class="error">{ validatedUser.email }</p>
+            <p class="error">{validatedUser.email}</p>
         {/if}
-        <input type="email" id="email" name="email" bind:value={ user.email } />
+        <input type="email" id="email" name="email" bind:value={user.email} />
     </div>
     <div>
         <label for="pass">Password</label>
         {#if validatedUser && validatedUser.password}
-            <p class="error">{ validatedUser.password }</p>
+            <p class="error">{validatedUser.password}</p>
         {/if}
-        <input type="password" id="pass" name="pass" bind:value={ user.password } />
+        <input type="password" id="pass" name="pass" bind:value={user.password} />
     </div>
     <div>
         <button>Connection</button>

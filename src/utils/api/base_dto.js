@@ -1,8 +1,7 @@
-
 export class BaseDTO {
     constructor() {
         if (this.constructor == BaseDTO) {
-            throw new Error("Abstract classes can't be instantiated.");
+            throw new Error("Abstract classes can't be instantiated.")
         }
     }
 
@@ -16,7 +15,7 @@ export class BaseDTO {
     }
 
     getValidatedObject(args) {
-        throw new Error("Method 'getValidatedObject()' must be implemented.");
+        throw new Error("Method 'getValidatedObject()' must be implemented.")
     }
 
     getValidatedObjectFields(args = null) {

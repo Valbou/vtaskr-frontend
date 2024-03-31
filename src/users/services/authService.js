@@ -1,5 +1,5 @@
 import { getToken, resetToken } from '../store/auth.js'
-
+import { getAllGroups } from '../api/users_api.js'
 
 export function isAuthenticated() {
     // Not a guarantee !
@@ -23,4 +23,8 @@ export function updateAuthHeaders(headers) {
 
 export function cleanupSession() {
     resetToken()
+}
+
+export async function getAllUserGroups() {
+    return await getAllGroups()
 }

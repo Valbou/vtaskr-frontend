@@ -1,3 +1,3 @@
 export const env = {
-    backend_api: "https://"
+    backend_api: 'https://'
 }
