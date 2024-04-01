@@ -1,9 +1,13 @@
 <script>
+    import { createEventDispatcher } from 'svelte'
+
     import { deleteTasks } from '../api/tasks_api.js'
 
     import Picto from '@/global/components/Picto.svelte'
     import Chips from '@/global/components/Chips.svelte'
     import Tag from './Tag.svelte'
+
+    const dispatch = createEventDispatcher()
 
     export let task
     $: eisenhower = task.emergency
@@ -22,12 +26,18 @@
         task.done = !task.done
     }
 
-    function deleteTask(event) {
-        item = event.currentTarget().parent().parent()
-        let result = confirm(`Confirm delete task: ${item.dataset.title}`)
+    async function deleteTask() {
+        let result = confirm(`Confirm delete task: ${task.title}`)
         if (result) {
-            deleteTasks(item.dataset.id)
+            let deletedResult = await deleteTasks(task.id)
+            sendDelete()
         }
+    }
+
+    function sendDelete() {
+        dispatch('message', {
+            task: task
+        })
     }
 </script>
 
@@ -54,7 +64,7 @@
             {/each}
         </div>
     {/if}
-    <div class="actions" data-id={task.id} data-title={task.title}>
+    <div class="actions">
         {#if task.groups}
             {#each task.groups as group}
                 <span><Picto name="groups" /> group</span>

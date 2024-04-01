@@ -10,6 +10,11 @@
         let newTask = event.detail.task
         tasks = [...tasks, newTask]
     }
+
+    function handleDeletedTask(event) {
+        let deletedTask = event.detail.task
+        tasks = tasks.filter((t) => t.id != deletedTask.id)
+    }
 </script>
 
 {#if withAddForm}
@@ -19,7 +24,7 @@
 {#if tasks.length > 0}
     <ul>
         {#each tasks as task}
-            <li><Task {task} /></li>
+            <li><Task {task} on:message={handleDeletedTask} /></li>
         {/each}
     </ul>
 {:else}
