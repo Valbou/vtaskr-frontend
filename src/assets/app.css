@@ -18,6 +18,11 @@ img {
   width: 100%;
 }
 
+img.picto {
+  max-width: 1em;
+  color: var(--light);
+}
+
 #app {
   height: 100%;
   display: flex;
@@ -26,13 +31,13 @@ img {
   align-items: center;
 }
 
-#app > header {
+#app>header {
   text-align: center;
 }
 
-#app > footer {
+#app>footer {
   justify-self: end;
-  width: 350px;
+  min-width: 320px;
 }
 
 a {
@@ -40,7 +45,8 @@ a {
   transition: color 0.2s;
 }
 
-a:hover, a:visited {
+a:hover,
+a:visited {
   color: var(--mb);
 }
 

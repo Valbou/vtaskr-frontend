@@ -10,3 +10,8 @@ export async function createTasks(task) {
     const url = env.backend_api + '/api/v1/tasks'
     return request(url, 'POST', JSON.stringify(task))
 }
+
+export async function deleteTasks(taskId) {
+    const url = env.backend_api + '/api/v1/tasks/id'
+    return request(url, 'DELETE')
+}
