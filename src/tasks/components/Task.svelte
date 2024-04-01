@@ -29,7 +29,7 @@
     async function deleteTask() {
         let result = confirm(`Confirm delete task: ${task.title}`)
         if (result) {
-            let deletedResult = await deleteTasks(task.id)
+            await deleteTasks(task.id)
             sendDelete()
         }
     }
