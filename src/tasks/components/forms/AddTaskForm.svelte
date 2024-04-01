@@ -46,7 +46,7 @@
 {/if}
 
 <form class="form create-task" method="post" on:submit|preventDefault={() => handleSubmit()}>
-    <div>
+    <div class="tasktitle">
         {#if validatedTask && validatedTask.title}
             <p class="error">{validatedTask.title}</p>
         {/if}
@@ -58,12 +58,14 @@
             bind:value={task.title}
         />
     </div>
-    <div class="subgroup">
-        <div>
-            <label><input type="checkbox" bind:checked={task.important} /> Important</label>
+    <div class="subgroup eisenhower">
+        <div class="subgroup">
+            <input type="checkbox" id="importanttask" bind:checked={task.important} />
+            <label for="importanttask">Important</label>
         </div>
-        <div>
-            <label><input type="checkbox" bind:checked={task.emergency} /> Emergency</label>
+        <div class="subgroup">
+            <input type="checkbox" id="emergencytask" bind:checked={task.emergency} />
+            <label for="emergencytask">Emergency</label>
         </div>
     </div>
     <div class="subgroup">
@@ -72,8 +74,7 @@
         <hr />
     </div>
     <div class="subgroup">
-        <div>
-            <label for="group">Group</label>
+        <div class="subgroup">
             {#if validatedTask && validatedTask.tenant_id}
                 <p class="error">{validatedTask.tenant_id}</p>
             {/if}
@@ -84,3 +85,26 @@
         </div>
     </div>
 </form>
+
+<style>
+    .form {
+        padding: 10px;
+        border: 1px solid var(--light);
+        border-radius: 10px;
+    }
+
+    .form div {
+        margin: 0;
+    }
+
+    .form .subgroup {
+        display: flex;
+        flex-flow: row nowrap;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .subgroup hr {
+        min-width: 30%;
+    }
+</style>
