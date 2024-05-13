@@ -13,7 +13,9 @@ export async function authenticate(loginDTO) {
 
 export async function mfa(mfaDTO) {
     const url = env.backend_api + '/api/v1/users/2fa'
-    return request(url, 'POST', JSON.stringify(mfaDTO))
+    return request(
+        url, 'POST', JSON.stringify(mfaDTO), { 'Content-Type': 'application/json' }, false
+    )
 }
 
 export async function logout() {

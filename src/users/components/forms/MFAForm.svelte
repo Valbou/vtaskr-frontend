@@ -6,6 +6,7 @@
     import Toast from '@/lib/components/Toast.svelte'
 
     let mfa = new MFADTO('')
+    let attempts = 0
 
     let validatedUser = null
     let userState = false
@@ -15,13 +16,14 @@
     let showMessage = false
 
     async function handleSubmit() {
+        attempts++
         ;[userState, validatedUser] = mfa.getValidatedObjectFields()
         showMessage = true
 
         if (userState) {
             ;[mfaResult, mfaError] = await mfaCall(mfa)
 
-            if (mfaResult) {
+            if (mfaResult || attempts > 3) {
                 window.location.replace('/')
             }
         }

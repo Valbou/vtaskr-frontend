@@ -4,7 +4,8 @@ export async function request(
     url,
     method = 'GET',
     body = null,
-    headers = { 'Content-Type': 'application/json' }
+    headers = { 'Content-Type': 'application/json' },
+    redirect = true
 ) {
     headers = updateAuthHeaders(headers)
 
@@ -25,7 +26,10 @@ export async function request(
         if (!response.ok) {
             if (response.status == 401) {
                 cleanupSession()
-                window.location.replace('/')
+
+                if (redirect) {
+                    window.location.replace('/')
+                }
             }
 
             throw new Error(`Error ${result.status}: ${result.error}`)
