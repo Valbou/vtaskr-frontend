@@ -8,7 +8,9 @@ export async function register(userDTO) {
 
 export async function authenticate(loginDTO) {
     const url = env.backend_api + '/api/v1/users/login'
-    return request(url, 'POST', JSON.stringify(loginDTO))
+    return request(
+        url, 'POST', JSON.stringify(loginDTO), { 'Content-Type': 'application/json' }, false
+    )
 }
 
 export async function mfa(mfaDTO) {
