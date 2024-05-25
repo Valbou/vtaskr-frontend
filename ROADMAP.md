@@ -12,6 +12,7 @@ Follow the ROADMAP to stay tuned
 - [ ] User can manage groups
 - [ ] User can organize tasks in day, week, month views
 - [ ] User can use an history view with filters
+- [ ] Login method to use set in env vars
 
 ## v1.1
 - [ ] User can use a kanban like view using tags filtering
