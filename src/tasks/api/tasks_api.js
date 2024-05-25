@@ -8,7 +8,7 @@ export async function getAllTasks() {
 
 export async function createTasks(task) {
     const url = env.backend_api + '/api/v1/tasks'
-    return request(url, 'POST', JSON.stringify(task))
+    return request(url, 'POST', task)
 }
 
 export async function deleteTasks(taskId) {

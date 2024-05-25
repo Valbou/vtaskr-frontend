@@ -1,4 +1,5 @@
-import { updateAuthHeaders, cleanupSession } from '@/users/services/authService.js'
+import { updateAuthHeaders, completeAuthURL, cleanupSession } from '@/users/services/authService.js'
+
 
 export async function request(
     url,
@@ -8,11 +9,12 @@ export async function request(
     redirect = true
 ) {
     headers = updateAuthHeaders(headers)
+    url = completeAuthURL(url)
 
     const requestData = {
         method: method,
         headers: headers,
-        body: body
+        body: body ? JSON.stringify(body) : null
     }
 
     let result = null
@@ -49,11 +51,12 @@ export async function svelteRequest(
     headers = { 'Content-Type': 'application/json' }
 ) {
     headers = updateAuthHeaders(headers)
+    url = completeAuthURL(url)
 
     const requestData = {
         method: method,
         headers: headers,
-        body: body
+        body: body ? JSON.stringify(body) : null
     }
 
     const response = await fetch(url, requestData)

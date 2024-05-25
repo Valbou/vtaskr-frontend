@@ -21,6 +21,24 @@ export function updateAuthHeaders(headers) {
     return headers
 }
 
+export function completeAuthURL(url) {
+    let token = getToken()
+
+    if (url.indexOf('?') > 0) {
+        url += "&"
+    }
+    else {
+        url += "?"
+    }
+    url += "token=" + token
+
+    return url
+}
+
+export function getAuthToken() {
+    return getToken()
+}
+
 export function cleanupSession() {
     resetToken()
 }
