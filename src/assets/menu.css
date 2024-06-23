@@ -1,0 +1,159 @@
+#menu {
+    max-width: 300px;
+    background-color: var(--darkl);
+    position: relative;
+    border-radius: 10px;
+}
+
+#menu a {
+    text-decoration: none;
+    font-size: 1rem;
+    color: var(--lb);
+    border-bottom: 2px solid transparent;
+}
+
+#menu ul {
+    list-style-type: none;
+    padding: 10px;
+}
+
+#menu ul a {
+    padding: 10px;
+    font-size: 1.5rem;
+    color: var(--lb);
+}
+
+#menu ul a:first-child {
+    padding: 0;
+}
+
+#menu a:hover {
+    color: var(--mb);
+    border-bottom: 2px solid var(--md);
+}
+
+#menu details summary {
+    padding: 10px;
+    text-decoration: none;
+    font-size: 1.8rem;
+}
+
+nav,
+#menu li,
+summary {
+    display: block;
+    max-width: 100%;
+}
+
+#menu li {
+    padding: 10px;
+}
+
+#menu summary {
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: space-between;
+    align-items: center;
+    position: relative;
+}
+
+#menu summary>a {
+    flex: 1 1 0;
+    width: 200px;
+}
+
+#menu summary>span {
+    flex: 1 1 0;
+    text-align: right;
+}
+
+#menu .hovering {
+    position: absolute;
+    top: 90px;
+    right: 0;
+    background-color: var(--darkl);
+    border-radius: 10px;
+}
+
+/* Bouton Menu (Hamburger) */
+::-webkit-details-marker {
+    display: none;
+}
+
+.hbgr {
+    display: inline-block;
+    position: relative;
+    width: 50px;
+    height: 50px;
+    transition-duration: 0.5s;
+    text-align: left;
+    padding: 0;
+    cursor: pointer;
+}
+
+.hbgr .gauche,
+.hbgr .gauche:before,
+.hbgr .gauche:after,
+.hbgr .droite,
+.hbgr .droite:before,
+.hbgr .droite:after {
+    transition-duration: 0.5s;
+    position: absolute;
+    height: 6px;
+    width: 25px;
+    top: 25px;
+    background-color: var(--lb);
+}
+
+.hbgr .gauche,
+.hbgr .gauche:before,
+.hbgr .gauche:after {
+    border-radius: 10px 0 0 10px;
+}
+
+.hbgr .droite,
+.hbgr .droite:before,
+.hbgr .droite:after {
+    border-radius: 0 10px 10px 0;
+}
+
+.hbgr .gauche {
+    left: 0px;
+}
+
+.hbgr .droite {
+    left: 25px;
+}
+
+.hbgr .gauche:before,
+.hbgr .droite:before {
+    content: "";
+    top: -20px;
+}
+
+.hbgr .gauche:after,
+.hbgr .droite:after {
+    content: "";
+    top: 20px;
+}
+
+details[open] .hbgr .gauche,
+details[open] .hbgr .droite {
+    background: transparent;
+}
+
+details[open] .hbgr .gauche:before {
+    transform: rotateZ(45deg) scaleX(1.4) translate(5px, 5px);
+}
+
+details[open] .hbgr .gauche:after {
+    transform: rotateZ(-45deg) scaleX(1.4) translate(5px, -5px);
+}
+
+details[open] .hbgr .droite:before {
+    transform: rotateZ(-45deg) scaleX(1.4) translate(-5px, 5px);
+}
+
+details[open] .hbgr .droite:after {
+    transform: rotateZ(45deg) scaleX(1.4) translate(-5px, -5px);
+}

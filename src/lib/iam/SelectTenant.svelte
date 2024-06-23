@@ -2,7 +2,7 @@
     import { onMount } from 'svelte'
     import { getAllUserTenants } from '@/lib/iam/authentication.js'
 
-    import Spinner from '@/global/components/Spinner.svelte'
+    import Spinner from '@/lib/components/Spinner.svelte'
 
     export let value
     export let name

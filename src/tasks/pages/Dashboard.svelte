@@ -2,7 +2,7 @@
     import { onMount } from 'svelte'
     import { getAllTasks } from '../api/tasks_api.js'
 
-    import Spinner from '@/global/components/Spinner.svelte'
+    import Spinner from '@/lib/components/Spinner.svelte'
     import TaskList from '../components/TaskList.svelte'
 
     let allTasks = getAllTasks()

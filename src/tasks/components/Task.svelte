@@ -3,8 +3,8 @@
 
     import { deleteTasks } from '../api/tasks_api.js'
 
-    import Picto from '@/global/components/Picto.svelte'
-    import Chips from '@/global/components/Chips.svelte'
+    import Picto from '@/lib/components/Picto.svelte'
+    import Chips from '@/lib/components/Chips.svelte'
     import Tag from './Tag.svelte'
 
     const dispatch = createEventDispatcher()

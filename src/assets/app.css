@@ -1,5 +1,6 @@
 :root {
   --dark: #181818;
+  --darkl: #222222dd;
   --light: #f9f9f9;
   --lb: #9be4ff;
   --mb: #1f93cc;
@@ -12,6 +13,25 @@ body {
   background-color: var(--dark);
   color: var(--light);
   font-family: Ubuntu, Roboto, "Segoe UI", "Droid Sans", "Helvetica Neue", "sans-serif";
+}
+
+header {
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: space-between;
+  align-items: center;
+}
+
+header img {
+  max-width: 200px;
+}
+
+header figure {
+  margin: 0;
+}
+
+footer {
+  margin: 20px 10px;
 }
 
 img {
@@ -100,9 +120,13 @@ input {
   box-sizing: border-box;
 }
 
-button {
-  display: block;
-  width: 100%;
+a.button {
+  text-decoration: none;
+  text-align: center;
+}
+
+a.button, button {
+  display: inline-block;
   background-color: var(--db);
   border: none;
   padding: 10px 20px;
@@ -112,7 +136,11 @@ button {
   cursor: pointer;
 }
 
-button:hover {
+form button {
+  width: 100%;
+}
+
+a.button:hover, button:hover {
   background-color: var(--mb);
   transition: background-color 0.2s;
 }

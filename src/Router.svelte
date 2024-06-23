@@ -2,9 +2,11 @@
     import { Router, Link, Route } from 'svelte-routing'
     import { isUserAuthenticated } from '@/lib/iam/authentication.js'
 
-    import VTaskr from '@/global/components/vTaskrLogo.svelte'
+    import BaseLayout from '@/global/layouts/BaseLayout.svelte'
+
     import Home from '@/global/pages/Home.svelte'
     import About from '@/global/pages/About.svelte'
+    import Presentation from '@/global/pages/Presentation.svelte'
 
     import Register from '@/users/pages/Register.svelte'
     import Login from '@/users/pages/Login.svelte'
@@ -17,32 +19,19 @@
 </script>
 
 <Router {url}>
-    <header>
-        <nav>
-            <Link class="navlink" to="/"><VTaskr /></Link>
-        </nav>
-    </header>
-    <section>
-        <Route path="/"><Login /></Route>
+    <BaseLayout>
+        <Route path="/"><Presentation /></Route>
+        <Route path="/login"><Login /></Route>
         <Route path="/about"><About /></Route>
+
         {#if isUserAuthenticated()}
-            <Route path="/dashboard"><Dashboard /></Route>
             <Route path="/mfa"><MFA /></Route>
             <Route path="/logout"><Logout /></Route>
+            <Route path="/dashboard"><Dashboard /></Route>
         {:else}
             <Route path="/register"><Register /></Route>
         {/if}
+
         <Route path="*">Not Found</Route>
-    </section>
-    <footer>
-        <nav>
-            <Link to="/">Login</Link>
-            <Link to="/about">About</Link>
-            {#if isUserAuthenticated()}
-                <Link to="/dashboard">Dashboard</Link>
-            {:else}
-                <Link to="/register">Register</Link>
-            {/if}
-        </nav>
-    </footer>
+    </BaseLayout>
 </Router>
