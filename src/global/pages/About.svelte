@@ -10,5 +10,5 @@
         <li>Make vTaskr even more ergonomic</li>
         <li>...</li>
     </ul>
-    <p>Join us on <a href="https://github.com/Valbou/vtaskr-backend" title="Link to Github vTaskr" target="_blank" rel="external">github</a></p>
+    <p>Join us on github <a href="https://github.com/Valbou/vtaskr-backend" title="Link to Github vTaskr" target="_blank" rel="external">backend</a> and <a href="https://github.com/Valbou/vtaskr-frontend" title="Link to Github vTaskr" target="_blank" rel="external">frontend</a></p>
 </section>
