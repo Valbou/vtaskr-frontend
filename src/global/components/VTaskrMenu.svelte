@@ -19,7 +19,7 @@
 
     {#if isUserAuthenticated()}
     <ul>
-        <li><Link to="/dashboard">All Groups</Link></li>
+        <li><Link to="/groups">All Groups</Link></li>
         <li>
             <Link to="/dashboard">New Group</Link>
         </li>

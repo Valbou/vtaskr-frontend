@@ -1,5 +1,5 @@
 import { getToken, resetToken } from '../store/auth.js'
-import { getAllGroups } from '../api/users_api.js'
+import { getAllGroups } from '../api/groups_api.js'
 
 export function isAuthenticated() {
     // Not a guarantee !

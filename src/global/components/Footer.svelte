@@ -1,5 +1,5 @@
 <script>
-    import { Router, Link, Route } from 'svelte-routing'
+    import { Link } from 'svelte-routing'
     import { isUserAuthenticated } from '@/lib/iam/authentication.js'
 </script>
 

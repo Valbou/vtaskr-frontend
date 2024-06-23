@@ -21,6 +21,7 @@
     padding: 10px;
     font-size: 1.5rem;
     color: var(--lb);
+    white-space: nowrap;
 }
 
 #menu ul a:first-child {
@@ -73,6 +74,7 @@ summary {
     right: 0;
     background-color: var(--darkl);
     border-radius: 10px;
+    z-index: 999;
 }
 
 /* Bouton Menu (Hamburger) */

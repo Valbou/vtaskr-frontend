@@ -36,7 +36,7 @@ export class TaskDTO extends BaseDTO {
         return {
             title: checks([required(this.title), minLength(this.title, 5), maxLength(this.title, 150)]),
             tenant_id: checks([required(this.tenant_id), minLength(this.tenant_id, 32), maxLength(this.tenant_id, 32)]),
-            description: checks([minLength(this.title, 10), maxLength(this.description, 500)])
+            description: checks([minLength(this.description, 10), maxLength(this.description, 500)])
         }
     }
 }

@@ -1,5 +1,4 @@
 <script>
-    import { onMount } from 'svelte'
     import { getAllTasks } from '../api/tasks_api.js'
 
     import Spinner from '@/lib/components/Spinner.svelte'

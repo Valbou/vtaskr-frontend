@@ -4,7 +4,6 @@
 
     import BaseLayout from '@/global/layouts/BaseLayout.svelte'
 
-    import Home from '@/global/pages/Home.svelte'
     import About from '@/global/pages/About.svelte'
     import Presentation from '@/global/pages/Presentation.svelte'
 
@@ -12,6 +11,8 @@
     import Login from '@/users/pages/Login.svelte'
     import MFA from '@/users/pages/MFA.svelte'
     import Logout from '@/users/pages/Logout.svelte'
+    import Groups from '@/users/pages/Groups.svelte'
+    import Group from '@/users/pages/Group.svelte'
 
     import Dashboard from '@/tasks/pages/Dashboard.svelte'
 
@@ -28,6 +29,11 @@
             <Route path="/mfa"><MFA /></Route>
             <Route path="/logout"><Logout /></Route>
             <Route path="/dashboard"><Dashboard /></Route>
+
+            <Route path="/groups"><Groups /></Route>
+            <Route path="/group/:id" let:params>
+                <Group groupId="{params.id}" />
+            </Route>
         {:else}
             <Route path="/register"><Register /></Route>
         {/if}

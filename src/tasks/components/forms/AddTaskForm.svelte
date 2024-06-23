@@ -45,7 +45,7 @@
     </Toast>
 {/if}
 
-<form class="form create-task" method="post" on:submit|preventDefault={() => handleSubmit()}>
+<form class="form create-task" method="post" action="#" on:submit|preventDefault={() => handleSubmit()}>
     <div class="tasktitle">
         {#if validatedTask && validatedTask.title}
             <p class="error">{validatedTask.title}</p>

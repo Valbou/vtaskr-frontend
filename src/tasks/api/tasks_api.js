@@ -6,6 +6,11 @@ export async function getAllTasks() {
     return svelteRequest(url, 'GET')
 }
 
+export async function getTenantTasks(tenantId) {
+    const url = env.backend_api + '/api/v1/tasks?tenant_id_eq=' + tenantId
+    return svelteRequest(url, 'GET')
+}
+
 export async function createTasks(task) {
     const url = env.backend_api + '/api/v1/tasks'
     return request(url, 'POST', task)

@@ -1,5 +1,4 @@
 <script>
-    import { onMount } from 'svelte'
     import { getAllUserTenants } from '@/lib/iam/authentication.js'
 
     import Spinner from '@/lib/components/Spinner.svelte'
