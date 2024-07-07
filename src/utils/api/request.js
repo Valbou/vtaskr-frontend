@@ -48,7 +48,8 @@ export async function svelteRequest(
     url,
     method = 'GET',
     body = null,
-    headers = { 'Content-Type': 'application/json' }
+    headers = { 'Content-Type': 'application/json' },
+    redirect = true
 ) {
     headers = updateAuthHeaders(headers)
     url = completeAuthURL(url)
@@ -64,7 +65,10 @@ export async function svelteRequest(
     if (!response.ok) {
         if (response.status == 401) {
             cleanupSession()
-            window.location.replace('/')
+
+            if (redirect) {
+                window.location.replace('/')
+            }
         }
 
         throw new Error(`Error ${response.status}: ${response.body}`)

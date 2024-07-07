@@ -15,3 +15,8 @@ export async function createGroup(groupDTO) {
     const url = env.backend_api + '/api/v1/groups'
     return request(url, 'POST', groupDTO)
 }
+
+export async function getGroupMembers(groupId) {
+    const url = env.backend_api + '/api/v1/group/' + groupId + "/members"
+    return svelteRequest(url, 'GET')
+}

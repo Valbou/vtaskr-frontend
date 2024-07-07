@@ -1,5 +1,6 @@
 import './assets/app.css'
 import './assets/menu.css'
+import './assets/pages.css'
 
 import App from './App.svelte'
 
