@@ -13,6 +13,7 @@
     import Logout from '@/users/pages/Logout.svelte'
     import Groups from '@/users/pages/Groups.svelte'
     import Group from '@/users/pages/Group.svelte'
+    import JoinGroup from '@/users/pages/JoinGroup.svelte'
 
     import Dashboard from '@/tasks/pages/Dashboard.svelte'
 
@@ -33,6 +34,9 @@
             <Route path="/groups"><Groups /></Route>
             <Route path="/group/:id" let:params>
                 <Group groupId="{params.id}" />
+            </Route>
+            <Route path="/join-group/:hash" let:params>
+                <JoinGroup inviteHash="{params.hash}" />
             </Route>
         {:else}
             <Route path="/register"><Register /></Route>

@@ -4,11 +4,12 @@
     import { isAuthenticated } from '../services/authService.js'
     import { getTenantTasks } from '@/tasks/api/tasks_api.js'
     import { getGroup, getGroupMembers } from '@/users/api/groups_api.js'
-
+    import { getWaitingInvitations } from '@/users/api/invitations_api.js'
 
     import Spinner from '@/lib/components/Spinner.svelte'
     import TaskList from '@/tasks/components/TaskList.svelte'
     import AddMember from '@/users/components/forms/AddMember.svelte'
+    import InvitationsList from '@/users/components/InvitationsList.svelte'
 
     export let groupId
 
@@ -20,9 +21,7 @@
     
     let groupRoles = getGroupMembers(groupId)
     let allTasks = getTenantTasks(groupId)
-
-    console.log("DEBUG")
-    console.log(async () => await groupRoles)
+    let invitationsWaiting = getWaitingInvitations(groupId)
 </script>
 
 <section id="groupPage">
@@ -42,6 +41,13 @@
                 {/each}
             </ul>
             <h2>Invitations</h2>
+            {#await invitationsWaiting}
+                <Spinner />
+            {:then invitations}
+                <InvitationsList {invitations} />
+            {:catch error}
+                <p style="color: red">{error.message}</p>
+            {/await}
             <AddMember {groupId} />
         </div>
 
