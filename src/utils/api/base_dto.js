@@ -20,8 +20,8 @@ export class BaseDTO {
 
     getValidatedObjectFields(args = null) {
         let validatedObject = this.getValidatedObject(args)
-        let userState = this.getObjectState(validatedObject)
+        let objState = this.getObjectState(validatedObject)
 
-        return [userState, validatedObject]
+        return [objState, validatedObject]
     }
 }

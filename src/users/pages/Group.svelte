@@ -5,12 +5,13 @@
     import { getTenantTasks } from '@/tasks/api/tasks_api.js'
     import { getGroup, getGroupMembers } from '@/users/api/groups_api.js'
 
-    
+
     import Spinner from '@/lib/components/Spinner.svelte'
     import TaskList from '@/tasks/components/TaskList.svelte'
-    
+    import AddMember from '@/users/components/forms/AddMember.svelte'
+
     export let groupId
-    
+
     onMount(() => {
         if (!isAuthenticated()) {
             window.location.replace('/login')
@@ -40,6 +41,8 @@
                     <li>{ role.user.first_name } { role.user.last_name } ({ role.roletype.name })</li>
                 {/each}
             </ul>
+            <h2>Invitations</h2>
+            <AddMember {groupId} />
         </div>
 
         {#await allTasks}

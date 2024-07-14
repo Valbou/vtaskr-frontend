@@ -1,10 +1,8 @@
 import { BaseDTO } from '../../utils/api/base_dto'
 import {
     checks,
-    validateEmail,
     minLength,
     maxLength,
-    sameAs,
     required
 } from '../../utils/api/validators'
 
