@@ -26,7 +26,7 @@
 
 <p>
     { invitation.to_user_email } waiting for acceptation as { invitation.with_roletype.name }
-    <span on:click={deleteInvitation} title="Cancel invitation">
+    <button on:click={deleteInvitation} title="Cancel invitation">
         <Picto name="delete" />
-    </span>
+    </button>
 </p>

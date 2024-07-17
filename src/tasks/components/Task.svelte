@@ -70,8 +70,8 @@
                 <span><Picto name="groups" /> group</span>
             {/each}
         {/if}
-        <span><Picto name="edit" /></span>
-        <span on:click={deleteTask}><Picto name="delete" /></span>
+        <button><Picto name="edit" /></button>
+        <button on:click={deleteTask}><Picto name="delete" /></button>
     </div>
 </div>
 

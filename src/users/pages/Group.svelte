@@ -3,13 +3,16 @@
 
     import { isAuthenticated } from '../services/authService.js'
     import { getTenantTasks } from '@/tasks/api/tasks_api.js'
+
     import { getGroup, getGroupMembers } from '@/users/api/groups_api.js'
     import { getWaitingInvitations } from '@/users/api/invitations_api.js'
 
     import Spinner from '@/lib/components/Spinner.svelte'
     import TaskList from '@/tasks/components/TaskList.svelte'
+
     import AddMember from '@/users/components/forms/AddMember.svelte'
     import InvitationsList from '@/users/components/InvitationsList.svelte'
+    import RolesList from '@/users/components/RolesList.svelte'
 
     export let groupId
 
@@ -18,7 +21,7 @@
             window.location.replace('/login')
         }
     })
-    
+
     let groupRoles = getGroupMembers(groupId)
     let allTasks = getTenantTasks(groupId)
     let invitationsWaiting = getWaitingInvitations(groupId)
@@ -35,11 +38,8 @@
 
         <div class="members">
             <h2>Members ({ roles.length })</h2>
-            <ul>
-                {#each roles as role}
-                    <li>{ role.user.first_name } { role.user.last_name } ({ role.roletype.name })</li>
-                {/each}
-            </ul>
+            <RolesList {roles} />
+
             <h2>Invitations</h2>
             {#await invitationsWaiting}
                 <Spinner />
