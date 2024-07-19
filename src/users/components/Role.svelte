@@ -4,7 +4,7 @@
     import { deleteRole } from '@/users/api/roles_api.js'
 
     import Picto from '@/lib/components/Picto.svelte'
-    
+
     const dispatch = createEventDispatcher()
 
     export let role
