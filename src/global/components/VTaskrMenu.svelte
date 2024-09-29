@@ -46,6 +46,12 @@
                 <li><Link to="/logout">Logout</Link></li>
             {/if}
             <li>
+                <Link to="/">Home</Link>
+            </li>
+            <li>
+                <Link to="/features">Features</Link>
+            </li>
+            <li>
                 <Link to="/about">About</Link>
             </li>
         </ul>

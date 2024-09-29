@@ -5,3 +5,46 @@
 #groupPage h2 {
     font-size: 1.5rem;
 }
+
+.presentation figure {
+    display: flex;
+    flex-flow: row-reverse;
+    justify-content: center;
+    align-items: center;
+}
+
+.presentation figure div {
+    max-width: 600px;
+    margin: 20px;
+    flex: 1 1 0;
+    margin: 0 40px;
+}
+
+.presentation figure img {
+    border-radius: 20px;
+    box-shadow: 0px 0px 25px black
+}
+
+.presentation figcaption h1 {
+    font-size: 3rem;
+}
+
+.presentation figcaption p {
+    font-size: 1.5rem;
+}
+
+.presentation a.button, .features a.button {
+    margin: 0 20px;
+}
+
+.features > div {
+    display: flex;
+    flex-flow: row;
+    justify-content: center;
+    align-items: center;
+}
+
+.presentation figcaption, .features > div ul, .features > div p {
+    flex: 1 1 0;
+    margin: 0 40px;
+}

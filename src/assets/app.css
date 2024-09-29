@@ -49,6 +49,8 @@ img.picto {
   flex-flow: column;
   justify-content: center;
   align-items: center;
+  max-width: 1200px;
+  margin: auto;
 }
 
 #app>header {
@@ -152,6 +154,6 @@ footer nav {
   flex-flow: row nowrap;
 }
 
-footer nav a {
+footer nav a, .center {
   text-align: center;
 }

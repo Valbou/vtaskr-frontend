@@ -6,6 +6,7 @@
 
     import About from '@/global/pages/About.svelte'
     import Presentation from '@/global/pages/Presentation.svelte'
+    import Features from '@/global/pages/Features.svelte'
 
     import Register from '@/users/pages/Register.svelte'
     import Login from '@/users/pages/Login.svelte'
@@ -23,6 +24,7 @@
 <Router {url}>
     <BaseLayout>
         <Route path="/"><Presentation /></Route>
+        <Route path="/features"><Features /></Route>
         <Route path="/login"><Login /></Route>
         <Route path="/about"><About /></Route>
 
