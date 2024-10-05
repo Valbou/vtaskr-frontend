@@ -3,6 +3,7 @@
     import { isUserAuthenticated } from '@/lib/iam/authentication.js'
 
     import BaseLayout from '@/global/layouts/BaseLayout.svelte'
+    import DashboardLayout from '@/global/layouts/DashboardLayout.svelte'
 
     import About from '@/global/pages/About.svelte'
     import Presentation from '@/global/pages/Presentation.svelte'
@@ -19,16 +20,17 @@
     import Dashboard from '@/tasks/pages/Dashboard.svelte'
 
     export let url = ''
+    export let isAuth = isUserAuthenticated()
 </script>
 
 <Router {url}>
-    <BaseLayout>
+    <BaseLayout {isAuth}>
         <Route path="/"><Presentation /></Route>
         <Route path="/features"><Features /></Route>
         <Route path="/login"><Login /></Route>
         <Route path="/about"><About /></Route>
 
-        {#if isUserAuthenticated()}
+        {#if isAuth}
             <Route path="/mfa"><MFA /></Route>
             <Route path="/logout"><Logout /></Route>
             <Route path="/dashboard"><Dashboard /></Route>

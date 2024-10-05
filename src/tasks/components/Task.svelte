@@ -82,7 +82,7 @@
 
     .task {
         border: 1px dashed var(--db);
-        padding: 20px;
+        padding: 5px 20px;
         position: relative;
     }
 
@@ -117,5 +117,15 @@
 
     .actions span {
         cursor: pointer;
+    }
+
+    .task button {
+        background-color: transparent;
+        padding: 2px 10px;
+    }
+
+    .task button:hover {
+        background-color: transparent;
+        color: var(--lb);
     }
 </style>
