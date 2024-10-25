@@ -114,7 +114,7 @@ label {
   font-size: 1.2rem;
 }
 
-input {
+input, textarea {
   display: block;
   width: 100%;
   background-color: transparent;
@@ -138,7 +138,7 @@ a.button, button {
   border: 1px solid transparent;
   padding: 10px 20px;
   border-radius: 10px;
-  font-size: 1.2rem;
+  font-size: 1.1rem;
   color: var(--light);
   cursor: pointer;
 }

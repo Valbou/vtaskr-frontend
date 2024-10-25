@@ -1,5 +1,6 @@
 import { BaseDTO } from '../../utils/api/base_dto'
-import { checks, minLength, maxLength, required } from '../../utils/api/validators'
+import { checks, min, minLength, max, maxLength, required } from '../../utils/api/validators'
+import { timeToSeconds } from '@/utils/time'
 
 export class TaskDTO extends BaseDTO {
     title
@@ -34,9 +35,24 @@ export class TaskDTO extends BaseDTO {
 
     getValidatedObject() {
         return {
-            title: checks([required(this.title), minLength(this.title, 5), maxLength(this.title, 150)]),
-            tenant_id: checks([required(this.tenant_id), minLength(this.tenant_id, 32), maxLength(this.tenant_id, 32)]),
-            description: checks([minLength(this.description, 10), maxLength(this.description, 500)])
+            title: checks([
+                required(this.title),
+                minLength(this.title, 5),
+                maxLength(this.title, 150)
+            ]),
+            tenant_id: checks([
+                required(this.tenant_id),
+                minLength(this.tenant_id, 32), 
+                maxLength(this.tenant_id, 32)
+            ]),
+            description: checks([
+                minLength(this.description, 10),
+                maxLength(this.description, 500)
+            ]),
+            duration: checks([
+                min(timeToSeconds(this.duration), 60),
+                max(timeToSeconds(this.duration), 86_400, "Max is 24h duration (beyond it's not just a task)")
+            ])
         }
     }
 }

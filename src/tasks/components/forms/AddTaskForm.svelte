@@ -17,6 +17,11 @@
     let taskResult = null
     let taskError = null
     let showMessage = false
+    let more = false
+
+    async function extendForm() {
+        more = !more
+    }
 
     async function handleSubmit() {
         ;[taskState, validatedTask] = task.getValidatedObjectFields()
@@ -45,7 +50,12 @@
     </Toast>
 {/if}
 
-<form class="form create-task" method="post" action="#" on:submit|preventDefault={() => handleSubmit()}>
+<form
+    class="form create-task"
+    method="post"
+    action="#"
+    on:submit|preventDefault={() => handleSubmit()}
+>
     <div class="tasktitle">
         {#if validatedTask && validatedTask.title}
             <p class="error">{validatedTask.title}</p>
@@ -56,6 +66,7 @@
             name="title"
             placeholder="Task title - What to do ?"
             bind:value={task.title}
+            tabindex="0"
         />
     </div>
     <div class="subgroup eisenhower">
@@ -70,9 +81,54 @@
     </div>
     <div class="subgroup">
         <hr />
-        <span>more</span>
+        {#if more}
+            <!-- svelte-ignore a11y-click-events-have-key-events -->
+            <span
+                on:click={extendForm}
+                role="button"
+                aria-expanded="true"
+                title="Reduce form size to add task quickly"
+                tabindex="0"
+            >
+                less
+            </span>
+        {:else}
+            <!-- svelte-ignore a11y-click-events-have-key-events -->
+            <span
+                on:click={extendForm}
+                role="button"
+                aria-expanded="false"
+                title="Increase fields number to complete task"
+                tabindex="0"
+            >
+                more
+            </span>
+        {/if}
         <hr />
     </div>
+    {#if more}
+        <div class="subgroup">
+            {#if validatedTask && validatedTask.description}
+                <p class="error">{validatedTask.description}</p>
+            {/if}
+            <label for="description">Description</label>
+            <textarea cols="30" rows="5" id="description" bind:value={task.description}></textarea>
+        </div>
+        <div class="subgroup">
+            {#if validatedTask && validatedTask.scheduled_at}
+                <p class="error">{validatedTask.scheduled_at}</p>
+            {/if}
+            <label for="scheduledtask">Schedule Start</label>
+            <input type="datetime-local" id="scheduledtask" bind:value={task.scheduled_at} />
+        </div>
+        <div class="subgroup">
+            {#if validatedTask && validatedTask.duration}
+                <p class="error">{validatedTask.duration}</p>
+            {/if}
+            <label for="durationtask" title="Duration max 24h">Duration</label>
+            <input type="time" id="durationtask" bind:value={task.duration} />
+        </div>
+    {/if}
     <div class="subgroup">
         <div class="subgroup">
             {#if validatedTask && validatedTask.tenant_id}
@@ -102,9 +158,14 @@
         flex-flow: row nowrap;
         justify-content: space-between;
         align-items: center;
+        margin: 5px 0;
     }
 
     .subgroup hr {
         min-width: 30%;
+    }
+
+    .subgroup > span {
+        cursor: pointer;
     }
 </style>

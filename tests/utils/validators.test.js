@@ -1,5 +1,5 @@
 import { expect, test } from 'vitest'
-import { required, minLength, maxLength, sameAs, validateEmail } from '/src/utils/api/validators.js'
+import { required, min, minLength, max, maxLength, sameAs, validateEmail } from '/src/utils/api/validators.js'
 import { check, checks } from '/src/utils/api/validators.js'
 
 test('Value required ok', () => {
@@ -8,6 +8,15 @@ test('Value required ok', () => {
 
 test('Value required fail', () => {
     expect(required('')).toStrictEqual([false, 'Value required'])
+})
+
+test('Test min ok', () => {
+    expect(min(18, 3)).toStrictEqual([true, 'Min 3'])
+    expect(min(null, 5)).toStrictEqual([true, 'Min 5'])
+})
+
+test('Test min fail', () => {
+    expect(minLength(5, 15)).toStrictEqual([false, 'Min 15'])
 })
 
 test('Test min length ok', () => {

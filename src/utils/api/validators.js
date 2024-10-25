@@ -2,6 +2,14 @@ export function required(data, message = null) {
     return [!!data, message || 'Value required']
 }
 
+export function min(data, value, message = null) {
+    return [!data || (data && data >= value), message || `Min ${value}`]
+}
+
+export function max(data, value, message = null) {
+    return [!data || (data && data <= value), message || `Max ${value}`]
+}
+
 export function minLength(data, value, message = null) {
     return [!data || (data && data.length >= value), message || `Min ${value} characters`]
 }

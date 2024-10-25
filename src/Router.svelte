@@ -27,7 +27,6 @@
     <BaseLayout {isAuth}>
         <Route path="/"><Presentation /></Route>
         <Route path="/features"><Features /></Route>
-        <Route path="/login"><Login /></Route>
         <Route path="/about"><About /></Route>
 
         {#if isAuth}
@@ -37,12 +36,13 @@
 
             <Route path="/groups"><Groups /></Route>
             <Route path="/group/:id" let:params>
-                <Group groupId="{params.id}" />
+                <Group groupId={params.id} />
             </Route>
             <Route path="/join-group/:hash" let:params>
-                <JoinGroup inviteHash="{params.hash}" />
+                <JoinGroup inviteHash={params.hash} />
             </Route>
         {:else}
+            <Route path="/login"><Login /></Route>
             <Route path="/register"><Register /></Route>
         {/if}
 

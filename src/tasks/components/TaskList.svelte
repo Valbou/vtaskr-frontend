@@ -28,7 +28,7 @@
         {/each}
     </ul>
 {:else}
-    <p>Actually no tasks are waiting to be done.</p>
+    <p>Actually no tasks are waiting to be done. Good job ! You could take a break.</p>
 {/if}
 
 <style>
@@ -36,5 +36,10 @@
         list-style-type: none;
         margin: 20px 0px;
         padding: 0;
+    }
+
+    p {
+        text-align: center;
+        font-size: 1.2rem;
     }
 </style>

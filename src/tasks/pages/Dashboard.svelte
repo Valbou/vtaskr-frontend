@@ -4,15 +4,15 @@
     import Spinner from '@/lib/components/Spinner.svelte'
     import TaskList from '../components/TaskList.svelte'
 
+    import LateTasks from '../components/LateTasks.svelte'
+    import DayTasks from '../components/DayTasks.svelte'
+    import NotScheduledTasks from '../components/NotScheduledTasks.svelte'
+
     let allTasks = getAllTasks()
 </script>
 
 <h1>Dashboard</h1>
 
-{#await allTasks}
-    <Spinner />
-{:then tasks}
-    <TaskList {tasks} withAddForm={true} />
-{:catch error}
-    <p style="color: red">{error.message}</p>
-{/await}
+<LateTasks />
+<DayTasks />
+<NotScheduledTasks />

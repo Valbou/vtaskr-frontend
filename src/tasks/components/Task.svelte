@@ -18,6 +18,7 @@
           ? 'Schedule it'
           : 'Delete it'
     $: isDone = !!task.done
+    $: isLate = task.scheduled_at ? new Date(task.scheduled_at) < new Date() : false
 
     const important = 'Important'
     const emergency = 'Emergency'
@@ -41,7 +42,7 @@
     }
 </script>
 
-<div class="task">
+<div class="task{isLate ? ' late' : ''}">
     <div class="tasktitle">
         <label>
             <input type="checkbox" on:change={changeDoneState} value={task.done} />
@@ -84,6 +85,10 @@
         border: 1px dashed var(--db);
         padding: 5px 20px;
         position: relative;
+    }
+
+    .task.late {
+        border: 1px dashed var(--error);
     }
 
     .task input {
