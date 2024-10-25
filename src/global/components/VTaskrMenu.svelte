@@ -18,13 +18,7 @@
     </ul>
 
     <div>
-        {#if isUserAuthenticated()}
-            <h6>Username</h6>
-        {/if}
         <ul>
-            {#if isUserAuthenticated()}
-                <li><Link to="/logout">Logout</Link></li>
-            {/if}
             <li>
                 <Link to="/">Home</Link>
             </li>
@@ -34,6 +28,9 @@
             <li>
                 <Link to="/about">About</Link>
             </li>
+            {#if isUserAuthenticated()}
+                <li><Link to="/logout">Logout</Link></li>
+            {/if}
         </ul>
     </div>
 </Menu>

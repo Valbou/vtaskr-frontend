@@ -24,7 +24,7 @@
             ;[mfaResult, mfaError] = await mfaCall(mfa)
 
             if (mfaResult || attempts > 3) {
-                window.location.replace('/')
+                window.location.replace('/dashboard')
             }
         }
     }

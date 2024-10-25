@@ -1,7 +1,7 @@
 <script>
     import { createEventDispatcher } from 'svelte'
 
-    import { deleteTasks } from '../api/tasks_api.js'
+    import { deleteTasks, updateTask } from '../api/tasks_api.js'
 
     import Picto from '@/lib/components/Picto.svelte'
     import Chips from '@/lib/components/Chips.svelte'
@@ -18,13 +18,23 @@
           ? 'Schedule it'
           : 'Delete it'
     $: isDone = !!task.done
-    $: isLate = task.scheduled_at ? new Date(task.scheduled_at) < new Date() : false
+    $: isLate = task.scheduled_at ? (new Date(task.scheduled_at)) < (new Date()) : false
+    $: checked = isDone ? "checked" : ""
 
     const important = 'Important'
     const emergency = 'Emergency'
 
-    function changeDoneState() {
+    async function changeDoneState() {
         task.done = !task.done
+
+        if (task.done) {
+            task.done = (new Date()).toISOString()
+        }
+        else {
+            task.done = null
+        }
+
+        await updateTask(task)
     }
 
     async function deleteTask() {
@@ -42,11 +52,11 @@
     }
 </script>
 
-<div class="task{isLate ? ' late' : ''}">
+<div class="task{isLate ? ' late' : ''}{isDone ? ' done' : ''}">
     <div class="tasktitle">
         <label>
-            <input type="checkbox" on:change={changeDoneState} value={task.done} />
-            <h4 class={isDone ? 'done' : ''}>{task.title}</h4>
+            <input type="checkbox" on:change={changeDoneState} {checked} />
+            <h4>{task.title}</h4>
         </label>
     </div>
     <div>
@@ -91,6 +101,10 @@
         border: 1px dashed var(--error);
     }
 
+    .task.done {
+        border: 1px dashed var(--success);
+    }
+
     .task input {
         width: 1rem;
     }
@@ -109,7 +123,7 @@
         align-items: center;
     }
 
-    .task .tasktitle .done {
+    .task.done .tasktitle {
         text-decoration: line-through;
         color: var(--mb);
     }

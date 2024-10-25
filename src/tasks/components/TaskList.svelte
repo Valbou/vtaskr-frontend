@@ -28,7 +28,7 @@
         {/each}
     </ul>
 {:else}
-    <p>Actually no tasks are waiting to be done. Good job ! You could take a break.</p>
+    <p>Actually no tasks are waiting to be done.<br />Good job ! You could take a break.</p>
 {/if}
 
 <style>

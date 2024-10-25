@@ -37,6 +37,11 @@ export async function createTasks(task) {
     return request(url, 'POST', task)
 }
 
+export async function updateTask(task) {
+    const url = env.backend_api + `/api/v1/task/${task.id}`
+    return request(url, 'PUT', task)
+}
+
 export async function deleteTasks(taskId) {
     const url = env.backend_api + `/api/v1/task/${taskId}`
     return request(url, 'DELETE')
