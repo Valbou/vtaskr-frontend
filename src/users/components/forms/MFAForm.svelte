@@ -23,8 +23,11 @@
         if (userState) {
             ;[mfaResult, mfaError] = await mfaCall(mfa)
 
-            if (mfaResult || attempts > 3) {
+            if (mfaResult) {
                 window.location.replace('/dashboard')
+            }
+            else if (attempts > 3) {
+                window.location.replace('/')
             }
         }
     }
