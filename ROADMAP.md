@@ -6,13 +6,11 @@ Follow the ROADMAP to stay tuned
 - [x] User can register and login with 2FA
 - [x] User can create/delete a task
 - [ ] User can create a tag
-- [ ] User can list next tasks by eisenhower columns
-- [ ] User can mark task as done
+- [x] User can mark task as done
 - [ ] User can manage tags
 - [ ] User can manage groups
-- [ ] User can organize tasks in day, week, month views
-- [ ] User can use an history view with filters
+- [ ] User can view tasks in day, week, month views
 - [ ] Login method to use set in env vars
 
 ## v1.1
-- [ ] User can use a kanban like view using tags filtering
+- [ ] User can use a kanban like view using tags filtering or workflow ?
