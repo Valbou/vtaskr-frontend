@@ -13,7 +13,7 @@
 {#await allTasks}
     <Spinner />
 {:then tasks}
-    <h1>{day.toLocaleDateString()}</h1>
+    <h2>{day.toLocaleDateString()}</h2>
     <TaskList {tasks} withAddForm={true} />
 {:catch error}
     <p style="color: red">{error.message}</p>

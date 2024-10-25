@@ -12,7 +12,7 @@
     <Spinner />
 {:then tasks}
     {#if tasks.length > 0}
-        <h1>Not Scheduled</h1>
+        <h2>Not Scheduled</h2>
         <TaskList {tasks} withAddForm={false} />
     {/if}
 {:catch error}
