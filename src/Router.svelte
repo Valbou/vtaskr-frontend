@@ -3,7 +3,6 @@
     import { isUserAuthenticated } from '@/lib/iam/authentication.js'
 
     import BaseLayout from '@/global/layouts/BaseLayout.svelte'
-    import DashboardLayout from '@/global/layouts/DashboardLayout.svelte'
 
     import About from '@/global/pages/About.svelte'
     import Presentation from '@/global/pages/Presentation.svelte'

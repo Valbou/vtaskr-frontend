@@ -15,7 +15,8 @@
     let mfaError = null
     let showMessage = false
 
-    async function handleSubmit() {
+    async function handleSubmit(e) {
+        e.preventDefault()
         attempts++
         ;[userState, validatedUser] = mfa.getValidatedObjectFields()
         showMessage = true
@@ -41,7 +42,7 @@
     </Toast>
 {/if}
 
-<form class="form mfa" method="post" on:submit|preventDefault={() => handleSubmit()}>
+<form class="form mfa" method="post" onsubmit={(e) => handleSubmit(e)}>
     <div>
         <label for="code">Code</label>
         {#if validatedUser && validatedUser.code_2FA}

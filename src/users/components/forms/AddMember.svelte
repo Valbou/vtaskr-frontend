@@ -16,7 +16,8 @@
     let inviteResult = null
     let inviteError = null
 
-    async function handleSubmit() {
+    async function handleSubmit(e) {
+        e.preventDefault()
         ;[invitationState, validatedInvitation] = invitation.getValidatedObjectFields()
 
         if (invitationState) {
@@ -41,7 +42,7 @@
     </Toast>
 {/if}
 
-<form class="form newmember" method="post" action="#" on:submit|preventDefault={() => handleSubmit()}>
+<form class="form newmember" method="post" action="#" onsubmit={(e) => handleSubmit(e)}>
     <div>
         {#if validatedInvitation && validatedInvitation.to_user_email}
             <p class="error">{validatedInvitation.to_user_email}</p>

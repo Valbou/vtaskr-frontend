@@ -18,7 +18,8 @@
     let groupError = null
     let showMessage = false
 
-    async function handleSubmit() {
+    async function handleSubmit(e) {
+        e.preventDefault()
         ;[groupState, validatedGroup] = group.getValidatedObjectFields()
         showMessage = true
 
@@ -48,7 +49,7 @@
     </Toast>
 {/if}
 
-<form class="form newgroup" method="post" action="#" on:submit|preventDefault={() => handleSubmit()}>
+<form class="form newgroup" method="post" action="#" onsubmit={(e) => handleSubmit(e)}>
     <h1>Add a New Group</h1>
     <div>
         <label for="name">Name</label>

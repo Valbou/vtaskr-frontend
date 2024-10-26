@@ -7,12 +7,15 @@
     import LateTasks from '../components/LateTasks.svelte'
     import DayTasks from '../components/DayTasks.svelte'
     import NotScheduledTasks from '../components/NotScheduledTasks.svelte'
+    import MenuSecondary from '../components/MenuSecondary.svelte'
 
     let allTasks = getAllTasks()
 </script>
 
-<h1>Dashboard</h1>
-
-<LateTasks />
-<DayTasks />
-<NotScheduledTasks />
+<section>
+    <h1>Dashboard</h1>
+    
+    <LateTasks />
+    <DayTasks />
+    <NotScheduledTasks />
+</section>

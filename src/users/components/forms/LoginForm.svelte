@@ -14,7 +14,8 @@
     let loginError = null
     let showMessage = false
 
-    async function handleSubmit() {
+    async function handleSubmit(e) {
+        e.preventDefault()
         ;[userState, validatedUser] = user.getValidatedObjectFields()
         showMessage = true
 
@@ -38,7 +39,7 @@
     </Toast>
 {/if}
 
-<form class="form login" method="post" on:submit|preventDefault={() => handleSubmit()}>
+<form class="form login" method="post" onsubmit={(e) => handleSubmit(e)}>
     <div>
         <label for="email">Email (User)</label>
         {#if validatedUser && validatedUser.email}

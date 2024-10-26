@@ -14,7 +14,8 @@
     let registerResult = null
     let registerError = null
 
-    async function handleSubmit() {
+    async function handleSubmit(e) {
+        e.preventDefault()
         ;[userState, validatedUser] = user.getValidatedObjectFields(password2)
 
         if (userState) {
@@ -38,7 +39,7 @@
     </Toast>
 {/if}
 
-<form class="form register" method="post" on:submit|preventDefault={() => handleSubmit()}>
+<form class="form register" method="post" onsubmit={(e) => handleSubmit(e)}>
     <div>
         <label for="email">Email (User)</label>
         {#if validatedUser && validatedUser.email}
