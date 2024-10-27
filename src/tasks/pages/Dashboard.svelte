@@ -52,9 +52,7 @@
 
     {#if isLoading}
         <Spinner />
-    {/if}
-
-    {#if !isLoading}
+    {:else}
         {#key tasks.length}
             <LateTasks tasks={tasks} {deleteTask} {updateTask} />
             <DayTasks tasks={tasks} {deleteTask} {updateTask} />

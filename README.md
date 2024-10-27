@@ -9,6 +9,7 @@ An open-source to do list application for personnal use.
 
 [vTaskr Backend](https://github.com/Valbou/vtaskr-backend)
 
+Made with Svelte 5
 
 ## Project Setup
 
