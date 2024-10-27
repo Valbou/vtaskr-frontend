@@ -34,11 +34,12 @@
 </script>
 
 {#if mfaResult && !mfaResult.isOk}
-    <Toast typeMessage="error" bind:showMessage>
-        <p slot="message">
+    <Toast typeMessage="error" bind:showMessage {message} />
+    {#snippet message()}
+        <p>
             {mfaResult.error}
         </p>
-    </Toast>
+    {/snippet}
 {/if}
 
 <form class="form mfa" method="post" onsubmit={(e) => handleSubmit(e)}>

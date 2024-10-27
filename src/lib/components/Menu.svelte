@@ -1,3 +1,7 @@
+<script>
+    let { menu } = $props()
+</script>
+
 <nav id="menu">
     <details class="mobile">
         <summary>
@@ -10,7 +14,7 @@
         </summary>
 
         <div class="hovering">
-            <slot />
+            {@render menu()}
         </div>
     </details>
 </nav>

@@ -38,11 +38,12 @@
 </script>
 
 {#if taskResult != null && !taskResult.isOk}
-    <Toast typeMessage="error" bind:showMessage>
-        <p slot="message">
+    <Toast typeMessage="error" bind:showMessage {message} />
+    {#snippet message()}
+        <p>
             {taskResult.error}
         </p>
-    </Toast>
+    {/snippet}
 {/if}
 
 <form

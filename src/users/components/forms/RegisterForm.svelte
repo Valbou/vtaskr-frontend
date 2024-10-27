@@ -24,18 +24,20 @@
 </script>
 
 {#if registerResult}
-    <Toast typeMessage="success">
-        <p slot="message">
+    <Toast typeMessage="success" message={messageOk} />
+    {#snippet message()}
+        <p>
             Welcome {registerResult.first_name} !<br />
             Go <a href="/login" title="Go to login page">login</a> to enjoy !
         </p>
-    </Toast>
+    {/snippet}
 {:else if registerResult && registerResult.error}
-    <Toast typeMessage="error">
-        <p slot="message">
+    <Toast typeMessage="error" message={messageKo} />
+    {#snippet message()}
+        <p>
             {registerResult.error}
         </p>
-    </Toast>
+    {/snippet}
 {/if}
 
 <form class="form register" method="post" onsubmit={(e) => handleSubmit(e)}>

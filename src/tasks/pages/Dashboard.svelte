@@ -4,7 +4,6 @@
     import { getAllTasks } from '../api/tasks_api.js'
 
     import Spinner from '@/lib/components/Spinner.svelte'
-    import TaskList from '@/tasks/components/TaskList.svelte'
     
     import AddTaskForm from '@/tasks/components/forms/AddTaskForm.svelte'
     import LateTasks from '@/tasks/components/LateTasks.svelte'

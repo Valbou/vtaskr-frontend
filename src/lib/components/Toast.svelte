@@ -1,7 +1,7 @@
 <script>
-    let { typeMessage = null, showMessage = null } = $props()
+    let { typeMessage = null, showMessage = null, message } = $props()
 
-    function resetToast() {
+    function resetToast(e) {
         showMessage = false
     }
 
@@ -14,7 +14,7 @@
 
 {#if typeMessage && showMessage}
     <div class="toast {typeMessage}">
-        <slot name="message" />
-        <button on:click={() => resetToast()}>&Cross;</button>
+        {@render message()}
+        <button onclick={(e) => resetToast(e)}>&Cross;</button>
     </div>
 {/if}

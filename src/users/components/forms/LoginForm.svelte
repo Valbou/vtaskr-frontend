@@ -31,11 +31,12 @@
 </script>
 
 {#if loginResult && !loginResult.isOk}
-    <Toast typeMessage="error" bind:showMessage>
-        <p slot="message">
+    <Toast typeMessage="error" bind:showMessage {message} />
+    {#snippet message()}
+        <p>
             {loginResult.error}
         </p>
-    </Toast>
+    {/snippet}
 {/if}
 
 <form class="form login" method="post" onsubmit={(e) => handleSubmit(e)}>

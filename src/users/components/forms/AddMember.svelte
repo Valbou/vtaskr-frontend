@@ -28,17 +28,19 @@
 </script>
 
 {#if inviteResult.isOk}
-    <Toast typeMessage="success">
-        <p slot="message">
+    <Toast typeMessage="success" message={messageOk} />
+    {#snippet messageOk()}
+        <p>
             Invitation to join group sent to {inviteResult.data.to_user_email}.
         </p>
-    </Toast>
+    {/snippet}
 {:else}
-    <Toast typeMessage="error">
-        <p slot="message">
+    <Toast typeMessage="error" message={messageKo} />
+    {#snippet messageKo()}
+        <p>
             {inviteResult.error}
         </p>
-    </Toast>
+    {/snippet}
 {/if}
 
 <form class="form newmember" method="post" action="#" onsubmit={(e) => handleSubmit(e)}>

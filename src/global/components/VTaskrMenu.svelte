@@ -5,7 +5,9 @@
     import Menu from '@/lib/components/Menu.svelte'
 </script>
 
-<Menu>
+<Menu {menu} />
+
+{#snippet menu()}
     <ul>
         {#if isUserAuthenticated()}
             <li>
@@ -33,4 +35,4 @@
             {/if}
         </ul>
     </div>
-</Menu>
+{/snippet}

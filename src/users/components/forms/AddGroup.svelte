@@ -41,11 +41,12 @@
 </script>
 
 {#if !groupResult.isOk}
-    <Toast typeMessage="error" bind:showMessage>
-        <p slot="message">
+    <Toast typeMessage="error" bind:showMessage {message} />
+    {#snippet message()}
+        <p>
             {groupResult.error}
         </p>
-    </Toast>
+    {/snippet}
 {/if}
 
 <form class="form newgroup" method="post" action="#" onsubmit={(e) => handleSubmit(e)}>
