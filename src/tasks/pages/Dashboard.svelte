@@ -19,8 +19,6 @@
         let resTasks = await getAllTasks()
         tasks = [...resTasks.data]
         isChanged += 1
-
-        console.log(tasks.length)
     }
 
     onMount(async () => {
@@ -30,7 +28,6 @@
     function addTask(task) {
         tasks.push(task)
 
-        console.log(`Add (total ${tasks.length})`)
         isChanged += 1
         return true
     }
@@ -38,7 +35,6 @@
     function deleteTask(task, confirm=true) {
         tasks = tasks.filter((t) => t.id != task.id)
 
-        console.log(`Delete (left ${tasks.length})`)
         isChanged += 1
         return true
     }
@@ -47,7 +43,6 @@
         let index = tasks.map((e) => e.id).indexOf(task.id);
         tasks[index] = task
 
-        console.log(`Update (total ${tasks.length})`)
         isChanged += 1
         return true
     }
