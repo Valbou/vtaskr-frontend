@@ -31,6 +31,7 @@
             ;taskResult = await createTasks(task)
             if (taskResult.isOk && taskResult.data.title == task.title) {
                 addTask(taskResult.data)
+                e.target.reset()
             }
         }
     }

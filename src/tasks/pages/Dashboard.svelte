@@ -13,12 +13,13 @@
     import MenuSecondary from '@/tasks/components/MenuSecondary.svelte'
 
     let tasks = $state([])
-    let isChanged = $state(0)
+    let isLoading = $state(true)
 
     async function loadTasks() {
         let resTasks = await getAllTasks()
         tasks = [...resTasks.data]
-        isChanged += 1
+
+        isLoading = false
     }
 
     onMount(async () => {
@@ -28,14 +29,12 @@
     function addTask(task) {
         tasks.push(task)
 
-        isChanged += 1
         return true
     }
 
     function deleteTask(task, confirm=true) {
         tasks = tasks.filter((t) => t.id != task.id)
 
-        isChanged += 1
         return true
     }
 
@@ -43,7 +42,6 @@
         let index = tasks.map((e) => e.id).indexOf(task.id);
         tasks[index] = task
 
-        isChanged += 1
         return true
     }
 </script>
@@ -53,11 +51,11 @@
 
     <AddTaskForm {addTask} />
 
-    {#if isChanged == 0}
+    {#if isLoading}
         <Spinner />
     {/if}
 
-    {#if isChanged > 0}
+    {#if !isLoading}
         {#key tasks.length}
             <LateTasks tasks={tasks} {deleteTask} {updateTask} />
             <DayTasks tasks={tasks} {deleteTask} {updateTask} />
