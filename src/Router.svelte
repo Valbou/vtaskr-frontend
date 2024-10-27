@@ -16,34 +16,84 @@
     import Group from '@/users/pages/Group.svelte'
     import JoinGroup from '@/users/pages/JoinGroup.svelte'
 
+    import MenuSecondary from '@/tasks/components/MenuSecondary.svelte'
     import Dashboard from '@/tasks/pages/Dashboard.svelte'
 
     const { url = '', isAuth = isUserAuthenticated() } = $props()
 </script>
 
 <Router {url}>
-    <BaseLayout {isAuth}>
-        <Route path="/"><Presentation /></Route>
-        <Route path="/features"><Features /></Route>
-        <Route path="/about"><About /></Route>
+    <Route path="/"><BaseLayout {isAuth} content={presentation} /></Route>
+    <Route path="/features"><BaseLayout {isAuth} content={features} /></Route>
+    <Route path="/about"><BaseLayout {isAuth} content={about} /></Route>
 
-        {#if isAuth}
-            <Route path="/mfa"><MFA /></Route>
-            <Route path="/logout"><Logout /></Route>
-            <Route path="/dashboard"><Dashboard /></Route>
+    {#if isAuth}
+        <Route path="/mfa"><BaseLayout {isAuth} content={mfa} /></Route>
+        <Route path="/logout"><BaseLayout {isAuth} content={logout} /></Route>
+        <Route path="/dashboard"><BaseLayout {isAuth} content={dashboard} {secondary} /></Route>
 
-            <Route path="/groups"><Groups /></Route>
-            <Route path="/group/:id" let:params>
-                <Group groupId={params.id} />
-            </Route>
-            <Route path="/join-group/:hash" let:params>
-                <JoinGroup inviteHash={params.hash} />
-            </Route>
-        {:else}
-            <Route path="/login"><Login /></Route>
-            <Route path="/register"><Register /></Route>
-        {/if}
-
-        <Route path="*">Not Found</Route>
-    </BaseLayout>
+        <Route path="/groups"><BaseLayout {isAuth} content={groups} /></Route>
+        <Route path="/group/:id" let:params>
+            <BaseLayout {isAuth} content={group} />
+        </Route>
+        <Route path="/join-group/:hash" let:params>
+            <BaseLayout {isAuth} content={joinGroup} />
+        </Route>
+    {:else}
+        <Route path="/login"><BaseLayout {isAuth} content={login} /></Route>
+        <Route path="/register"><BaseLayout {isAuth} content={register} /></Route>
+    {/if}
+    <Route path="*"><BaseLayout {isAuth} content={notFound} /></Route>
 </Router>
+
+{#snippet presentation()}
+    <Presentation />
+{/snippet}
+
+{#snippet features()}
+    <Features />
+{/snippet}
+
+{#snippet about()}
+    <About />
+{/snippet}
+
+{#snippet register()}
+    <Register />
+{/snippet}
+
+{#snippet login()}
+    <Login />
+{/snippet}
+
+{#snippet mfa()}
+    <MFA />
+{/snippet}
+
+{#snippet logout()}
+    <Logout />
+{/snippet}
+
+{#snippet secondary()}
+    <MenuSecondary />
+{/snippet}
+
+{#snippet dashboard()}
+    <Dashboard />
+{/snippet}
+
+{#snippet groups()}
+    <Groups />
+{/snippet}
+
+{#snippet group()}
+    <Group />
+{/snippet}
+
+{#snippet joinGroup()}
+    <JoinGroup />
+{/snippet}
+
+{#snippet notFound()}
+    Not Found
+{/snippet}

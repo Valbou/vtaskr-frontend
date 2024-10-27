@@ -2,8 +2,7 @@
     import GroupCard from './GroupCard.svelte'
     import AddGroup from './forms/AddGroup.svelte'
 
-    export let groups = []
-    export let withAddForm = true
+    let { groups, withAddForm } = $props()
 
     function handleNewGroup(event) {
         let newGroup = event.detail.group

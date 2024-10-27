@@ -13,12 +13,17 @@
 
     let tasks = $state([])
     let isLoading = $state(true)
+    let error = $state(null)
 
     async function loadTasks() {
         let resTasks = await getAllTasks()
-        tasks = [...resTasks.data]
 
-        isLoading = false
+        if (resTasks.isOk) {
+            tasks = [...resTasks.data]
+            isLoading = false
+        } else {
+            error = resTasks.error
+        }
     }
 
     onMount(async () => {
@@ -50,7 +55,9 @@
 
     <AddTaskForm {addTask} />
 
-    {#if isLoading}
+    {#if error}
+        <p style="color: red">{error}</p>
+    {:else if isLoading}
         <Spinner />
     {:else}
         {#key tasks.length}

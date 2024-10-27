@@ -6,14 +6,14 @@
     import Spinner from '@/lib/components/Spinner.svelte'
     import Toast from '@/lib/components/Toast.svelte'
 
-    export let groupId
+    let { groupId, addRole } = $props()
 
     let invitation = new InvitationDTO('', groupId, '')
 
-    let validatedInvitation = null
-    let invitationState = false
+    let validatedInvitation = $state(null)
+    let invitationState = $state(false)
 
-    let inviteResult = null
+    let inviteResult = $state(null)
 
     async function handleSubmit(e) {
         e.preventDefault()
@@ -21,20 +21,24 @@
 
         if (invitationState) {
             ;inviteResult = await createInvitation(invitation)
+            if (inviteResult.isOk) {
+                addRole(inviteResult.data)
+                e.target.reset()
+            }
         }
     }
 
     let groupRoletypes = getGroupRoletypes(groupId)
 </script>
 
-{#if inviteResult.isOk}
+{#if inviteResult && inviteResult.isOk}
     <Toast typeMessage="success" message={messageOk} />
     {#snippet messageOk()}
         <p>
             Invitation to join group sent to {inviteResult.data.to_user_email}.
         </p>
     {/snippet}
-{:else}
+{:else if inviteResult && !inviteResult.isOk}
     <Toast typeMessage="error" message={messageKo} />
     {#snippet messageKo()}
         <p>

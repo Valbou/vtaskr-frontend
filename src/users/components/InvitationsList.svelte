@@ -1,7 +1,7 @@
 <script>
     import Invitation from './Invitation.svelte'
 
-    export let invitations
+    let { invitations } = $props()
 
     function handleDeletedInvitation(event) {
         let deletedInvitation = event.detail.invitation
@@ -9,8 +9,10 @@
     }
 </script>
 
-<ul>
-    {#each invitations as invitation}
-        <li><Invitation {invitation} on:message={handleDeletedInvitation} /></li>
-    {/each}
-</ul>
+{#if invitations}
+    <ul>
+        {#each invitations as invitation}
+            <li><Invitation {invitation} onmessage={(e) => handleDeletedInvitation(e)} /></li>
+        {/each}
+    </ul>
+{/if}

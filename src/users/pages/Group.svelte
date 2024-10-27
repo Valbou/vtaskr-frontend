@@ -1,10 +1,12 @@
 <script>
     import { onMount } from 'svelte'
 
-    import { isAuthenticated } from '../services/authService.js'
+    import { getLastPathId } from '@/utils/urls.js'
+
+    import { isAuthenticated } from '@/users/services/authService.js'
     import { getTenantTasks } from '@/tasks/api/tasks_api.js'
 
-    import { getGroup, getGroupMembers } from '@/users/api/groups_api.js'
+    import { getGroupMembers } from '@/users/api/groups_api.js'
     import { getWaitingInvitations } from '@/users/api/invitations_api.js'
 
     import Spinner from '@/lib/components/Spinner.svelte'
@@ -14,57 +16,74 @@
     import InvitationsList from '@/users/components/InvitationsList.svelte'
     import RolesList from '@/users/components/RolesList.svelte'
 
-    const { groupId } = $props()
+    let groupId = $state(getLastPathId())
+    let isLoading = $state(true)
+    let roles = $state([])
+    let invitations = $state([])
+    let tasks = $state([])
 
-    onMount(() => {
+    let error = $state(null)
+
+    onMount(async () => {
         if (!isAuthenticated()) {
             window.location.replace('/login')
         }
+
+        let groupRoles = await getGroupMembers(groupId)
+        let allTasks = await getTenantTasks(groupId)
+        let invitationsWaiting = await getWaitingInvitations(groupId)
+
+        if (groupRoles.isOk && invitationsWaiting.isOk && allTasks.isOk) {
+            roles = [...groupRoles.data]
+            invitations = [...invitationsWaiting.data]
+            tasks = [...allTasks.data]
+
+            isLoading = false
+        } else {
+            error = `${groupRoles.error} ${invitationsWaiting.error} ${allTasks.error}`
+        }
     })
 
-    let groupRoles = getGroupMembers(groupId)
-    let allTasks = getTenantTasks(groupId)
-    let invitationsWaiting = getWaitingInvitations(groupId)
+    function addRole(role) {
+        roles.push(role)
+    }
+
+    function deleteRole(role) {
+        roles = roles.filter((r) => r.id != r.id)
+    }
+
+    function updateRole(role) {
+        let index = roles.map((e) => e.id).indexOf(role.id);
+        roles[index] = role
+    }
 </script>
 
 <section id="groupPage">
-    {#await groupRoles}
+    {#if isLoading}
         <Spinner />
-    {:then roles}
-        {#if roles.isOk && roles.data.length > 0}
-            <h1>Group { roles.data[0].group.name }</h1>
-            {#if roles.data[0].group.description}
-                <p>{ roles.data[0].group.description }</p>
+    {:else}
+        {#key roles.length}
+            <h1>Group { roles[0].group.name }</h1>
+            {#if roles[0].group.description}
+                <p>{ roles[0].group.description }</p>
             {/if}
 
             <div class="members">
-                <h2>Members ({ roles.data.length })</h2>
-                <RolesList roles={roles.data} />
+                <h2>Members ({ roles.length })</h2>
+                <RolesList roles={roles} {updateRole} {deleteRole} />
 
                 <h2>Invitations</h2>
-                {#await invitationsWaiting}
-                    <Spinner />
-                {:then invitations}
-                    {#if invitations.isOk}
-                        <InvitationsList invitations={invitations.data} />
-                    {:else}
-                        <p style="color: red">{invitations.error}</p>
-                    {/if}
-                {/await}
-                <AddMember {groupId} />
+                {#key invitations.length}
+                    <InvitationsList invitations={invitations} />
+                {/key}
+                <AddMember {groupId} {addRole} />
             </div>
 
-            {#await allTasks}
-                <Spinner />
-            {:then tasks}
-                {#if tasks.isOk}
-                    <TaskList tasks={tasks.data} withAddForm={true} />
-                {:else}
-                    <p style="color: red">{tasks.error}</p>
-                {/if}
-            {/await}
-        {:else}
-            <p style="color: red">{roles.error}</p>
-        {/if}
-    {/await}
+            {#if tasks.length > 0}
+                <TaskList tasks={tasks} />
+            {:else}
+                <p>Actually there is no tasks for this group</p>
+            {/if}
+        {/key}
+    {/if}
 </section>

@@ -5,7 +5,7 @@
     import VTaskrMenu from '@/global/components/VTaskrMenu.svelte'
     import Footer from '@/global/components/Footer.svelte'
 
-    let { isAuth, children } = $props();
+    let { isAuth, content, secondary } = $props();
 </script>
 
 <header>
@@ -23,9 +23,16 @@
     <VTaskrMenu />
 </header>
 
-<section>
-    {@render children()}
-</section>
+<div class="horizontalLayout">
+    {#if secondary}
+        <aside>
+            {@render secondary()}
+        </aside>
+    {/if}
+    <section>
+        {@render content()}
+    </section>
+</div>
 
 <footer>
     <Footer />

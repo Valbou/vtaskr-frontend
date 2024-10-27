@@ -28,7 +28,7 @@
             updateToken(groupResult.data.token)
 
             if (groupResult.data && groupResult.data.name == group.name) {
-                sendGroup(groupResult)
+                sendGroup(groupResult.data)
             }
         }
     }

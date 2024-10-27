@@ -1,6 +1,4 @@
 <script>
-    import { createEventDispatcher } from 'svelte'
-
     import { createTasks } from '../../api/tasks_api.js'
     import { TaskDTO } from '../../api/tasks_dto.js'
 
