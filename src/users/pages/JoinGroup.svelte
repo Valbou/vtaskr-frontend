@@ -4,11 +4,11 @@
     import LoginRequired from '../components/LoginRequired.svelte'
     import { acceptInvitation } from '../api/invitations_api.js'
 
-    export let inviteHash
+    const { inviteHash } = $props()
 
     onMount(async () => {
         let role = await acceptInvitation(inviteHash)
-        window.location.replace('/group/' + role.group_id)
+        window.location.replace('/group/' + role.data.group_id)
     })
 </script>
 

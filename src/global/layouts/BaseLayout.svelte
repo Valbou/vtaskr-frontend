@@ -5,17 +5,17 @@
     import VTaskrMenu from '@/global/components/VTaskrMenu.svelte'
     import Footer from '@/global/components/Footer.svelte'
 
-    export let isAuth
+    let { isAuth, children } = $props();
 </script>
 
 <header>
     <figure>
         {#if isAuth}
-            <Link slot="menuLogo" class="navlink" to="/dashboard">
+            <Link class="navlink" to="/dashboard">
                 <VTaskrLogo />
             </Link>
         {:else}
-            <Link slot="menuLogo" class="navlink" to="/">
+            <Link class="navlink" to="/">
                 <VTaskrLogo />
             </Link>
         {/if}
@@ -24,7 +24,7 @@
 </header>
 
 <section>
-    <slot />
+    {@render children()}
 </section>
 
 <footer>

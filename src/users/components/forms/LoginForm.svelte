@@ -11,7 +11,6 @@
     let userState = false
 
     let loginResult = null
-    let loginError = null
     let showMessage = false
 
     async function handleSubmit(e) {
@@ -20,21 +19,21 @@
         showMessage = true
 
         if (userState) {
-            ;[loginResult, loginError] = await authenticate(user)
+            ;loginResult = await authenticate(user)
 
-            updateToken(loginResult.token)
+            updateToken(loginResult.data.token)
 
-            if (loginResult && loginResult.token) {
+            if (loginResult.data && loginResult.data.token) {
                 window.location.replace('/mfa')
             }
         }
     }
 </script>
 
-{#if loginError}
+{#if loginResult && !loginResult.isOk}
     <Toast typeMessage="error" bind:showMessage>
         <p slot="message">
-            {loginError}
+            {loginResult.error}
         </p>
     </Toast>
 {/if}

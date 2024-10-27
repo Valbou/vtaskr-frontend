@@ -14,30 +14,29 @@
     let invitationState = false
 
     let inviteResult = null
-    let inviteError = null
 
     async function handleSubmit(e) {
         e.preventDefault()
         ;[invitationState, validatedInvitation] = invitation.getValidatedObjectFields()
 
         if (invitationState) {
-            ;[inviteResult, inviteError] = await createInvitation(invitation)
+            ;inviteResult = await createInvitation(invitation)
         }
     }
 
     let groupRoletypes = getGroupRoletypes(groupId)
 </script>
 
-{#if inviteResult}
+{#if inviteResult.isOk}
     <Toast typeMessage="success">
         <p slot="message">
-            Invitation to join group sent to {inviteResult.to_user_email}.
+            Invitation to join group sent to {inviteResult.data.to_user_email}.
         </p>
     </Toast>
-{:else if inviteError}
+{:else}
     <Toast typeMessage="error">
         <p slot="message">
-            {inviteError}
+            {inviteResult.error}
         </p>
     </Toast>
 {/if}
@@ -53,16 +52,18 @@
         {#await groupRoletypes}
             <Spinner />
         {:then roletypes}
-            <select id="roletype" name="with_roletype_id" bind:value={invitation.with_roletype_id}>
-                <option value="" disabled>-- Role --</option>
-                {#each roletypes as roletype}
-                    {#if roletype.group_id == groupId || roletype.group_id == null}
-                        <option value={roletype.id}>{roletype.name}</option>
-                    {/if}
-                {/each}
-            </select>
-        {:catch error}
-            <p style="color: red">{error.message}</p>
+            {#if roletypes.isOk}
+                <select id="roletype" name="with_roletype_id" bind:value={invitation.with_roletype_id}>
+                    <option value="" disabled>-- Role --</option>
+                    {#each roletypes.data as roletype}
+                        {#if roletype.group_id == groupId || roletype.group_id == null}
+                            <option value={roletype.id}>{roletype.name}</option>
+                        {/if}
+                    {/each}
+                </select>
+            {:else}
+                <p style="color: red">{roletypes.error}</p>
+            {/if}
         {/await}
 
         <button>Invite</button>

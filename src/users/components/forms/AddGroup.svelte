@@ -15,7 +15,6 @@
     let groupState = false
 
     let groupResult = null
-    let groupError = null
     let showMessage = false
 
     async function handleSubmit(e) {
@@ -24,11 +23,11 @@
         showMessage = true
 
         if (groupState) {
-            ;[groupResult, groupError] = await createGroup(group)
+            ;groupResult = await createGroup(group)
 
-            updateToken(groupResult.token)
+            updateToken(groupResult.data.token)
 
-            if (groupResult && groupResult.name == group.name) {
+            if (groupResult.data && groupResult.data.name == group.name) {
                 sendGroup(groupResult)
             }
         }
@@ -36,15 +35,15 @@
 
     function sendGroup(groupResult) {
         dispatch('message', {
-            group: groupResult
+            group: groupResult.data
         })
     }
 </script>
 
-{#if groupError}
+{#if !groupResult.isOk}
     <Toast typeMessage="error" bind:showMessage>
         <p slot="message">
-            {groupError}
+            {groupResult.error}
         </p>
     </Toast>
 {/if}

@@ -3,7 +3,7 @@
 
     import Spinner from '@/lib/components/Spinner.svelte'
 
-    export let group
+    const { group } = $props()
 </script>
 
 <div>

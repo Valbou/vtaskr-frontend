@@ -8,10 +8,10 @@ export default defineConfig({
     resolve: {
         alias: {
             '@': fileURLToPath(new URL('./src', import.meta.url))
-        },
+        }
     },
     test: {
         environment: 'jsdom',
-        setupFiles: ['./vitest-setup.js'],
-    },
+        setupFiles: ['./vitest-setup.js']
+    }
 })

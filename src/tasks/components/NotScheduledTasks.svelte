@@ -1,20 +1,23 @@
 <script>
-    import { getNotScheduledTasks } from '../api/tasks_api.js'
+    import { getStartOfDay, getTomorrow } from '@/utils/time'
 
-    import Spinner from '@/lib/components/Spinner.svelte'
     import TaskList from './TaskList.svelte'
 
-    let allTasks = getNotScheduledTasks()
+    let { tasks, deleteTask, updateTask } = $props()
+
+    let today = new Date()
+    let start = getStartOfDay(today)
+    let end = getTomorrow(start)
+
+    // Keep only tasks not done and scheduled in the past
+    let notScheduledTasks = tasks.filter((t) => {
+            let taskDone = !!t.done ? new Date(t.done) : null
+            return !t.scheduled_at && (!t.done || (start <= taskDone && taskDone < end))
+        }
+    )
 </script>
 
-
-{#await allTasks}
-    <Spinner />
-{:then tasks}
-    {#if tasks.length > 0}
-        <h2>Not Scheduled</h2>
-        <TaskList {tasks} withAddForm={false} />
-    {/if}
-{:catch error}
-    <p style="color: red">{error.message}</p>
-{/await}
+{#if notScheduledTasks && notScheduledTasks.length > 0}
+    <h2>Not Scheduled</h2>
+    <TaskList tasks={notScheduledTasks} {deleteTask} {updateTask} />
+{/if}

@@ -14,7 +14,7 @@
     import InvitationsList from '@/users/components/InvitationsList.svelte'
     import RolesList from '@/users/components/RolesList.svelte'
 
-    export let groupId
+    const { groupId } = $props()
 
     onMount(() => {
         if (!isAuthenticated()) {
@@ -31,34 +31,40 @@
     {#await groupRoles}
         <Spinner />
     {:then roles}
-        <h1>Group { roles[0].group.name }</h1>
-        {#if roles[0].group.description}
-            <p>{ roles[0].group.description }</p>
-        {/if}
+        {#if roles.isOk && roles.data.length > 0}
+            <h1>Group { roles.data[0].group.name }</h1>
+            {#if roles.data[0].group.description}
+                <p>{ roles.data[0].group.description }</p>
+            {/if}
 
-        <div class="members">
-            <h2>Members ({ roles.length })</h2>
-            <RolesList {roles} />
+            <div class="members">
+                <h2>Members ({ roles.data.length })</h2>
+                <RolesList roles={roles.data} />
 
-            <h2>Invitations</h2>
-            {#await invitationsWaiting}
+                <h2>Invitations</h2>
+                {#await invitationsWaiting}
+                    <Spinner />
+                {:then invitations}
+                    {#if invitations.isOk}
+                        <InvitationsList invitations={invitations.data} />
+                    {:else}
+                        <p style="color: red">{invitations.error}</p>
+                    {/if}
+                {/await}
+                <AddMember {groupId} />
+            </div>
+
+            {#await allTasks}
                 <Spinner />
-            {:then invitations}
-                <InvitationsList {invitations} />
-            {:catch error}
-                <p style="color: red">{error.message}</p>
+            {:then tasks}
+                {#if tasks.isOk}
+                    <TaskList tasks={tasks.data} withAddForm={true} />
+                {:else}
+                    <p style="color: red">{tasks.error}</p>
+                {/if}
             {/await}
-            <AddMember {groupId} />
-        </div>
-
-        {#await allTasks}
-            <Spinner />
-        {:then tasks}
-            <TaskList {tasks} withAddForm={true} />
-        {:catch error}
-            <p style="color: red">{error.message}</p>
-        {/await}
-    {:catch error}
-        <p style="color: red">{error.message}</p>
+        {:else}
+            <p style="color: red">{roles.error}</p>
+        {/if}
     {/await}
 </section>

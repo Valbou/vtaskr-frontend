@@ -12,7 +12,6 @@
     let userState = false
 
     let mfaResult = null
-    let mfaError = null
     let showMessage = false
 
     async function handleSubmit(e) {
@@ -22,9 +21,9 @@
         showMessage = true
 
         if (userState) {
-            ;[mfaResult, mfaError] = await mfaCall(mfa)
+            ;mfaResult = await mfaCall(mfa)
 
-            if (mfaResult) {
+            if (mfaResult.data) {
                 window.location.replace('/dashboard')
             }
             else if (attempts > 3) {
@@ -34,10 +33,10 @@
     }
 </script>
 
-{#if mfaError}
+{#if mfaResult && !mfaResult.isOk}
     <Toast typeMessage="error" bind:showMessage>
         <p slot="message">
-            {mfaError}
+            {mfaResult.error}
         </p>
     </Toast>
 {/if}

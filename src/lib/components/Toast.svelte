@@ -1,6 +1,5 @@
 <script>
-    export let typeMessage = null
-    export let showMessage = true
+    let { typeMessage = null, showMessage = null } = $props()
 
     function resetToast() {
         showMessage = false

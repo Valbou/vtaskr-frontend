@@ -12,8 +12,10 @@
     {#await allGroups}
         <Spinner />
     {:then groups}
-        <GroupList {groups} />
-    {:catch error}
-        <p style="color: red">{error.message}</p>
+        {#if groups.isOk}
+            <GroupList groups={groups.data} />
+        {:else}
+            <p style="color: red">{groups.error}</p>
+        {/if}
     {/await}
 </section>

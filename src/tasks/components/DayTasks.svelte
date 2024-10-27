@@ -1,20 +1,20 @@
 <script>
-    import { getOneDayTasks } from '../api/tasks_api.js'
+    import { getStartOfDay, getTomorrow } from '@/utils/time'
 
-    import Spinner from '@/lib/components/Spinner.svelte'
     import TaskList from '../components/TaskList.svelte'
 
-    export let day = new Date()
+    let { day = new Date(), tasks, deleteTask, updateTask } = $props()
 
-    let allTasks = getOneDayTasks(day)
+    let start = getStartOfDay(day)
+    let end = getTomorrow(start)
+
+    // Keep only tasks scheduled at the given day (today by default)
+    let todayTasks = tasks.filter((t) => {
+            let taskDate = new Date(t.scheduled_at)
+            return start <= taskDate && taskDate < end
+        }
+    )
 </script>
 
-
-{#await allTasks}
-    <Spinner />
-{:then tasks}
-    <h2>{day.toLocaleDateString()}</h2>
-    <TaskList {tasks} withAddForm={true} />
-{:catch error}
-    <p style="color: red">{error.message}</p>
-{/await}
+<h2>{day.toLocaleDateString()}</h2>
+<TaskList tasks={todayTasks} {deleteTask} {updateTask} />

@@ -7,45 +7,39 @@
     import SelectTenant from '@/lib/iam/SelectTenant.svelte'
     import Toast from '@/lib/components/Toast.svelte'
 
-    const dispatch = createEventDispatcher()
+    let { addTask } = $props()
 
-    let task = new TaskDTO('', '', '', false, false, '', '')
+    let task = new TaskDTO('', '', '', false, false, '', '', null)
 
-    let validatedTask = null
-    let taskState = false
+    let validatedTask = $state(null)
+    let taskState = $state(false)
 
-    let taskResult = null
-    let taskError = null
-    let showMessage = false
-    let more = false
+    let taskResult = $state(null)
+    let showMessage = $state(false)
+    let more = $state(false)
 
     async function extendForm() {
         more = !more
     }
 
-    async function handleSubmit() {
+    async function handleSubmit(e) {
+        e.preventDefault()
         ;[taskState, validatedTask] = task.getValidatedObjectFields()
         showMessage = true
 
         if (taskState) {
-            ;[taskResult, taskError] = await createTasks(task)
-            if (taskResult && taskResult.title == task.title) {
-                sendTask(taskResult)
+            ;taskResult = await createTasks(task)
+            if (taskResult.isOk && taskResult.data.title == task.title) {
+                addTask(taskResult.data)
             }
         }
     }
-
-    function sendTask(taskResult) {
-        dispatch('message', {
-            task: taskResult
-        })
-    }
 </script>
 
-{#if taskError}
+{#if taskResult != null && !taskResult.isOk}
     <Toast typeMessage="error" bind:showMessage>
         <p slot="message">
-            {taskError}
+            {taskResult.error}
         </p>
     </Toast>
 {/if}
@@ -54,7 +48,7 @@
     class="form create-task"
     method="post"
     action="#"
-    on:submit|preventDefault={() => handleSubmit()}
+    onsubmit={(e) => handleSubmit(e)}
 >
     <div class="tasktitle">
         {#if validatedTask && validatedTask.title}
@@ -82,9 +76,9 @@
     <div class="subgroup">
         <hr />
         {#if more}
-            <!-- svelte-ignore a11y-click-events-have-key-events -->
+            <!-- svelte-ignore a11y_click_events_have_key_events -->
             <span
-                on:click={extendForm}
+                onclick={extendForm}
                 role="button"
                 aria-expanded="true"
                 title="Reduce form size to add task quickly"
@@ -93,9 +87,9 @@
                 less
             </span>
         {:else}
-            <!-- svelte-ignore a11y-click-events-have-key-events -->
+            <!-- svelte-ignore a11y_click_events_have_key_events -->
             <span
-                on:click={extendForm}
+                onclick={extendForm}
                 role="button"
                 aria-expanded="false"
                 title="Increase fields number to complete task"

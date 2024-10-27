@@ -1,6 +1,5 @@
 import { updateAuthHeaders, completeAuthURL, cleanupSession } from '@/users/services/authService.js'
 
-
 export async function request(
     url,
     method = 'GET',
@@ -18,15 +17,27 @@ export async function request(
     }
 
     let result = null
-    let error = null
+    let responseObject = {
+        code: null,
+        isOk: false,
+        error: null,
+        data: null
+    }
 
     try {
         const response = await fetch(url, requestData)
         result = await response.json()
-        error = null
 
-        if (!response.ok) {
-            if (response.status == 401) {
+        responseObject.code = response.status
+        responseObject.error = null
+        responseObject.isOk = response.ok
+
+        if (responseObject.isOk) {
+            responseObject.data = result
+        } else {
+            responseObject.error = result.error
+
+            if (responseObject.code == 401) {
                 cleanupSession()
 
                 if (redirect) {
@@ -34,45 +45,13 @@ export async function request(
                 }
             }
 
-            throw new Error(`Error ${result.status}: ${result.error}`)
+            throw new Error(`Error ${responseObject.code}: ${responseObject.error}`)
         }
     } catch (errorCaught) {
-        result = null
-        error = errorCaught.message
+        responseObject.error = errorCaught.message
     }
 
-    return [result, error]
-}
-
-export async function svelteRequest(
-    url,
-    method = 'GET',
-    body = null,
-    headers = { 'Content-Type': 'application/json' },
-    redirect = true
-) {
-    headers = updateAuthHeaders(headers)
-    url = completeAuthURL(url)
-
-    const requestData = {
-        method: method,
-        headers: headers,
-        body: body ? JSON.stringify(body) : null
-    }
-
-    const response = await fetch(url, requestData)
-
-    if (!response.ok) {
-        if (response.status == 401) {
-            cleanupSession()
-
-            if (redirect) {
-                window.location.replace('/')
-            }
-        }
-
-        throw new Error(`Error ${response.status}: ${response.body}`)
-    }
-
-    return response.json()
+    return new Promise((resolve, reject) => {
+        resolve(responseObject)
+    })
 }

@@ -1,9 +1,9 @@
 import { env } from '../../config/config.js'
-import { request, svelteRequest } from '../../utils/api/request.js'
+import { request } from '../../utils/api/request.js'
 
 export async function getAllGroups() {
     const url = env.backend_api + '/api/v1/groups'
-    return svelteRequest(url, 'GET')
+    return request(url, 'GET')
 }
 
 export async function getGroup(groupId) {
@@ -18,5 +18,5 @@ export async function createGroup(groupDTO) {
 
 export async function getGroupMembers(groupId) {
     const url = env.backend_api + '/api/v1/group/' + groupId + "/members"
-    return svelteRequest(url, 'GET')
+    return request(url, 'GET')
 }

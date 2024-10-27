@@ -1,25 +1,25 @@
 <script>
-    import { createEventDispatcher } from 'svelte'
-
-    import { deleteTasks, updateTask } from '../api/tasks_api.js'
+    import { deleteTasks, updateTasks } from '../api/tasks_api.js'
 
     import Picto from '@/lib/components/Picto.svelte'
     import Chips from '@/lib/components/Chips.svelte'
     import Tag from './Tag.svelte'
 
-    const dispatch = createEventDispatcher()
+    let { task, deleteTask, updateTask } = $props()
 
-    export let task
-    $: eisenhower = task.emergency
-        ? task.important
-            ? 'Do it'
-            : 'Delegate it'
-        : task.important
-          ? 'Schedule it'
-          : 'Delete it'
-    $: isDone = !!task.done
-    $: isLate = task.scheduled_at ? (new Date(task.scheduled_at)) < (new Date()) : false
-    $: checked = isDone ? "checked" : ""
+    let eisenhower = $derived.by(() => {
+        return task.emergency
+            ? task.important
+                ? 'Do it'
+                : 'Delegate it'
+            : task.important
+            ? 'Schedule it'
+            : 'Delete it'
+    })
+
+    let isDone = $derived(!!task.done)
+    let isLate = $derived(task.scheduled_at ? (new Date(task.scheduled_at)) < (new Date()) : false)
+    let checked = $derived(isDone ? "checked" : "")
 
     const important = 'Important'
     const emergency = 'Emergency'
@@ -34,28 +34,23 @@
             task.done = null
         }
 
-        await updateTask(task)
+        await updateTasks(task)
+        updateTask(task)
     }
 
-    async function deleteTask() {
+    async function removeTask() {
         let result = confirm(`Confirm delete task: ${task.title}`)
         if (result) {
             await deleteTasks(task.id)
-            sendDelete()
+            deleteTask(task)
         }
-    }
-
-    function sendDelete() {
-        dispatch('message', {
-            task: task
-        })
     }
 </script>
 
 <div class="task{isLate ? ' late' : ''}{isDone ? ' done' : ''}">
     <div class="tasktitle">
         <label>
-            <input type="checkbox" on:change={changeDoneState} {checked} />
+            <input type="checkbox" onchange={changeDoneState} {checked} />
             <h4>{task.title}</h4>
         </label>
     </div>
@@ -82,7 +77,7 @@
             {/each}
         {/if}
         <button><Picto name="edit" /></button>
-        <button on:click={deleteTask}><Picto name="delete" /></button>
+        <button onclick={removeTask}><Picto name="delete" /></button>
     </div>
 </div>
 

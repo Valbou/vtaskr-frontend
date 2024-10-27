@@ -1,7 +1,7 @@
 export const delay = (ms) => new Promise((res) => setTimeout(res, ms))
 
 export function timeToSeconds(duration) {
-    return +(duration.split(':').reduce((acc, t) => (60 * acc) + +t))
+    return +duration.split(':').reduce((acc, t) => 60 * acc + +t)
 }
 
 export function getStartOfDay(day) {

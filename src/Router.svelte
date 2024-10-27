@@ -18,8 +18,7 @@
 
     import Dashboard from '@/tasks/pages/Dashboard.svelte'
 
-    export let url = ''
-    export let isAuth = isUserAuthenticated()
+    const { url = '', isAuth = isUserAuthenticated() } = $props()
 </script>
 
 <Router {url}>

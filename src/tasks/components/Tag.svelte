@@ -1,5 +1,5 @@
 <script>
-    export let tag
+    const { tag } = $props()
 </script>
 
 <span class="tag">{tag.title}</span>

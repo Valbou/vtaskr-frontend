@@ -12,14 +12,13 @@
     let userState = false
 
     let registerResult = null
-    let registerError = null
 
     async function handleSubmit(e) {
         e.preventDefault()
         ;[userState, validatedUser] = user.getValidatedObjectFields(password2)
 
         if (userState) {
-            ;[registerResult, registerError] = await register(user)
+            ;registerResult = await register(user)
         }
     }
 </script>
@@ -31,10 +30,10 @@
             Go <a href="/login" title="Go to login page">login</a> to enjoy !
         </p>
     </Toast>
-{:else if registerError}
+{:else if registerResult && registerResult.error}
     <Toast typeMessage="error">
         <p slot="message">
-            {registerError}
+            {registerResult.error}
         </p>
     </Toast>
 {/if}

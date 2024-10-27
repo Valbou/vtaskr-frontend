@@ -1,30 +1,13 @@
 <script>
     import Task from './Task.svelte'
 
-    import AddTaskForm from './forms/AddTaskForm.svelte'
-
-    export let tasks = []
-    export let withAddForm = true
-
-    function handleNewTask(event) {
-        let newTask = event.detail.task
-        tasks = [...tasks, newTask]
-    }
-
-    function handleDeletedTask(event) {
-        let deletedTask = event.detail.task
-        tasks = tasks.filter((t) => t.id != deletedTask.id)
-    }
+    let { tasks = [], deleteTask, updateTask } = $props()
 </script>
-
-{#if withAddForm}
-    <AddTaskForm on:message={handleNewTask} />
-{/if}
 
 {#if tasks.length > 0}
     <ul>
         {#each tasks as task}
-            <li><Task {task} on:message={handleDeletedTask} /></li>
+            <li><Task {task} {deleteTask} {updateTask} /></li>
         {/each}
     </ul>
 {:else}
