@@ -32,12 +32,12 @@
         <Route path="/logout"><BaseLayout {isAuth} content={logout} /></Route>
         <Route path="/dashboard"><BaseLayout {isAuth} content={dashboard} {secondary} /></Route>
 
-        <Route path="/groups"><BaseLayout {isAuth} content={groups} /></Route>
+        <Route path="/groups"><BaseLayout {isAuth} content={groups} {secondary} /></Route>
         <Route path="/group/:id" let:params>
-            <BaseLayout {isAuth} content={group} />
+            <BaseLayout {isAuth} content={group} {secondary} />
         </Route>
         <Route path="/join-group/:hash" let:params>
-            <BaseLayout {isAuth} content={joinGroup} />
+            <BaseLayout {isAuth} content={joinGroup} {secondary} />
         </Route>
     {:else}
         <Route path="/login"><BaseLayout {isAuth} content={login} /></Route>

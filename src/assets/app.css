@@ -72,8 +72,7 @@ a {
   transition: color 0.2s;
 }
 
-a:hover,
-a:visited {
+a:hover {
   color: var(--mb);
 }
 
@@ -114,7 +113,8 @@ label {
   font-size: 1.2rem;
 }
 
-input, textarea {
+input,
+textarea {
   display: block;
   width: 100%;
   background-color: transparent;
@@ -127,12 +127,18 @@ input, textarea {
   box-sizing: border-box;
 }
 
+select {
+  font-size: 1em;
+  padding: 5px 8px;
+}
+
 a.button {
   text-decoration: none;
   text-align: center;
 }
 
-a.button, button {
+a.button,
+button {
   display: inline-block;
   background-color: var(--db);
   border: 1px solid transparent;
@@ -147,7 +153,8 @@ form button {
   width: 100%;
 }
 
-a.button:hover, button:hover {
+a.button:hover,
+button:hover {
   background-color: var(--mb);
   transition: background-color 0.2s;
 }
@@ -159,6 +166,11 @@ footer nav {
   flex-flow: row nowrap;
 }
 
-footer nav a, .center {
+footer nav a,
+.center {
   text-align: center;
+}
+
+summary {
+  cursor: pointer;
 }

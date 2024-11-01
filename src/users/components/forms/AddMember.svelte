@@ -49,29 +49,57 @@
 
 <form class="form newmember" method="post" action="#" onsubmit={(e) => handleSubmit(e)}>
     <div>
-        {#if validatedInvitation && validatedInvitation.to_user_email}
-            <p class="error">{validatedInvitation.to_user_email}</p>
-        {/if}
-        <input type="hidden" id="group" name="in_group_id" bind:value={invitation.in_group_id} />
-        <input type="email" id="email" name="to_user_email" bind:value={invitation.to_user_email} />
-
-        {#await groupRoletypes}
-            <Spinner />
-        {:then roletypes}
-            {#if roletypes.isOk}
-                <select id="roletype" name="with_roletype_id" bind:value={invitation.with_roletype_id}>
-                    <option value="" disabled>-- Role --</option>
-                    {#each roletypes.data as roletype}
-                        {#if roletype.group_id == groupId || roletype.group_id == null}
-                            <option value={roletype.id}>{roletype.name}</option>
-                        {/if}
-                    {/each}
-                </select>
-            {:else}
-                <p style="color: red">{roletypes.error}</p>
+        <div class="subgroup">
+            {#if validatedInvitation && validatedInvitation.to_user_email}
+                <p class="error">{validatedInvitation.to_user_email}</p>
             {/if}
-        {/await}
+            <input type="hidden" id="group" name="in_group_id" bind:value={invitation.in_group_id} />
+            <input type="email" id="email" name="to_user_email" bind:value={invitation.to_user_email} placeholder="new-user@example.com" />
+        </div>
+
+        <div class="subgroup">
+            {#await groupRoletypes}
+                <Spinner />
+            {:then roletypes}
+                {#if roletypes.isOk}
+                    <select id="roletype" name="with_roletype_id" bind:value={invitation.with_roletype_id}>
+                        <option value="" disabled>-- Role --</option>
+                        {#each roletypes.data as roletype}
+                            {#if roletype.group_id == groupId || roletype.group_id == null}
+                                <option value={roletype.id}>{roletype.name}</option>
+                            {/if}
+                        {/each}
+                    </select>
+                {:else}
+                    <p style="color: red">{roletypes.error}</p>
+                {/if}
+            {/await}
+        </div>
 
         <button>Invite</button>
     </div>
 </form>
+
+<style>
+    .form {
+        padding: 10px;
+        border: 1px solid var(--light);
+        border-radius: 10px;
+    }
+
+    .form div {
+        margin: 0;
+    }
+
+    .form .subgroup {
+        display: flex;
+        flex-flow: row nowrap;
+        justify-content: space-between;
+        align-items: center;
+        margin: 5px 0;
+    }
+
+    select {
+        width: 100%;
+    }
+</style>

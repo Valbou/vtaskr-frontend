@@ -33,18 +33,40 @@
     font-size: 1.5rem;
 }
 
-.presentation a.button, .features a.button {
+.presentation a.button,
+.features a.button {
     margin: 0 20px;
 }
 
-.features > div {
+.features>div {
     display: flex;
     flex-flow: row;
     justify-content: center;
     align-items: center;
 }
 
-.presentation figcaption, .features > div ul, .features > div p {
+.presentation figcaption,
+.features>div ul,
+.features>div p {
     flex: 1 1 0;
     margin: 0 40px;
+}
+
+.horizontalLayout {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    flex-flow: row nowrap;
+}
+
+.horizontalLayout > aside {
+    flex: 1 1 200px;
+    max-width: 200px;
+    border-right: 1px solid var(--light);
+}
+
+.horizontalLayout > section {
+    flex: 1 1 300px;
+    min-width: 300px;
+    max-width: 80%;
 }

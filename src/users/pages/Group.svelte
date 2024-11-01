@@ -9,6 +9,11 @@
     import { getGroupMembers } from '@/users/api/groups_api.js'
     import { getWaitingInvitations } from '@/users/api/invitations_api.js'
 
+    import AddTaskForm from '@/tasks/components/forms/AddTaskForm.svelte'
+    import LateTasks from '@/tasks/components/LateTasks.svelte'
+    import DayTasks from '@/tasks/components/DayTasks.svelte'
+    import NotScheduledTasks from '@/tasks/components/NotScheduledTasks.svelte'
+
     import Spinner from '@/lib/components/Spinner.svelte'
     import TaskList from '@/tasks/components/TaskList.svelte'
 
@@ -56,6 +61,25 @@
         let index = roles.map((e) => e.id).indexOf(role.id);
         roles[index] = role
     }
+
+    function addTask(task) {
+        tasks.push(task)
+
+        return true
+    }
+
+    function deleteTask(task, confirm=true) {
+        tasks = tasks.filter((t) => t.id != task.id)
+
+        return true
+    }
+
+    function updateTask(task) {
+        let index = tasks.map((e) => e.id).indexOf(task.id);
+        tasks[index] = task
+
+        return true
+    }
 </script>
 
 <section id="groupPage">
@@ -68,8 +92,10 @@
                 <p>{ roles[0].group.description }</p>
             {/if}
 
-            <div class="members">
-                <h2>Members ({ roles.length })</h2>
+            <details class="members">
+                <summary>
+                    <h2>Members ({ roles.length })</h2>
+                </summary>
                 <RolesList roles={roles} {updateRole} {deleteRole} />
 
                 <h2>Invitations</h2>
@@ -77,13 +103,30 @@
                     <InvitationsList invitations={invitations} />
                 {/key}
                 <AddMember {groupId} {addRole} />
-            </div>
+            </details>
 
-            {#if tasks.length > 0}
-                <TaskList tasks={tasks} />
-            {:else}
-                <p>Actually there is no tasks for this group</p>
-            {/if}
+            <details class="tasks" open>
+                <summary>
+                    <h2>{ roles[0].group.name } Tasks</h2>
+                </summary>
+                {#if tasks.length > 0}
+                    <AddTaskForm {addTask} />
+    
+                    {#key tasks.length}
+                        <LateTasks tasks={tasks} {deleteTask} {updateTask} />
+                        <DayTasks tasks={tasks} {deleteTask} {updateTask} />
+                        <NotScheduledTasks tasks={tasks} {deleteTask} {updateTask} />
+                    {/key}
+                {:else}
+                    <p>Actually there is no tasks for this group</p>
+                {/if}
+            </details>
         {/key}
     {/if}
 </section>
+
+<style>
+    details.tasks {
+        margin: 20px 0;
+    }
+</style>

@@ -22,10 +22,3 @@
         <p style="color: red">{tenants.error}</p>
     {/if}
 {/await}
-
-<style>
-    select {
-        font-size: 1em;
-        padding: 5px 8px;
-    }
-</style>

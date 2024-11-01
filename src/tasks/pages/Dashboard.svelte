@@ -4,12 +4,11 @@
     import { getAllTasks } from '../api/tasks_api.js'
 
     import Spinner from '@/lib/components/Spinner.svelte'
-    
+
     import AddTaskForm from '@/tasks/components/forms/AddTaskForm.svelte'
     import LateTasks from '@/tasks/components/LateTasks.svelte'
     import DayTasks from '@/tasks/components/DayTasks.svelte'
     import NotScheduledTasks from '@/tasks/components/NotScheduledTasks.svelte'
-    import MenuSecondary from '@/tasks/components/MenuSecondary.svelte'
 
     let tasks = $state([])
     let isLoading = $state(true)
