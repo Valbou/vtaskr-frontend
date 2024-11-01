@@ -20,3 +20,10 @@ export function getTomorrow(day) {
 
     return tomorrow
 }
+
+export function getYesterday(day) {
+    let tomorrow = new Date(day)
+    tomorrow.setDate(tomorrow.getDate() - 1)
+
+    return tomorrow
+}
