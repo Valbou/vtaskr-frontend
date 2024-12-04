@@ -5,39 +5,43 @@
 
     import Toast from '@/lib/components/Toast.svelte'
 
-    let user = new UserDTO('', '', '', '')
-    let password2 = ''
+    let user = $state(new UserDTO('', '', '', ''))
+    let password2 = $state('')
 
-    let validatedUser = null
-    let userState = false
+    let validatedUser = $state(null)
+    let userState = $state(false)
 
-    let registerResult = null
+    let registerResult = $state(null)
+
+    function cleanResult() {
+        registerResult = null
+    }
 
     async function handleSubmit(e) {
         e.preventDefault()
         ;[userState, validatedUser] = user.getValidatedObjectFields(password2)
 
         if (userState) {
-            ;registerResult = await register(user)
+            registerResult = await register(user)
         }
     }
 </script>
 
-{#if registerResult}
-    <Toast typeMessage="success" message={messageOk} />
-    {#snippet message()}
+{#snippet message(registerResult)}
+    {#if registerResult.isOk}
         <p>
             Welcome {registerResult.first_name} !<br />
-            Go <a href="/login" title="Go to login page">login</a> to enjoy !
+            Go <a href="/login" title="Go to login page">login</a> and enjoy !
         </p>
-    {/snippet}
-{:else if registerResult && registerResult.error}
-    <Toast typeMessage="error" message={messageKo} />
-    {#snippet message()}
+    {:else if registerResult && !registerResult.isOk}
         <p>
             {registerResult.error}
         </p>
-    {/snippet}
+    {/if}
+{/snippet}
+
+{#if registerResult}
+    <Toast message={message} result={registerResult} clean={cleanResult} />
 {/if}
 
 <form class="form register" method="post" onsubmit={(e) => handleSubmit(e)}>

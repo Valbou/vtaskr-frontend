@@ -1,9 +1,15 @@
 <script>
-    let { typeMessage = null, showMessage = null, message } = $props()
+    let { message, result, clean } = $props()
+    let showMessage = $state(true)
 
     function resetToast(e) {
         showMessage = false
+        clean()
     }
+
+    let cssClass = $derived.by(() => {
+        return result.isOk ? "success" : "error"
+    })
 
     function resetToastByKey(event) {
         if (event.key === "Escape") {
@@ -12,9 +18,9 @@
     }
 </script>
 
-{#if typeMessage && showMessage}
-    <div class="toast {typeMessage}">
-        {@render message()}
+{#if showMessage}
+    <div class="toast {cssClass}">
+        {@render message(result)}
         <button onclick={(e) => resetToast(e)}>&Cross;</button>
     </div>
 {/if}
