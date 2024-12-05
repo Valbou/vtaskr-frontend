@@ -45,8 +45,8 @@
     {/if}
 {/snippet}
 
-{#if loginResult}
-    <Toast {message} result={loginResult} clean={cleanResult} />
+{#if taskResult}
+    <Toast {message} result={taskResult} clean={cleanResult} />
 {/if}
 
 <form
