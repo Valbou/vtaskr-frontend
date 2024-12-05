@@ -5,18 +5,20 @@
 
     import Toast from '@/lib/components/Toast.svelte'
 
-    let user = new LoginDTO('', '')
+    let user = $state(new LoginDTO('', ''))
 
-    let validatedUser = null
-    let userState = false
+    let validatedUser = $state(null)
+    let userState = $state(false)
 
-    let loginResult = null
-    let showMessage = false
+    let loginResult = $state(null)
+
+    function cleanResult() {
+        loginResult = null
+    }
 
     async function handleSubmit(e) {
         e.preventDefault()
         ;[userState, validatedUser] = user.getValidatedObjectFields()
-        showMessage = true
 
         if (userState) {
             ;loginResult = await authenticate(user)
@@ -30,13 +32,16 @@
     }
 </script>
 
-{#if loginResult && !loginResult.isOk}
-    <Toast typeMessage="error" bind:showMessage {message} />
-    {#snippet message()}
+{#snippet message(loginResult)}
+    {#if loginResult && !loginResult.isOk}
         <p>
             {loginResult.error}
         </p>
-    {/snippet}
+    {/if}
+{/snippet}
+
+{#if loginResult}
+    <Toast {message} result={loginResult} clean={cleanResult} />
 {/if}
 
 <form class="form login" method="post" onsubmit={(e) => handleSubmit(e)}>

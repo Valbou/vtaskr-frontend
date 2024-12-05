@@ -41,7 +41,7 @@
 {/snippet}
 
 {#if registerResult}
-    <Toast message={message} result={registerResult} clean={cleanResult} />
+    <Toast {message} result={registerResult} clean={cleanResult} />
 {/if}
 
 <form class="form register" method="post" onsubmit={(e) => handleSubmit(e)}>

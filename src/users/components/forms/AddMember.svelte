@@ -8,12 +8,16 @@
 
     let { groupId, addRole } = $props()
 
-    let invitation = new InvitationDTO('', groupId, '')
+    let invitation = $state(new InvitationDTO('', groupId, ''))
 
     let validatedInvitation = $state(null)
     let invitationState = $state(false)
 
     let inviteResult = $state(null)
+
+    function cleanResult() {
+        inviteResult = null
+    }
 
     async function handleSubmit(e) {
         e.preventDefault()
@@ -31,20 +35,20 @@
     let groupRoletypes = getGroupRoletypes(groupId)
 </script>
 
-{#if inviteResult && inviteResult.isOk}
-    <Toast typeMessage="success" message={messageOk} />
-    {#snippet messageOk()}
+{#snippet message(inviteResult)}
+    {#if inviteResult.isOk}
         <p>
             Invitation to join group sent to {inviteResult.data.to_user_email}.
         </p>
-    {/snippet}
-{:else if inviteResult && !inviteResult.isOk}
-    <Toast typeMessage="error" message={messageKo} />
-    {#snippet messageKo()}
+    {:else if inviteResult && !inviteResult.isOk}
         <p>
             {inviteResult.error}
         </p>
-    {/snippet}
+    {/if}
+{/snippet}
+
+{#if inviteResult}
+    <Toast {message} result={inviteResult} clean={cleanResult} />
 {/if}
 
 <form class="form newmember" method="post" action="#" onsubmit={(e) => handleSubmit(e)}>

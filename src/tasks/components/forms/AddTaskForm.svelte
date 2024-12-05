@@ -7,23 +7,25 @@
 
     let { addTask } = $props()
 
-    let task = new TaskDTO('', '', '', false, false, '', '', null)
+    let task = $state(new TaskDTO('', '', '', false, false, '', '', null))
 
     let validatedTask = $state(null)
     let taskState = $state(false)
 
     let taskResult = $state(null)
-    let showMessage = $state(false)
     let more = $state(false)
 
     async function extendForm() {
         more = !more
     }
 
+    function cleanResult() {
+        taskResult = null
+    }
+
     async function handleSubmit(e) {
         e.preventDefault()
         ;[taskState, validatedTask] = task.getValidatedObjectFields()
-        showMessage = true
 
         if (taskState) {
             ;taskResult = await createTasks(task)
@@ -35,13 +37,16 @@
     }
 </script>
 
-{#if taskResult != null && !taskResult.isOk}
-    <Toast typeMessage="error" bind:showMessage {message} />
-    {#snippet message()}
+{#snippet message(taskResult)}
+    {#if taskResult && !taskResult.isOk}
         <p>
             {taskResult.error}
         </p>
-    {/snippet}
+    {/if}
+{/snippet}
+
+{#if loginResult}
+    <Toast {message} result={loginResult} clean={cleanResult} />
 {/if}
 
 <form

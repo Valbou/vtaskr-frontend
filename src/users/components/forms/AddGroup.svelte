@@ -1,26 +1,28 @@
 <script>
     import { createEventDispatcher } from 'svelte'
 
-    import { createGroup } from '@/users/api/groups_api.js'
-    import { GroupDTO } from '@/users/api/groups_dto.js'
+    import { createGroup } from '../../api/groups_api.js'
+    import { GroupDTO } from '../../api/groups_dto.js'
     import { updateToken } from '../../store/auth.js'
 
     import Toast from '@/lib/components/Toast.svelte'
 
     const dispatch = createEventDispatcher()
 
-    let group = new GroupDTO('', '')
+    let group = $state(new GroupDTO('', ''))
 
-    let validatedGroup = null
-    let groupState = false
+    let validatedGroup = $state(null)
+    let groupState = $state(false)
 
-    let groupResult = null
-    let showMessage = false
+    let groupResult = $state(null)
+
+    function cleanResult() {
+        groupResult = null
+    }
 
     async function handleSubmit(e) {
         e.preventDefault()
         ;[groupState, validatedGroup] = group.getValidatedObjectFields()
-        showMessage = true
 
         if (groupState) {
             ;groupResult = await createGroup(group)
@@ -40,13 +42,20 @@
     }
 </script>
 
-{#if !groupResult.isOk}
-    <Toast typeMessage="error" bind:showMessage {message} />
-    {#snippet message()}
+{#snippet message(groupResult)}
+    {#if groupResult.isOk}
+        <p>
+            Group {groupResult.data.name} created.
+        </p>
+    {:else if groupResult && !groupResult.isOk}
         <p>
             {groupResult.error}
         </p>
-    {/snippet}
+    {/if}
+{/snippet}
+
+{#if groupResult}
+    <Toast {message} result={groupResult} clean={cleanResult} />
 {/if}
 
 <form class="form newgroup" method="post" action="#" onsubmit={(e) => handleSubmit(e)}>

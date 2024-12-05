@@ -5,20 +5,24 @@
 
     import Toast from '@/lib/components/Toast.svelte'
 
-    let mfa = new MFADTO('')
-    let attempts = 0
+    const MAX_ATTEMPT = 3
 
-    let validatedUser = null
-    let userState = false
+    let mfa = $state(new MFADTO(''))
+    let attempts = $state(0)
 
-    let mfaResult = null
-    let showMessage = false
+    let validatedUser = $state(null)
+    let userState = $state(false)
+
+    let mfaResult = $state(null)
+
+    function cleanResult() {
+        mfaResult = null
+    }
 
     async function handleSubmit(e) {
         e.preventDefault()
         attempts++
         ;[userState, validatedUser] = mfa.getValidatedObjectFields()
-        showMessage = true
 
         if (userState) {
             ;mfaResult = await mfaCall(mfa)
@@ -26,20 +30,24 @@
             if (mfaResult.data) {
                 window.location.replace('/dashboard')
             }
-            else if (attempts > 3) {
+            else if (attempts > MAX_ATTEMPT) {
                 window.location.replace('/')
             }
         }
     }
 </script>
 
-{#if mfaResult && !mfaResult.isOk}
-    <Toast typeMessage="error" bind:showMessage {message} />
-    {#snippet message()}
+{#snippet message(mfaResult)}
+    {#if mfaResult && !mfaResult.isOk}
         <p>
-            {mfaResult.error}
+            {mfaResult.error}<br />
+            Attempt {attempts} / {MAX_ATTEMPT}
         </p>
-    {/snippet}
+    {/if}
+{/snippet}
+
+{#if mfaResult}
+    <Toast {message} result={mfaResult} clean={cleanResult} />
 {/if}
 
 <form class="form mfa" method="post" onsubmit={(e) => handleSubmit(e)}>
