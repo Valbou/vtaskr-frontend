@@ -9,11 +9,13 @@ import {
 export class GroupDTO extends BaseDTO {
     name
     description
+    is_private
 
-    constructor(name, description) {
+    constructor(name, description, is_private = true) {
         super()
         this.name = name
         this.description = description
+        this.is_private = is_private
     }
 
     getValidatedObject() {

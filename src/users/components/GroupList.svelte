@@ -1,32 +1,17 @@
 <script>
     import GroupCard from './GroupCard.svelte'
-    import AddGroup from './forms/AddGroup.svelte'
 
-    let { groups, withAddForm } = $props()
-
-    function handleNewGroup(event) {
-        let newGroup = event.detail.group
-        groups = [...groups, newGroup]
-    }
-
-    function handleDeletedGroup(event) {
-        let deletedGroup = event.detail.group
-        groups = groups.filter((g) => g.id != deletedGroup.id)
-    }
+    let { groups, deleteGroup, updateGroup } = $props()
 </script>
 
 {#if groups.length > 0}
-<ul>
-    {#each groups as group}
-        <li>
-            <GroupCard {group} />
-        </li>
-    {/each}
-</ul>
-{/if}
-
-{#if withAddForm}
-    <AddGroup on:message={handleNewGroup} />
+    <ul>
+        {#each groups as group}
+            <li>
+                <GroupCard {group} {deleteGroup} {updateGroup} />
+            </li>
+        {/each}
+    </ul>
 {/if}
 
 <style>

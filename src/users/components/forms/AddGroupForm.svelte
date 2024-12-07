@@ -9,7 +9,7 @@
 
     const dispatch = createEventDispatcher()
 
-    let group = $state(new GroupDTO('', ''))
+    let group = $state(new GroupDTO('', '', true))
 
     let validatedGroup = $state(null)
     let groupState = $state(false)
@@ -75,6 +75,36 @@
         <input type="text" id="description" name="description" bind:value={group.description} />
     </div>
     <div>
+        <div class="subgroup">
+            <input type="checkbox" id="is_private" bind:checked={group.is_private} defaultChecked={true} />
+            <label for="is_private">Private</label>
+        </div>
+    </div>
+    <div>
         <button>Create</button>
     </div>
 </form>
+
+<style>
+    .form {
+        padding: 10px;
+        border: 1px solid var(--light);
+        border-radius: 10px;
+    }
+
+    .form div {
+        margin: 0;
+    }
+
+    .form .subgroup {
+        display: flex;
+        flex-flow: row nowrap;
+        justify-content: space-around;
+        align-items: center;
+        margin: 5px 0;
+    }
+
+    .form .subgroup input {
+        width: auto;
+    }
+</style>

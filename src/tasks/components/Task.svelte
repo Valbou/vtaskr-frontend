@@ -39,10 +39,12 @@
     }
 
     async function removeTask() {
-        let result = confirm(`Confirm delete task: ${task.title}`)
-        if (result) {
-            await deleteTasks(task.id)
-            deleteTask(task)
+        let confirm = confirm(`Confirm delete task: ${task.title}`)
+        if (confirm) {
+            result = await deleteTasks(task.id)
+            if (result.isOk) {
+                deleteTask(task)
+            }
         }
     }
 </script>

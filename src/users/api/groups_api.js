@@ -16,6 +16,16 @@ export async function createGroup(groupDTO) {
     return request(url, 'POST', groupDTO)
 }
 
+export async function deleteGroups(groupId) {
+    const url = env.backend_api + `/api/v1/group/${groupId}`
+    return request(url, 'DELETE')
+}
+
+export async function updateGroups(group) {
+    const url = env.backend_api + `/api/v1/group/${group.id}`
+    return request(url, 'PUT', group)
+}
+
 export async function getGroupMembers(groupId) {
     const url = env.backend_api + '/api/v1/group/' + groupId + "/members"
     return request(url, 'GET')

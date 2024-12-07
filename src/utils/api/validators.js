@@ -2,6 +2,10 @@ export function required(data, message = null) {
     return [!!data, message || 'Value required']
 }
 
+export function boolean(data, message = null) {
+    return [data == true || data == false, message || 'Value must be true or false']
+}
+
 export function min(data, value, message = null) {
     return [!data || (data && data >= value), message || `Min ${value}`]
 }

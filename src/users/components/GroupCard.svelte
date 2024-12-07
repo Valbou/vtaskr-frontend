@@ -1,9 +1,21 @@
 <script>
     import { Link } from 'svelte-routing'
+    import { deleteGroups, updateGroups } from '../api/groups_api.js'
 
     import Spinner from '@/lib/components/Spinner.svelte'
+    import Picto from '@/lib/components/Picto.svelte'
 
-    const { group } = $props()
+    let { group, deleteGroup, updateGroup } = $props()
+
+    async function removeGroup() {
+        let confirm = confirm(`Confirm delete group: ${group.name}`)
+        if (confirm) {
+            result = await deleteGroups(group.id)
+            if (result.isOk) {
+                deleteGroup(group)
+            }
+        }
+    }
 </script>
 
 <div>
@@ -11,4 +23,7 @@
     <p>{ group.description }</p>
 
     <Link class="button" to="/group/{group.id}">Go</Link>
+    {#if !group.is_private || group.name != "Private"}
+        <button onclick={removeGroup}><Picto name="delete" /></button>
+    {/if}
 </div>
