@@ -12,7 +12,7 @@
     <Spinner />
 {:then tenants}
     {#if tenants.isOk}
-        <select id={name} {name} bind:value>
+        <select id={name} {name} bind:value={value}>
             <option value="" disabled>-- Group --</option>
             {#each tenants.data as tenant}
                 <option value={tenant.id}>{tenant.name}</option>

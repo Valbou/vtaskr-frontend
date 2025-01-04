@@ -1,6 +1,7 @@
 <script>
     import { onMount } from 'svelte'
 
+    import { getMe } from '@/users/api/users_api.js'
     import { getAllTasks } from '../api/tasks_api.js'
 
     import Spinner from '@/lib/components/Spinner.svelte'
@@ -11,6 +12,7 @@
     import NotScheduledTasks from '../components/NotScheduledTasks.svelte'
 
     let tasks = $state([])
+    let current_user = $state(null)
     let isLoading = $state(true)
     let error = $state(null)
 
@@ -25,9 +27,15 @@
         }
     }
 
-    onMount(async () => {
-        await loadTasks()
-    })
+    async function loadMe() {
+        let resMe = await getMe()
+
+        if (resMe.isOk) {
+            current_user = {...resMe.data}
+        } else {
+            error = resMe.error
+        }
+    }
 
     function addTask(task) {
         tasks.push(task)
@@ -35,7 +43,7 @@
         return true
     }
 
-    function deleteTask(task, confirm=true) {
+    function deleteTask(task) {
         tasks = tasks.filter((t) => t.id != task.id)
 
         return true
@@ -47,12 +55,19 @@
 
         return true
     }
+
+    onMount(async () => {
+        await loadTasks()
+        await loadMe()
+    })
 </script>
 
 <section>
-    <h1>Dashboard</h1>
+    <h1>Dashboard ({tasks.length})</h1>
 
-    <AddTaskForm {addTask} />
+    {#if current_user}
+        <AddTaskForm {addTask} default_group={current_user.default_group.id} current_user_id={current_user.user.id} />
+    {/if}
 
     {#if error}
         <p style="color: red">{error}</p>

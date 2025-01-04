@@ -24,3 +24,8 @@ export async function logout() {
     const url = env.backend_api + '/api/v1/users/logout'
     return request(url, 'POST', {})
 }
+
+export async function getMe() {
+    const url = env.backend_api + '/api/v1/users/me'
+    return request(url, 'GET')
+}

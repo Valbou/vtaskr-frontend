@@ -39,9 +39,10 @@
     }
 
     async function removeTask() {
-        let confirm = confirm(`Confirm delete task: ${task.title}`)
-        if (confirm) {
-            result = await deleteTasks(task.id)
+        let rm_confirm = confirm(`Confirm delete task: ${task.title}`)
+        if (rm_confirm) {
+            const result = await deleteTasks(task.id)
+            console.log(result)
             if (result.isOk) {
                 deleteTask(task)
             }
@@ -52,7 +53,7 @@
 <div class="task{isLate ? ' late' : ''}{isDone ? ' done' : ''}">
     <div class="tasktitle">
         <label>
-            <input type="checkbox" onchange={changeDoneState} {checked} />
+            <input type="checkbox" onchange={() => changeDoneState()} {checked} />
             <h4>{task.title}</h4>
         </label>
     </div>
@@ -79,7 +80,7 @@
             {/each}
         {/if}
         <button><Picto name="edit" /></button>
-        <button onclick={removeTask}><Picto name="delete" /></button>
+        <button onclick={() => removeTask()}><Picto name="delete" /></button>
     </div>
 </div>
 

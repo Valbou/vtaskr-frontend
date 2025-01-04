@@ -26,15 +26,16 @@ export async function request(
 
     try {
         const response = await fetch(url, requestData)
-        result = await response.json()
-
         responseObject.code = response.status
-        responseObject.error = null
         responseObject.isOk = response.ok
 
-        if (responseObject.isOk) {
+        responseObject.error = null
+
+        if (responseObject.isOk && responseObject.code != 204) {
+            result = await response.json()
             responseObject.data = result
         } else {
+            result = await response.json()
             responseObject.error = result.error
 
             if (responseObject.code == 401) {

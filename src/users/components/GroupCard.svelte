@@ -8,9 +8,9 @@
     let { group, deleteGroup, updateGroup } = $props()
 
     async function removeGroup() {
-        let confirm = confirm(`Confirm delete group: ${group.name}`)
-        if (confirm) {
-            result = await deleteGroups(group.id)
+        let rm_confirm = confirm(`Confirm delete group: ${group.name}`)
+        if (rm_confirm) {
+            const result = await deleteGroups(group.id)
             if (result.isOk) {
                 deleteGroup(group)
             }
@@ -24,6 +24,6 @@
 
     <Link class="button" to="/group/{group.id}">Go</Link>
     {#if !group.is_private || group.name != "Private"}
-        <button onclick={removeGroup}><Picto name="delete" /></button>
+        <button onclick={() => removeGroup()}><Picto name="delete" /></button>
     {/if}
 </div>

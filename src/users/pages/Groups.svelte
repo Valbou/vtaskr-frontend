@@ -24,21 +24,13 @@
         }
     }
 
-    onMount(async () => {
-        if (!isAuthenticated()) {
-            window.location.replace('/login')
-        }
-
-        await loadGroups()
-    })
-
     function addGroup(group) {
         groups.push(group)
 
         return true
     }
 
-    function deleteGroup(group, confirm=true) {
+    function deleteGroup(group) {
         groups = groups.filter((g) => g.id != group.id)
 
         return true
@@ -50,6 +42,14 @@
 
         return true
     }
+
+    onMount(async () => {
+        if (!isAuthenticated()) {
+            window.location.replace('/login')
+        }
+
+        await loadGroups()
+    })
 </script>
 
 <section id="groups">

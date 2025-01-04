@@ -5,9 +5,9 @@
     import SelectTenant from '@/lib/iam/SelectTenant.svelte'
     import Toast from '@/lib/components/Toast.svelte'
 
-    let { addTask } = $props()
+    let { addTask, default_group = '', members = [], current_user_id = '' } = $props()
 
-    let task = $state(new TaskDTO('', '', '', false, false, '', '', null))
+    let task = $state(new TaskDTO('', default_group, '', false, false, '', '', null, current_user_id))
 
     let validatedTask = $state(null)
     let taskState = $state(false)
@@ -129,12 +129,29 @@
         </div>
     {/if}
     <div class="subgroup">
-        <div class="subgroup">
-            {#if validatedTask && validatedTask.tenant_id}
-                <p class="error">{validatedTask.tenant_id}</p>
+        {#if validatedTask && validatedTask.tenant_id}
+            <p class="error">{validatedTask.tenant_id}</p>
+        {/if}
+        <label for="group" title="Task associated to this group">Group</label>
+        <SelectTenant bind:value={task.tenant_id} name="group" />
+    </div>
+    <div class="subgroup">
+        <label for="member" title="Assigned to member">Assigned to</label>
+        {#if members.lenght > 0}
+            {#if validatedTask && validatedTask.assigned_to}
+                <p class="error">{validatedTask.assigned_to}</p>
             {/if}
-            <SelectTenant bind:value={task.tenant_id} name="group" />
-        </div>
+            <select id="member">
+                {#each members as member}
+                    <option value={member.id}>{member.first_name} {member.last_name}</option>
+                {/each}
+            </select>
+        {:else}
+            <input type="hidden" id="member" bind:value={task.assigned_to} />
+            <input type="text" value="You" disabled />
+        {/if}
+    </div>
+    <div class="subgroup">
         <div>
             <button>Add</button>
         </div>

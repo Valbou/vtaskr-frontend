@@ -6,9 +6,6 @@
     <ul>
         <li><Link to="/dashboard">Dashboard</Link></li>
         <li><Link to="/groups">All Groups</Link></li>
-        <li>
-            <Link to="/">New Group</Link>
-        </li>
         <!-- Favorite Groups list - Membership -->
     </ul>
     <ul>

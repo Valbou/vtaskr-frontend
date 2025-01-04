@@ -109,9 +109,8 @@
                 <summary>
                     <h2>{ roles[0].group.name } Tasks</h2>
                 </summary>
+                <AddTaskForm {addTask} default_group={groupId} />
                 {#if tasks.length > 0}
-                    <AddTaskForm {addTask} />
-    
                     {#key tasks.length}
                         <LateTasks tasks={tasks} {deleteTask} {updateTask} />
                         <DayTasks tasks={tasks} {deleteTask} {updateTask} />

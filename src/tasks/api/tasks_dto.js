@@ -11,6 +11,7 @@ export class TaskDTO extends BaseDTO {
     scheduled_at
     duration
     done
+    assigned_to
 
     constructor(
         title,
@@ -21,6 +22,7 @@ export class TaskDTO extends BaseDTO {
         scheduled_at = null,
         duration = null,
         done = null,
+        assigned_to = null,
     ) {
         super()
         this.title = title
@@ -31,6 +33,7 @@ export class TaskDTO extends BaseDTO {
         this.scheduled_at = scheduled_at
         this.duration = duration
         this.done = done
+        this.assigned_to = assigned_to
     }
 
     getValidatedObject() {
@@ -52,7 +55,10 @@ export class TaskDTO extends BaseDTO {
             duration: checks([
                 min(timeToSeconds(this.duration), 60),
                 max(timeToSeconds(this.duration), 86_400, "Max is 24h duration (beyond it's not just a task)")
-            ])
+            ]),
+            assigned_to: checks([
+                required(this.assigned_to),
+            ]),
         }
     }
 }
