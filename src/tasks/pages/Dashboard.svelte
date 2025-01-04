@@ -63,7 +63,7 @@
 </script>
 
 <section>
-    <h1>Dashboard ({tasks.length})</h1>
+    <h1>Dashboard</h1>
 
     {#if current_user}
         <AddTaskForm {addTask} default_group={current_user.default_group.id} current_user_id={current_user.user.id} />

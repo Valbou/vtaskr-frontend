@@ -36,7 +36,7 @@
         <Route path="/group/:id" let:params>
             <BaseLayout {isAuth} content={group} {secondary} />
         </Route>
-        <Route path="/join-group/:hash" let:params>
+        <Route path="/join-group">
             <BaseLayout {isAuth} content={joinGroup} {secondary} />
         </Route>
     {:else}
