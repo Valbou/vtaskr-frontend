@@ -3,7 +3,6 @@
 
     import { createGroup } from '../../api/groups_api.js'
     import { GroupDTO } from '../../api/groups_dto.js'
-    import { updateToken } from '../../store/auth.js'
 
     import Toast from '../../../lib/components/Toast.svelte'
 
@@ -26,8 +25,6 @@
 
         if (groupState) {
             ;groupResult = await createGroup(group)
-
-            updateToken(groupResult.data.token)
 
             if (groupResult.data && groupResult.data.name == group.name) {
                 sendGroup(groupResult.data)
