@@ -1,7 +1,6 @@
 <script>
     import { mfa as mfaCall } from '../../api/users_api.js'
     import { MFADTO } from '../../api/users_dto.js'
-    import { updateToken } from '../../store/auth.js'
 
     import Toast from '../../../lib/components/Toast.svelte'
 
