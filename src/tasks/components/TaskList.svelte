@@ -7,7 +7,9 @@
 {#if tasks.length > 0}
     <ul>
         {#each tasks as task}
-            <li><Task {task} {deleteTask} {updateTask} /></li>
+            <li>
+                <Task {task} {deleteTask} {updateTask} />
+            </li>
         {/each}
     </ul>
 {:else}

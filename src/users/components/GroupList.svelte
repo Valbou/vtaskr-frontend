@@ -1,7 +1,7 @@
 <script>
     import GroupCard from './GroupCard.svelte'
 
-    let { groups, deleteGroup, updateGroup } = $props()
+    let { groups = [], deleteGroup, updateGroup } = $props()
 </script>
 
 {#if groups.length > 0}

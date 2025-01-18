@@ -62,7 +62,7 @@
         <Spinner />
     {:else}
         {#key groups.length}
-            <GroupList {groups} {deleteGroup} {updateGroup} />
+            <GroupList groups={groups} {deleteGroup} {updateGroup} />
         {/key}
     {/if}
 </section>

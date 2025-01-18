@@ -4,6 +4,8 @@
     import { getMe } from '../../users/api/users_api.js'
     import { getAllTasks } from '../api/tasks_api.js'
 
+    import { isAuthenticated } from '../../users/services/authService.js'
+
     import Spinner from '../../lib/components/Spinner.svelte'
 
     import AddTaskForm from '../components/forms/AddTaskForm.svelte'
@@ -57,6 +59,10 @@
     }
 
     onMount(async () => {
+        if (!isAuthenticated()) {
+            window.location.replace('/login')
+        }
+
         await loadTasks()
         await loadMe()
     })
