@@ -1,9 +1,9 @@
 <script>
     import { createEventDispatcher } from 'svelte'
 
-    import { cancelInvitation } from '@/users/api/invitations_api.js'
+    import { cancelInvitation } from '../api/invitations_api.js'
 
-    import Picto from '@/lib/components/Picto.svelte'
+    import Picto from '../../lib/components/Picto.svelte'
 
     const dispatch = createEventDispatcher()
 

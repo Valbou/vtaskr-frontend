@@ -2,8 +2,8 @@
     import { createTasks } from '../../api/tasks_api.js'
     import { TaskDTO } from '../../api/tasks_dto.js'
 
-    import SelectTenant from '@/lib/iam/SelectTenant.svelte'
-    import Toast from '@/lib/components/Toast.svelte'
+    import SelectTenant from '../../../lib/iam/SelectTenant.svelte'
+    import Toast from '../../../lib/components/Toast.svelte'
 
     let { addTask, default_group = '', members = [], current_user_id = '' } = $props()
 

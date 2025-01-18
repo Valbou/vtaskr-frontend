@@ -2,8 +2,8 @@
     import { Link } from 'svelte-routing'
     import { deleteGroups, updateGroups } from '../api/groups_api.js'
 
-    import Spinner from '@/lib/components/Spinner.svelte'
-    import Picto from '@/lib/components/Picto.svelte'
+    import Spinner from '../../lib/components/Spinner.svelte'
+    import Picto from '../../lib/components/Picto.svelte'
 
     let { group, deleteGroup, updateGroup } = $props()
 

@@ -16,7 +16,7 @@ test('Test min ok', () => {
 })
 
 test('Test min fail', () => {
-    expect(minLength(5, 15)).toStrictEqual([false, 'Min 15'])
+    expect(minLength(5, 15)).toStrictEqual([false, 'Min 15 characters'])
 })
 
 test('Test min length ok', () => {

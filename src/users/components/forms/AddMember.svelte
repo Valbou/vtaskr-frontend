@@ -3,8 +3,8 @@
     import { getGroupRoletypes } from '../../api/roletypes_api.js'
     import { InvitationDTO } from '../../api/invitations_dto.js'
 
-    import Spinner from '@/lib/components/Spinner.svelte'
-    import Toast from '@/lib/components/Toast.svelte'
+    import Spinner from '../../../lib/components/Spinner.svelte'
+    import Toast from '../../../lib/components/Toast.svelte'
 
     let { groupId, addRole } = $props()
 

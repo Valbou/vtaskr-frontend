@@ -1,6 +1,6 @@
-import { env } from '@/config/config.js'
-import { request } from '@/utils/api/request.js'
-import { getStartOfDay, getTomorrow } from '@/utils/time'
+import { env } from '../../config/config.js'
+import { request } from '../../utils/api/request.js'
+import { getStartOfDay, getTomorrow } from '../../utils/time'
 
 export async function getAllTasks() {
     const url = env.backend_api + '/api/v1/tasks'

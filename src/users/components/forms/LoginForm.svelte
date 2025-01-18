@@ -3,7 +3,7 @@
     import { LoginDTO } from '../../api/users_dto.js'
     import { updateToken } from '../../store/auth.js'
 
-    import Toast from '@/lib/components/Toast.svelte'
+    import Toast from '../../../lib/components/Toast.svelte'
 
     let user = $state(new LoginDTO('', ''))
 

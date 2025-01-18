@@ -1,7 +1,7 @@
 <script>
     import { onMount } from 'svelte'
 
-    import { getQueryString } from '@/utils/urls.js'
+    import { getQueryString } from '../../utils/urls.js'
 
     import LoginRequired from '../components/LoginRequired.svelte'
     import { acceptInvitation } from '../api/invitations_api.js'

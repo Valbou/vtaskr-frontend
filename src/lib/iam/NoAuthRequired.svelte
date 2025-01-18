@@ -1,5 +1,5 @@
 <script>
-    import NoLoginRequired from '@/users/components/NoLoginRequired.svelte'
+    import NoLoginRequired from '../../users/components/NoLoginRequired.svelte'
 </script>
 
 <NoLoginRequired />

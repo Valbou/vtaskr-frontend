@@ -1,6 +1,6 @@
 import { BaseDTO } from '../../utils/api/base_dto'
 import { checks, min, minLength, max, maxLength, required } from '../../utils/api/validators'
-import { timeToSeconds } from '@/utils/time'
+import { timeToSeconds } from '../../utils/time'
 
 export class TaskDTO extends BaseDTO {
     title

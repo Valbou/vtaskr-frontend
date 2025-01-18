@@ -1,8 +1,8 @@
 <script>
     import { deleteTasks, updateTasks } from '../api/tasks_api.js'
 
-    import Picto from '@/lib/components/Picto.svelte'
-    import Chips from '@/lib/components/Chips.svelte'
+    import Picto from '../../lib/components/Picto.svelte'
+    import Chips from '../../lib/components/Chips.svelte'
     import Tag from './Tag.svelte'
 
     let { task, deleteTask, updateTask } = $props()

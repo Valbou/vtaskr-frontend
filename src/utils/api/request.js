@@ -1,4 +1,4 @@
-import { updateAuthHeaders, completeAuthURL, cleanupSession } from '@/users/services/authService.js'
+import { updateAuthHeaders, completeAuthURL, cleanupSession } from '../../users/services/authService.js'
 
 export async function request(
     url,

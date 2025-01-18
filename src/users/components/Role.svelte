@@ -1,9 +1,9 @@
 <script>
     import { createEventDispatcher } from 'svelte'
 
-    import { deleteRole } from '@/users/api/roles_api.js'
+    import { deleteRole } from '../api/roles_api.js'
 
-    import Picto from '@/lib/components/Picto.svelte'
+    import Picto from '../../lib/components/Picto.svelte'
 
     const dispatch = createEventDispatcher()
 

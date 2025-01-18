@@ -1,13 +1,13 @@
 <script>
     import { onMount } from 'svelte'
 
-    import { isAuthenticated } from '@/users/services/authService.js'
+    import { isAuthenticated } from '../services/authService.js'
 
-    import { getAllGroups } from '@/users/api/groups_api.js'
+    import { getAllGroups } from '../api/groups_api.js'
 
     import AddGroupForm from '../components/forms/AddGroupForm.svelte'
     import GroupList from '../components/GroupList.svelte'
-    import Spinner from '@/lib/components/Spinner.svelte'
+    import Spinner from '../../lib/components/Spinner.svelte'
 
     let groups = $state([])
     let isLoading = $state(true)

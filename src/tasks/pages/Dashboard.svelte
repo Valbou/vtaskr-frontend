@@ -1,10 +1,10 @@
 <script>
     import { onMount } from 'svelte'
 
-    import { getMe } from '@/users/api/users_api.js'
+    import { getMe } from '../../users/api/users_api.js'
     import { getAllTasks } from '../api/tasks_api.js'
 
-    import Spinner from '@/lib/components/Spinner.svelte'
+    import Spinner from '../../lib/components/Spinner.svelte'
 
     import AddTaskForm from '../components/forms/AddTaskForm.svelte'
     import LateTasks from '../components/LateTasks.svelte'

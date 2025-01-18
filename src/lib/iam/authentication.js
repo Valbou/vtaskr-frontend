@@ -1,4 +1,4 @@
-import { isAuthenticated, getAllUserGroups } from '@/users/services/authService.js'
+import { isAuthenticated, getAllUserGroups } from '../../users/services/authService.js'
 
 export function isUserAuthenticated() {
     return isAuthenticated()

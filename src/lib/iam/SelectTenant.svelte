@@ -1,7 +1,7 @@
 <script>
-    import { getAllUserTenants } from '@/lib/iam/authentication.js'
+    import { getAllUserTenants } from './authentication.js'
 
-    import Spinner from '@/lib/components/Spinner.svelte'
+    import Spinner from '../../lib/components/Spinner.svelte'
 
     let { value = $bindable(), name } = $props()
 

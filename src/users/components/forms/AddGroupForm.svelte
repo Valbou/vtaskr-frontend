@@ -5,7 +5,7 @@
     import { GroupDTO } from '../../api/groups_dto.js'
     import { updateToken } from '../../store/auth.js'
 
-    import Toast from '@/lib/components/Toast.svelte'
+    import Toast from '../../../lib/components/Toast.svelte'
 
     const dispatch = createEventDispatcher()
 

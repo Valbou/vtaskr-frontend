@@ -1,5 +1,5 @@
 <script>
-    import { getStartOfDay, getTomorrow, getYesterday } from '@/utils/time'
+    import { getStartOfDay, getTomorrow, getYesterday } from '../../utils/time'
 
     import TaskList from '../components/TaskList.svelte'
 

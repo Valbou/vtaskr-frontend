@@ -1,6 +1,6 @@
 <script>
     import { Link } from 'svelte-routing'
-    import { isUserAuthenticated } from '@/lib/iam/authentication.js'
+    import { isUserAuthenticated } from '../../lib/iam/authentication.js'
 </script>
 
 <nav>

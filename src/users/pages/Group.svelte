@@ -1,25 +1,25 @@
 <script>
     import { onMount } from 'svelte'
 
-    import { getLastPathId } from '@/utils/urls.js'
+    import { getLastPathId } from '../../utils/urls.js'
 
-    import { isAuthenticated } from '@/users/services/authService.js'
-    import { getTenantTasks } from '@/tasks/api/tasks_api.js'
+    import { isAuthenticated } from '../services/authService.js'
+    import { getTenantTasks } from '../../tasks/api/tasks_api.js'
 
-    import { getGroupMembers } from '@/users/api/groups_api.js'
-    import { getWaitingInvitations } from '@/users/api/invitations_api.js'
+    import { getGroupMembers } from '../api/groups_api.js'
+    import { getWaitingInvitations } from '../api/invitations_api.js'
 
-    import AddTaskForm from '@/tasks/components/forms/AddTaskForm.svelte'
-    import LateTasks from '@/tasks/components/LateTasks.svelte'
-    import DayTasks from '@/tasks/components/DayTasks.svelte'
-    import NotScheduledTasks from '@/tasks/components/NotScheduledTasks.svelte'
+    import AddTaskForm from '../../tasks/components/forms/AddTaskForm.svelte'
+    import LateTasks from '../../tasks/components/LateTasks.svelte'
+    import DayTasks from '../../tasks/components/DayTasks.svelte'
+    import NotScheduledTasks from '../../tasks/components/NotScheduledTasks.svelte'
 
-    import Spinner from '@/lib/components/Spinner.svelte'
-    import TaskList from '@/tasks/components/TaskList.svelte'
+    import Spinner from '../../lib/components/Spinner.svelte'
+    import TaskList from '../../tasks/components/TaskList.svelte'
 
-    import AddMember from '@/users/components/forms/AddMember.svelte'
-    import InvitationsList from '@/users/components/InvitationsList.svelte'
-    import RolesList from '@/users/components/RolesList.svelte'
+    import AddMember from '../components/forms/AddMember.svelte'
+    import InvitationsList from '../components/InvitationsList.svelte'
+    import RolesList from '../components/RolesList.svelte'
 
     let groupId = $state(getLastPathId())
     let isLoading = $state(true)

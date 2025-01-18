@@ -1,9 +1,9 @@
 <script>
     import { register } from '../../api/users_api.js'
     import { UserDTO } from '../../api/users_dto.js'
-    import { delay } from '@/utils/time.js'
+    import { delay } from '../../../utils/time.js'
 
-    import Toast from '@/lib/components/Toast.svelte'
+    import Toast from '../../../lib/components/Toast.svelte'
 
     let user = $state(new UserDTO('', '', '', ''))
     let password2 = $state('')
