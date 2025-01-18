@@ -5,9 +5,9 @@
 
     let { day = new Date(), tasks, deleteTask, updateTask } = $props()
 
-    let today = $state(day)
-    let start = $derived(getStartOfDay(today))
-    let end = $derived(getStartOfDay(getTomorrow(today)))
+    let today = $state(getStartOfDay(day))
+    let start = $derived(today)
+    let end = $derived(getTomorrow(today))
 
     // Keep only tasks scheduled at the given day (today by default)
     let todayTasks = $derived(reFilterTasks())
@@ -21,11 +21,11 @@
     }
 
     function goTomorrow() {
-        today = getStartOfDay(getTomorrow(today))
+        today = getTomorrow(today)
     }
 
     function goYesterday() {
-        today = getStartOfDay(getYesterday(today))
+        today = getYesterday(today)
     }
 </script>
 

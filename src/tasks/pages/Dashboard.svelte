@@ -11,6 +11,8 @@
     import AddTaskForm from '../components/forms/AddTaskForm.svelte'
     import LateTasks from '../components/LateTasks.svelte'
     import DayTasks from '../components/DayTasks.svelte'
+    import WeekTasks from '../components/WeekTasks.svelte'
+    import MonthTasks from '../components/MonthTasks.svelte'
     import NotScheduledTasks from '../components/NotScheduledTasks.svelte'
 
     let tasks = $state([])
@@ -19,6 +21,8 @@
     let error = $state(null)
 
     async function loadTasks() {
+        // TODO: limit to 1 month before today and 3 month after
+        // Send reload function to extend dates if sublist view need it
         let resTasks = await getAllTasks()
 
         if (resTasks.isOk) {
@@ -58,6 +62,28 @@
         return true
     }
 
+    let daily = $state(true)
+    let weekly = $state(false)
+    let monthly = $state(false)
+
+    function setDailyView() {
+        daily = true
+        weekly = false
+        monthly = false
+    }
+
+    function setWeeklyView() {
+        daily = false
+        weekly = true
+        monthly = false
+    }
+
+    function setMonthlyView() {
+        daily = false
+        weekly = false
+        monthly = true
+    }
+
     onMount(async () => {
         if (!isAuthenticated()) {
             window.location.replace('/login')
@@ -82,8 +108,43 @@
     {:else}
         {#key tasks.length}
             <LateTasks tasks={tasks} {deleteTask} {updateTask} />
-            <DayTasks tasks={tasks} {deleteTask} {updateTask} />
+
+            <ul class="tab">
+                <li onclick={() => setDailyView()} class="{daily ? "selected" : ""}">Daily</li>
+                <li onclick={() => setWeeklyView()} class="{weekly ? "selected" : ""}">Weekly</li>
+                <li onclick={() => setMonthlyView()} class="{monthly ? "selected" : ""}">Monthly</li>
+            </ul>
+
+            {#if daily}
+                <DayTasks tasks={tasks} {deleteTask} {updateTask} />
+            {:else if weekly}
+                <WeekTasks tasks={tasks} {deleteTask} {updateTask} />
+            {:else}
+                <MonthTasks tasks={tasks} {deleteTask} {updateTask} />
+            {/if}
+
             <NotScheduledTasks tasks={tasks} {deleteTask} {updateTask} />
         {/key}
     {/if}
 </section>
+
+<style>
+    ul.tab {
+        list-style: none;
+        display: flex;
+        flex-flow: row nowrap;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .tab li {
+        padding: 8px 20px;
+        border: 1px solid var(--lb);
+        border-radius: 10px;
+        cursor: pointer;
+    }
+
+    .tab li.selected {
+        opacity: 0.5;
+    }
+</style>

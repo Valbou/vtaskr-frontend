@@ -53,7 +53,7 @@ export class TaskDTO extends BaseDTO {
                 maxLength(this.description, 500)
             ]),
             duration: checks([
-                min(timeToSeconds(this.duration), 1),
+                min(timeToSeconds(this.duration), 60),
                 max(timeToSeconds(this.duration), 86_400, "Max is 24h duration (beyond it's not just a task)")
             ]),
             assigned_to: checks([
