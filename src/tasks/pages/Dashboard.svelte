@@ -47,7 +47,7 @@
     <h1>Dashboard</h1>
 
     {#if currentUserData}
-        <AddTaskForm {addTask} defaultGroupId={currentUserData.default_group.id} currentUserData_id={currentUserData.user.id} />
+        <AddTaskForm {addTask} defaultGroupId={currentUserData.default_group.id} members={[currentUserData.user]} currentUserId={currentUserData.user.id} />
     {/if}
 
     {#if error}
