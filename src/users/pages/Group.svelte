@@ -4,15 +4,13 @@
     import { getLastPathId } from '../../utils/urls.js'
 
     import { isAuthenticated } from '../services/authService.js'
-    import { getTenantTasks } from '../../tasks/api/tasks_api.js'
 
     import { getGroupMembers } from '../api/groups_api.js'
     import { getWaitingInvitations } from '../api/invitations_api.js'
 
-    import AddTaskForm from '../../tasks/components/forms/AddTaskForm.svelte'
-    import LateTasks from '../../tasks/components/LateTasks.svelte'
-    import DayTasks from '../../tasks/components/DayTasks.svelte'
-    import NotScheduledTasks from '../../tasks/components/NotScheduledTasks.svelte'
+    import AddTaskForm from '/src/tasks/components/forms/AddTaskForm.svelte'
+    import ScheduledTasks from '/src/tasks/components/ScheduledTasks.svelte'
+    import NotScheduledTasks from '/src/tasks/components/NotScheduledTasks.svelte'
 
     import Spinner from '../../lib/components/Spinner.svelte'
     import TaskList from '../../tasks/components/TaskList.svelte'
@@ -26,6 +24,7 @@
     let roles = $state([])
     let invitations = $state([])
     let tasks = $state([])
+    let newTasks = $state(0)
 
     let error = $state(null)
 
@@ -35,17 +34,15 @@
         }
 
         let groupRoles = await getGroupMembers(groupId)
-        let allTasks = await getTenantTasks(groupId)
         let invitationsWaiting = await getWaitingInvitations(groupId)
 
-        if (groupRoles.isOk && invitationsWaiting.isOk && allTasks.isOk) {
+        if (groupRoles.isOk && invitationsWaiting.isOk) {
             roles = [...groupRoles.data]
             invitations = [...invitationsWaiting.data]
-            tasks = [...allTasks.data]
 
             isLoading = false
         } else {
-            error = `${groupRoles.error} ${invitationsWaiting.error} ${allTasks.error}`
+            error = `${groupRoles.error} ${invitationsWaiting.error}`
         }
     })
 
@@ -62,21 +59,8 @@
         roles[index] = role
     }
 
-    function addTask(task) {
-        tasks.push(task)
-
-        return true
-    }
-
-    function deleteTask(task, confirm=true) {
-        tasks = tasks.filter((t) => t.id != task.id)
-
-        return true
-    }
-
-    function updateTask(task) {
-        let index = tasks.map((e) => e.id).indexOf(task.id);
-        tasks[index] = task
+    function addTask() {
+        newTasks += 1
 
         return true
     }
@@ -110,15 +94,11 @@
                     <h2>{ roles[0].group.name } Tasks</h2>
                 </summary>
                 <AddTaskForm {addTask} default_group={groupId} />
-                {#if tasks.length > 0}
-                    {#key tasks.length}
-                        <LateTasks tasks={tasks} {deleteTask} {updateTask} />
-                        <DayTasks tasks={tasks} {deleteTask} {updateTask} />
-                        <NotScheduledTasks tasks={tasks} {deleteTask} {updateTask} />
-                    {/key}
-                {:else}
-                    <p>Actually there is no tasks for this group</p>
-                {/if}
+
+                {#key newTasks}
+                    <ScheduledTasks group={roles[0].group} />
+                    <NotScheduledTasks group={roles[0].group} />
+                {/key}
             </details>
         {/key}
     {/if}

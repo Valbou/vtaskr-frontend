@@ -2,7 +2,7 @@
     import { onMount } from 'svelte'
 
     import { getStartOfDay, getTomorrow } from '../../utils/time'
-    import { getNotScheduledTasks } from '../api/tasks_api.js'
+    import { getUserNotScheduledTasks, getGroupNotScheduledTasks } from '../api/tasks_api.js'
 
     import TaskList from './TaskList.svelte'
 
@@ -22,7 +22,13 @@
     )
 
     async function loadTasks() {
-        let resTasks = await getNotScheduledTasks(user.id)
+        let resTasks = null
+
+        if (user) {
+            resTasks = await getUserNotScheduledTasks(user.id)
+        } else if (group) {
+            resTasks = await getGroupNotScheduledTasks(group.id)
+        }
 
         if (resTasks.isOk) {
             tasks = [...resTasks.data]

@@ -2,14 +2,14 @@
     import { onMount } from 'svelte'
 
     import { getStartOfDay, getTomorrow, getDistantDayMonth } from '../../utils/time'
-    import { getAllUserTasksInPeriod } from '../api/tasks_api.js'
+    import { getUserScheduledTasks, getGroupScheduledTasks } from '../api/tasks_api.js'
 
     import LateTasks from './LateTasks.svelte'
     import DayTasks from './DayTasks.svelte'
     import WeekTasks from './WeekTasks.svelte'
     import MonthTasks from './MonthTasks.svelte'
 
-    let { user } = $props()
+    let { user = null, group = null } = $props()
 
     let tasks = $state([])
     let isLoading = $state(true)
@@ -23,7 +23,13 @@
     )
 
     async function loadTasks() {
-        let resTasks = await getAllUserTasksInPeriod(startDate, endDate, user.id)
+        let resTasks = null
+
+        if (user) {
+            resTasks = await getUserScheduledTasks(startDate, endDate, user.id)
+        } else if (group) {
+            resTasks = await getGroupScheduledTasks(startDate, endDate, group.id)
+        }
 
         if (resTasks.isOk) {
             tasks = [...resTasks.data]

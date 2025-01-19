@@ -1,18 +1,12 @@
 import { env } from '../../config/config.js'
 import { request, makeQueryString } from '../../utils/api/request.js'
-import { getStartOfDay, getTomorrow } from '../../utils/time'
 
-export async function getAllTasks() {
-    const url = env.backend_api + '/api/v1/tasks'
-    return request(url, 'GET')
-}
-
-export async function getAllUserTasksInPeriod(startDate, endDate, userId = null) {
+export async function getUserScheduledTasks(startDate, endDate, userId = null) {
     const qsArgs = [
         `scheduled_at_gte=${startDate.toISOString()}`,
         `scheduled_at_lt=${endDate.toISOString()}`,
         `orderby=scheduled_at`,
-        userId ? `assigned_to__eq=${userId}` : '',
+        userId ? `assigned_to_eq=${userId}` : '',
     ]
 
     const querystring = makeQueryString(qsArgs)
@@ -20,14 +14,12 @@ export async function getAllUserTasksInPeriod(startDate, endDate, userId = null)
     return request(url, 'GET')
 }
 
-export async function getOneDayTasks(day) {
-    let start = getStartOfDay(day)
-    let end = getTomorrow(start)
-
+export async function getGroupScheduledTasks(startDate, endDate, groupId = null) {
     const qsArgs = [
-        `scheduled_at_gte=${start.toISOString()}`,
-        `scheduled_at_lt=${end.toISOString()}`,
+        `scheduled_at_gte=${startDate.toISOString()}`,
+        `scheduled_at_lt=${endDate.toISOString()}`,
         `orderby=scheduled_at`,
+        groupId ? `tenant_id_eq=${groupId}` : '',
     ]
 
     const querystring = makeQueryString(qsArgs)
@@ -35,11 +27,11 @@ export async function getOneDayTasks(day) {
     return request(url, 'GET')
 }
 
-export async function getNotScheduledTasks(userId = null) {
+export async function getUserNotScheduledTasks(userId = null) {
     const qsArgs = [
         `scheduled_at_eq=null`,
         `orderby=created_at`,
-        userId ? `assigned_to__eq=${userId}` : '',
+        userId ? `assigned_to_eq=${userId}` : '',
     ]
 
     const querystring = makeQueryString(qsArgs)
@@ -47,15 +39,15 @@ export async function getNotScheduledTasks(userId = null) {
     return request(url, 'GET')
 }
 
-export async function getLateTasks() {
-    let today = new Date()
+export async function getGroupNotScheduledTasks(groupId = null) {
+    const qsArgs = [
+        `scheduled_at_eq=null`,
+        `orderby=created_at`,
+        groupId ? `tenant_id_eq=${groupId}` : '',
+    ]
 
-    const url = `${env.backend_api}/api/v1/tasks?scheduled_at_lt=${today.toISOString()}&done_eq=null`
-    return request(url, 'GET')
-}
-
-export async function getTenantTasks(tenantId) {
-    const url = env.backend_api + '/api/v1/tasks?tenant_id_eq=' + tenantId
+    const querystring = makeQueryString(qsArgs)
+    const url = `${env.backend_api}/api/v1/tasks${querystring}`
     return request(url, 'GET')
 }
 
