@@ -56,3 +56,10 @@ export async function request(
         resolve(responseObject)
     })
 }
+
+
+export function makeQueryString(args){
+    const qs = args.filter(a => a.indexOf('=') > 0).join("&")
+
+    return qs ? `?${qs}` : ''
+}

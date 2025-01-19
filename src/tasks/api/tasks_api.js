@@ -1,5 +1,5 @@
 import { env } from '../../config/config.js'
-import { request } from '../../utils/api/request.js'
+import { request, makeQueryString } from '../../utils/api/request.js'
 import { getStartOfDay, getTomorrow } from '../../utils/time'
 
 export async function getAllTasks() {
@@ -7,16 +7,43 @@ export async function getAllTasks() {
     return request(url, 'GET')
 }
 
+export async function getAllUserTasksInPeriod(startDate, endDate, userId = null) {
+    const qsArgs = [
+        `scheduled_at_gte=${startDate.toISOString()}`,
+        `scheduled_at_lt=${endDate.toISOString()}`,
+        `orderby=scheduled_at`,
+        userId ? `assigned_to__eq=${userId}` : '',
+    ]
+
+    const querystring = makeQueryString(qsArgs)
+    const url = `${env.backend_api}/api/v1/tasks${querystring}`
+    return request(url, 'GET')
+}
+
 export async function getOneDayTasks(day) {
     let start = getStartOfDay(day)
     let end = getTomorrow(start)
 
-    const url = `${env.backend_api}/api/v1/tasks?scheduled_at_gte=${start.toISOString()}&scheduled_at_lt=${end.toISOString()}&orderby=scheduled_at`
+    const qsArgs = [
+        `scheduled_at_gte=${start.toISOString()}`,
+        `scheduled_at_lt=${end.toISOString()}`,
+        `orderby=scheduled_at`,
+    ]
+
+    const querystring = makeQueryString(qsArgs)
+    const url = `${env.backend_api}/api/v1/tasks${querystring}`
     return request(url, 'GET')
 }
 
-export async function getNotScheduledTasks() {
-    const url = `${env.backend_api}/api/v1/tasks?scheduled_at_eq=null&orderby=created_at`
+export async function getNotScheduledTasks(userId = null) {
+    const qsArgs = [
+        `scheduled_at_eq=null`,
+        `orderby=created_at`,
+        userId ? `assigned_to__eq=${userId}` : '',
+    ]
+
+    const querystring = makeQueryString(qsArgs)
+    const url = `${env.backend_api}/api/v1/tasks${querystring}`
     return request(url, 'GET')
 }
 

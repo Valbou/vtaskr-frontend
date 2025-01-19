@@ -1,20 +1,53 @@
 <script>
+    import { onMount } from 'svelte'
+
     import { getStartOfDay, getTomorrow } from '../../utils/time'
+    import { getNotScheduledTasks } from '../api/tasks_api.js'
 
     import TaskList from './TaskList.svelte'
 
-    let { tasks, deleteTask, updateTask } = $props()
+    let { user } = $props()
 
-    let today = new Date()
-    let start = getStartOfDay(today)
-    let end = getTomorrow(start)
+    let tasks = $state([])
+    let isLoading = $state(true)
+    let error = $state(null)
 
-    // Keep only tasks not done and scheduled in the past
-    let notScheduledTasks = tasks.filter((t) => {
+    let start = getStartOfDay(new Date())
+
+    // Keep only tasks not done or done before today
+    let notScheduledTasks = $derived(tasks.filter((t) => {
             let taskDone = !!t.done ? new Date(t.done) : null
-            return !t.scheduled_at && (!t.done || (start <= taskDone && taskDone < end))
-        }
+            return !t.done || start <= taskDone
+        })
     )
+
+    async function loadTasks() {
+        let resTasks = await getNotScheduledTasks(user.id)
+
+        if (resTasks.isOk) {
+            tasks = [...resTasks.data]
+            isLoading = false
+        } else {
+            error = resTasks.error
+        }
+    }
+
+    function deleteTask(task) {
+        tasks = tasks.filter((t) => t.id != task.id)
+
+        return true
+    }
+
+    function updateTask(task) {
+        let index = tasks.map((e) => e.id).indexOf(task.id);
+        tasks[index] = task
+
+        return true
+    }
+
+    onMount(async () => {
+        await loadTasks()
+    })
 </script>
 
 {#if notScheduledTasks && notScheduledTasks.length > 0}

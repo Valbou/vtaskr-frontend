@@ -1,34 +1,33 @@
 <script>
     import { getStartOfDay, getStartOfWeek, getPreviousStartOfWeek, getNextStartOfWeek } from '../../utils/time'
+    import { filterTasksByDate } from '../utils/tasks.js'
 
     import TaskList from './TaskList.svelte'
 
-    let { day = new Date(), tasks, deleteTask, updateTask } = $props()
+    let { tasks, startPeriodDay, setDates, deleteTask, updateTask } = $props()
 
-    let today = $state(getStartOfDay(day))
-    let start = $derived(getStartOfWeek(today))
-    let end = $derived(getNextStartOfWeek(today))
+    let start = $derived(getStartOfWeek(startPeriodDay))
+    let end = $derived(getNextStartOfWeek(start))
 
-    // Keep only tasks scheduled at the given day (today by default)
-    let todayTasks = $derived(reFilterTasks())
+    let periodTasks = $derived(filterTasksByDate(tasks, start, end))
 
-    function reFilterTasks() {
-        return tasks.filter((t) => {
-                let taskDate = new Date(t.scheduled_at)
-                return start <= taskDate && taskDate < end
-            }
-        )
+    async function goNextWeek() {
+        let newStart = getNextStartOfWeek(start)
+        let newEnd = getNextStartOfWeek(end)
+        await setDates(newStart, newEnd)
     }
 
-    function goNextWeek() {
-        today = getNextStartOfWeek(today)
-    }
-
-    function goPreviousWeek() {
-        today = getPreviousStartOfWeek(today)
+    async function goPreviousWeek() {
+        let newStart = getPreviousStartOfWeek(start)
+        let newEnd = getPreviousStartOfWeek(end)
+        await setDates(newStart, newEnd)
     }
 </script>
 
 <h2 title="from {start.toLocaleDateString()} {start.toLocaleTimeString()} to {end.toLocaleDateString()} {end.toLocaleTimeString()}">Week {start.toLocaleDateString()} - {end.toLocaleDateString()}</h2>
-<div><button onclick={(e) => goPreviousWeek(e)}>Prev</button> <button onclick={(e) => goNextWeek(e)}>Next</button></div>
-<TaskList tasks={todayTasks} {deleteTask} {updateTask} />
+<div>
+    <button onclick={(e) => goPreviousWeek(e)}>Prev</button>
+    <button onclick={(e) => goNextWeek(e)}>Next</button>
+</div>
+
+<TaskList tasks={periodTasks} {deleteTask} {updateTask} />
