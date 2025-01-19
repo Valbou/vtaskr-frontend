@@ -13,7 +13,7 @@
     import NotScheduledTasks from '../components/NotScheduledTasks.svelte'
 
     let newTasks = $state(0)
-    let current_user = $state(null)
+    let currentUserData = $state(null)
     let isLoading = $state(true)
     let error = $state(null)
 
@@ -21,7 +21,7 @@
         let resMe = await getMe()
 
         if (resMe.isOk) {
-            current_user = {...resMe.data}
+            currentUserData = {...resMe.data}
             isLoading = false
         } else {
             error = resMe.error
@@ -46,8 +46,8 @@
 <section>
     <h1>Dashboard</h1>
 
-    {#if current_user}
-        <AddTaskForm {addTask} default_group={current_user.default_group.id} current_user_id={current_user.user.id} />
+    {#if currentUserData}
+        <AddTaskForm {addTask} defaultGroupId={currentUserData.default_group.id} currentUserData_id={currentUserData.user.id} />
     {/if}
 
     {#if error}
@@ -56,8 +56,8 @@
         <Spinner />
     {:else}
         {#key newTasks}
-            <ScheduledTasks user={current_user.user} />
-            <NotScheduledTasks user={current_user.user} />
+            <ScheduledTasks user={currentUserData.user} />
+            <NotScheduledTasks user={currentUserData.user} />
         {/key}
     {/if}
 </section>

@@ -5,6 +5,7 @@
 
     import { isAuthenticated } from '../services/authService.js'
 
+    import { getMe } from '../../users/api/users_api.js'
     import { getGroupMembers } from '../api/groups_api.js'
     import { getWaitingInvitations } from '../api/invitations_api.js'
 
@@ -19,32 +20,16 @@
     import InvitationsList from '../components/InvitationsList.svelte'
     import RolesList from '../components/RolesList.svelte'
 
+    let currentUserData = $state(null)
     let groupId = $state(getLastPathId())
     let isLoading = $state(true)
     let roles = $state([])
     let invitations = $state([])
     let tasks = $state([])
     let newTasks = $state(0)
+    let members = $derived(roles.map((r) => r.user))
 
     let error = $state(null)
-
-    onMount(async () => {
-        if (!isAuthenticated()) {
-            window.location.replace('/login')
-        }
-
-        let groupRoles = await getGroupMembers(groupId)
-        let invitationsWaiting = await getWaitingInvitations(groupId)
-
-        if (groupRoles.isOk && invitationsWaiting.isOk) {
-            roles = [...groupRoles.data]
-            invitations = [...invitationsWaiting.data]
-
-            isLoading = false
-        } else {
-            error = `${groupRoles.error} ${invitationsWaiting.error}`
-        }
-    })
 
     function addRole(role) {
         roles.push(role)
@@ -64,6 +49,35 @@
 
         return true
     }
+
+    async function loadMe() {
+        let resMe = await getMe()
+
+        if (resMe.isOk) {
+            currentUserData = {...resMe.data}
+        } else {
+            error = resMe.error
+        }
+    }
+
+    onMount(async () => {
+        if (!isAuthenticated()) {
+            window.location.replace('/login')
+        }
+
+        await loadMe()
+        let groupRoles = await getGroupMembers(groupId)
+        let invitationsWaiting = await getWaitingInvitations(groupId)
+
+        if (groupRoles.isOk && invitationsWaiting.isOk) {
+            roles = [...groupRoles.data]
+            invitations = [...invitationsWaiting.data]
+
+            isLoading = false
+        } else {
+            error = `${groupRoles.error} ${invitationsWaiting.error}`
+        }
+    })
 </script>
 
 <section id="groupPage">
@@ -93,7 +107,10 @@
                 <summary>
                     <h2>{ roles[0].group.name } Tasks</h2>
                 </summary>
-                <AddTaskForm {addTask} default_group={groupId} />
+
+                {#if currentUserData}
+                    <AddTaskForm {addTask} defaultGroupId={groupId} members={members} currentUserId={currentUserData.user.id} />
+                {/if}
 
                 {#key newTasks}
                     <ScheduledTasks group={roles[0].group} />

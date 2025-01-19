@@ -5,9 +5,9 @@
     import SelectTenant from '../../../lib/iam/SelectTenant.svelte'
     import Toast from '../../../lib/components/Toast.svelte'
 
-    let { addTask, default_group = '', members = [], current_user_id = '' } = $props()
+    let { addTask, defaultGroupId = '', members = [], currentUserId = '' } = $props()
 
-    let task = $state(new TaskDTO('', default_group, '', false, false, '', '', null, current_user_id))
+    let task = $state(new TaskDTO('', defaultGroupId, '', false, false, '', '', null, currentUserId))
 
     let validatedTask = $state(null)
     let taskState = $state(false)
@@ -137,11 +137,11 @@
     </div>
     <div class="subgroup">
         <label for="member" title="Assigned to member">Assigned to</label>
-        {#if members.lenght > 0}
+        {#if members.length > 0}
             {#if validatedTask && validatedTask.assigned_to}
                 <p class="error">{validatedTask.assigned_to}</p>
             {/if}
-            <select id="member">
+            <select id="member" bind:value={task.assigned_to}>
                 {#each members as member}
                     <option value={member.id}>{member.first_name} {member.last_name}</option>
                 {/each}

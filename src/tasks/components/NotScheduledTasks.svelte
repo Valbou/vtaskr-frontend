@@ -6,7 +6,7 @@
 
     import TaskList from './TaskList.svelte'
 
-    let { user } = $props()
+    let { user = null, group = null } = $props()
 
     let tasks = $state([])
     let isLoading = $state(true)
