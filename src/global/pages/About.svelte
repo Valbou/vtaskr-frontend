@@ -1,14 +1,22 @@
+<script>
+    import Trans from "../../i18n/components/Trans.svelte"
+    import { getText } from "../../i18n/services/translation.js"
+</script>
+
 <section class="about">
-    <h1>About</h1>
-    <p>vTaskr is a task manager created and hosted by <a href="https://www.valbou.fr/" title="Valbou Website" rel="external" target="_blank">Valbou</a></p>
-    <p>You want to help us, we need you to:</p>
+    <h1><Trans textKey="global:about" /></h1>
+    <p>
+        <Trans textKey="global:about:hosting" /> <a href="https://www.valbou.fr/?from=vtaskr" title="Valbou" rel="external" target="_blank">Valbou</a>
+    </p>
+    <p><Trans textKey="global:about:you_want_help_us" /></p>
     <ul>
-        <li>Define the ROADMAP</li>
-        <li>Translate</li>
-        <li>Develop features</li>
-        <li>Design UI</li>
-        <li>Make vTaskr even more ergonomic</li>
-        <li>...</li>
+        <li><Trans textKey="global:about:define_roadmap" /></li>
+        <li><Trans textKey="global:about:translate" /></li>
+        <li><Trans textKey="global:about:develop" /></li>
+        <li><Trans textKey="global:about:design" /></li>
+        <li><Trans textKey="global:about:ergonomy" /></li>
+        <li><Trans textKey="global:about:documentation" /></li>
+        <li><Trans textKey="global:about:etc" /></li>
     </ul>
-    <p>Join us on github <a href="https://github.com/Valbou/vtaskr-backend" title="Link to Github vTaskr" target="_blank" rel="external">backend</a> and <a href="https://github.com/Valbou/vtaskr-frontend" title="Link to Github vTaskr" target="_blank" rel="external">frontend</a></p>
+    <p><Trans textKey="global:about:join_us" /> <a href="https://github.com/Valbou/vtaskr-backend" title={getText('global:about:title_github')} target="_blank" rel="external"><Trans textKey="global:about:backend" /></a> <Trans textKey="global:about:and" /> <a href="https://github.com/Valbou/vtaskr-frontend" title="Link to Github vTaskr" target="_blank" rel="external"><Trans textKey="global:about:frontend" /></a></p>
 </section>
