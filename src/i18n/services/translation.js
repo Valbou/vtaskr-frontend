@@ -9,12 +9,15 @@ export function getTranslation(lang, key) {
         if (TRAD[lang][key] !== undefined) {
             return TRAD[lang][key]
         }
-    }
-    else if (TRAD["en"][key] !== undefined) {
-        return TRAD["en"][key]
+        else if (TRAD["en"][key] !== undefined) {
+            return TRAD["en"][key]
+        }
+        else {
+            return `${lang}_${key}`
+        }
     }
     else {
-        return `${lang}_${key}`
+        getTranslation("en", key)
     }
 }
 
