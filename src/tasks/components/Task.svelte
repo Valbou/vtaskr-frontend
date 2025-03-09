@@ -1,6 +1,8 @@
 <script>
     import { deleteTasks, updateTasks } from '../api/tasks_api.js'
+    import { getText } from "../../i18n/services/translation.js"
 
+    import Trans from "../../i18n/components/Trans.svelte"
     import Picto from '../../lib/components/Picto.svelte'
     import Chips from '../../lib/components/Chips.svelte'
     import Tag from './Tag.svelte'
@@ -10,19 +12,19 @@
     let eisenhower = $derived.by(() => {
         return task.emergency
             ? task.important
-                ? 'Do it'
-                : 'Delegate it'
+                ? getText('tasks:eisenhower:do_it')
+                : getText('tasks:eisenhower:delegate_it')
             : task.important
-            ? 'Schedule it'
-            : 'Delete it'
+            ? getText('tasks:eisenhower:schedule_it')
+            : getText('tasks:eisenhower:delete_it')
     })
 
     let isDone = $derived(!!task.done)
     let isLate = $derived(task.scheduled_at ? (new Date(task.scheduled_at)) < (new Date()) : false)
     let checked = $derived(isDone ? "checked" : "")
 
-    const important = 'Important'
-    const emergency = 'Emergency'
+    const important = getText('tasks:important')
+    const emergency = getText('tasks:emergency')
 
     async function changeDoneState() {
         task.done = !task.done
@@ -76,7 +78,7 @@
     <div class="actions">
         {#if task.groups}
             {#each task.groups as group}
-                <span><Picto name="groups" /> group</span>
+                <span><Picto name="groups" /> <Trans textKey="tasks:group" /></span>
             {/each}
         {/if}
         <button><Picto name="edit" /></button>

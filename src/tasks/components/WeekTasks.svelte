@@ -1,7 +1,9 @@
 <script>
     import { getStartOfDay, getStartOfWeek, getPreviousStartOfWeek, getNextStartOfWeek } from '../../utils/time'
     import { filterTasksByDate } from '../utils/tasks.js'
+    import { getText } from "../../i18n/services/translation.js"
 
+    import Trans from "../../i18n/components/Trans.svelte"
     import TaskList from './TaskList.svelte'
 
     let { tasks, startPeriodDay, setDates, deleteTask, updateTask } = $props()
@@ -24,10 +26,10 @@
     }
 </script>
 
-<h2 title="from {start.toLocaleDateString()} {start.toLocaleTimeString()} to {end.toLocaleDateString()} {end.toLocaleTimeString()}">Week {start.toLocaleDateString()} - {end.toLocaleDateString()}</h2>
+<h2 title="{getText("tasks:from_date")} {start.toLocaleDateString()} {start.toLocaleTimeString()} {getText("tasks:to_date")} {end.toLocaleDateString()} {end.toLocaleTimeString()}"><Trans textKey="tasks:week" /> {start.toLocaleDateString()} - {end.toLocaleDateString()}</h2>
 <div>
-    <button onclick={(e) => goPreviousWeek(e)}>Prev</button>
-    <button onclick={(e) => goNextWeek(e)}>Next</button>
+    <button onclick={(e) => goPreviousWeek(e)}><Trans textKey="tasks:prev" /></button>
+    <button onclick={(e) => goNextWeek(e)}><Trans textKey="tasks:next" /></button>
 </div>
 
 <TaskList tasks={periodTasks} {deleteTask} {updateTask} />

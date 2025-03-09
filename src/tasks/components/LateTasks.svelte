@@ -1,5 +1,6 @@
 <script>
     import TaskList from './TaskList.svelte'
+    import Trans from "../../i18n/components/Trans.svelte"
 
     let { tasks, deleteTask, updateTask } = $props()
 
@@ -14,6 +15,6 @@
 </script>
 
 {#if lateTasks && lateTasks.length > 0}
-    <h2>Late Tasks</h2>
+    <h2><Trans textKey="tasks:late" /></h2>
     <TaskList tasks={lateTasks} {deleteTask} {updateTask} />
 {/if}

@@ -1,6 +1,7 @@
 import { BaseDTO } from '../../utils/api/base_dto'
 import { checks, min, minLength, max, maxLength, required } from '../../utils/api/validators'
 import { timeToSeconds } from '../../utils/time'
+import { getText } from "../../i18n/services/translation.js"
 
 export class TaskDTO extends BaseDTO {
     title
@@ -54,7 +55,7 @@ export class TaskDTO extends BaseDTO {
             ]),
             duration: checks([
                 min(timeToSeconds(this.duration), 60),
-                max(timeToSeconds(this.duration), 86_400, "Max is 24h duration (beyond it's not just a task)")
+                max(timeToSeconds(this.duration), 86_400, getText("tasks:dto:error:duration"))
             ]),
             assigned_to: checks([
                 required(this.assigned_to),

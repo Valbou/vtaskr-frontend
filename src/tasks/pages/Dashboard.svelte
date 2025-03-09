@@ -6,6 +6,7 @@
 
     import { isAuthenticated } from '../../users/services/authService.js'
 
+    import Trans from "../../i18n/components/Trans.svelte"
     import Spinner from '../../lib/components/Spinner.svelte'
 
     import AddTaskForm from '../components/forms/AddTaskForm.svelte'
@@ -44,7 +45,7 @@
 </script>
 
 <section>
-    <h1>Dashboard</h1>
+    <h1><Trans textKey="global:dashboard" /></h1>
 
     {#if currentUserData}
         <AddTaskForm {addTask} defaultGroupId={currentUserData.default_group.id} members={[currentUserData.user]} currentUserId={currentUserData.user.id} />

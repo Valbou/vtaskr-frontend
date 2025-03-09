@@ -1,5 +1,6 @@
 <script>
     import Task from './Task.svelte'
+    import Trans from "../../i18n/components/Trans.svelte"
 
     let { tasks = [], deleteTask, updateTask } = $props()
 </script>
@@ -13,7 +14,10 @@
         {/each}
     </ul>
 {:else}
-    <p>Actually no tasks are waiting to be done.<br />Good job ! You could take a break.</p>
+    <p>
+        <Trans textKey="tasks:all_done_1" /><br />
+        <Trans textKey="tasks:all_done_2" />
+    </p>
 {/if}
 
 <style>

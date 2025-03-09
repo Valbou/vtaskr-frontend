@@ -1,7 +1,9 @@
 <script>
     import { createTasks } from '../../api/tasks_api.js'
     import { TaskDTO } from '../../api/tasks_dto.js'
+    import { getText } from "../../../i18n/services/translation.js"
 
+    import Trans from "../../../i18n/components/Trans.svelte"
     import SelectTenant from '../../../lib/iam/SelectTenant.svelte'
     import Toast from '../../../lib/components/Toast.svelte'
 
@@ -63,7 +65,7 @@
             type="text"
             id="title"
             name="title"
-            placeholder="Task title - What to do ?"
+            placeholder="{getText("tasks:forms:placeholder:task_title")}"
             bind:value={task.title}
             tabindex="0"
         />
@@ -71,11 +73,11 @@
     <div class="subgroup eisenhower">
         <div class="subgroup">
             <input type="checkbox" id="importanttask" bind:checked={task.important} />
-            <label for="importanttask">Important</label>
+            <label for="importanttask"><Trans textKey="tasks:important" /></label>
         </div>
         <div class="subgroup">
             <input type="checkbox" id="emergencytask" bind:checked={task.emergency} />
-            <label for="emergencytask">Emergency</label>
+            <label for="emergencytask"><Trans textKey="tasks:emergency" /></label>
         </div>
     </div>
     <div class="subgroup">
@@ -86,10 +88,10 @@
                 onclick={extendForm}
                 role="button"
                 aria-expanded="true"
-                title="Reduce form size to add task quickly"
+                title={getText("tasks:forms:less_button")}
                 tabindex="0"
             >
-                less
+                <Trans textKey="tasks:forms:less" />
             </span>
         {:else}
             <!-- svelte-ignore a11y_click_events_have_key_events -->
@@ -97,10 +99,10 @@
                 onclick={extendForm}
                 role="button"
                 aria-expanded="false"
-                title="Increase fields number to complete task"
+                title={getText("tasks:forms:more_button")}
                 tabindex="0"
             >
-                more
+                <Trans textKey="tasks:forms:more" />
             </span>
         {/if}
         <hr />
@@ -110,21 +112,21 @@
             {#if validatedTask && validatedTask.description}
                 <p class="error">{validatedTask.description}</p>
             {/if}
-            <label for="description">Description</label>
+            <label for="description"><Trans textKey="tasks:forms:task_description" /></label>
             <textarea cols="30" rows="5" id="description" bind:value={task.description}></textarea>
         </div>
         <div class="subgroup">
             {#if validatedTask && validatedTask.scheduled_at}
                 <p class="error">{validatedTask.scheduled_at}</p>
             {/if}
-            <label for="scheduledtask">Schedule Start</label>
+            <label for="scheduledtask"><Trans textKey="tasks:forms:task_schedule_start" /></label>
             <input type="datetime-local" id="scheduledtask" bind:value={task.scheduled_at} />
         </div>
         <div class="subgroup">
             {#if validatedTask && validatedTask.duration}
                 <p class="error">{validatedTask.duration}</p>
             {/if}
-            <label for="durationtask" title="Duration max 24h">Duration</label>
+            <label for="durationtask" title="Duration max 24h"><Trans textKey="tasks:forms:task_duration" /></label>
             <input type="time" id="durationtask" bind:value={task.duration} />
         </div>
     {/if}
@@ -132,11 +134,11 @@
         {#if validatedTask && validatedTask.tenant_id}
             <p class="error">{validatedTask.tenant_id}</p>
         {/if}
-        <label for="group" title="Task associated to this group">Group</label>
+        <label for="group" title="Task associated to this group"><Trans textKey="tasks:forms:task_group" /></label>
         <SelectTenant bind:value={task.tenant_id} name="group" />
     </div>
     <div class="subgroup">
-        <label for="member" title="Assigned to member">Assigned to</label>
+        <label for="member" title="Assigned to member"><Trans textKey="tasks:forms:task_assigned_to" /></label>
         {#if members.length > 0}
             {#if validatedTask && validatedTask.assigned_to}
                 <p class="error">{validatedTask.assigned_to}</p>
@@ -153,7 +155,7 @@
     </div>
     <div class="subgroup">
         <div>
-            <button>Add</button>
+            <button><Trans textKey="tasks:forms:add" /></button>
         </div>
     </div>
 </form>

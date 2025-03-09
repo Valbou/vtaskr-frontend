@@ -4,6 +4,7 @@
     import { getStartOfDay, getTomorrow } from '../../utils/time'
     import { getUserNotScheduledTasks, getGroupNotScheduledTasks } from '../api/tasks_api.js'
 
+    import Trans from "../../i18n/components/Trans.svelte"
     import TaskList from './TaskList.svelte'
 
     let { user = null, group = null } = $props()
@@ -57,6 +58,6 @@
 </script>
 
 {#if notScheduledTasks && notScheduledTasks.length > 0}
-    <h2>Not Scheduled</h2>
+    <h2><Trans textKey="tasks:not_scheduled" /></h2>
     <TaskList tasks={notScheduledTasks} {deleteTask} {updateTask} />
 {/if}

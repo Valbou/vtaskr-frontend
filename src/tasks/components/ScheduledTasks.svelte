@@ -4,6 +4,7 @@
     import { getStartOfDay, getTomorrow, getDistantDayMonth } from '../../utils/time'
     import { getUserScheduledTasks, getGroupScheduledTasks } from '../api/tasks_api.js'
 
+    import Trans from "../../i18n/components/Trans.svelte"
     import LateTasks from './LateTasks.svelte'
     import DayTasks from './DayTasks.svelte'
     import WeekTasks from './WeekTasks.svelte'
@@ -99,9 +100,9 @@
             <LateTasks tasks={tasks} {deleteTask} {updateTask} />
 
             <ul class="tab">
-                <li onclick={() => setDailyView()} class="{daily ? "selected" : ""}">Daily</li>
-                <li onclick={() => setWeeklyView()} class="{weekly ? "selected" : ""}">Weekly</li>
-                <li onclick={() => setMonthlyView()} class="{monthly ? "selected" : ""}">Monthly</li>
+                <li onclick={() => setDailyView()} class="{daily ? "selected" : ""}"><Trans textKey="tasks:daily" /></li>
+                <li onclick={() => setWeeklyView()} class="{weekly ? "selected" : ""}"><Trans textKey="tasks:weekly" /></li>
+                <li onclick={() => setMonthlyView()} class="{monthly ? "selected" : ""}"><Trans textKey="tasks:monthly" /></li>
             </ul>
 
             {#if daily}

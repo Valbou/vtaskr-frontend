@@ -1,7 +1,9 @@
 <script>
     import { getStartOfDay, getTomorrow, getYesterday } from '../../utils/time'
     import { filterTasksByDate } from '../utils/tasks.js'
+    import { getText } from "../../i18n/services/translation.js"
 
+    import Trans from "../../i18n/components/Trans.svelte"
     import TaskList from '../components/TaskList.svelte'
 
     let { tasks, startPeriodDay, setDates, deleteTask, updateTask } = $props()
@@ -24,10 +26,10 @@
     }
 </script>
 
-<h2 title="from {start.toLocaleDateString()} {start.toLocaleTimeString()} to {end.toLocaleDateString()} {end.toLocaleTimeString()}">{start.toLocaleDateString()}</h2>
+<h2 title="{getText("tasks:from_date")} {start.toLocaleDateString()} {start.toLocaleTimeString()} {getText("tasks:to_date")} {end.toLocaleDateString()} {end.toLocaleTimeString()}">{start.toLocaleDateString()}</h2>
 <div>
-    <button onclick={(e) => goYesterday(e)}>Prev</button>
-    <button onclick={(e) => goTomorrow(e)}>Next</button>
+    <button onclick={(e) => goYesterday(e)}><Trans textKey="tasks:prev" /></button>
+    <button onclick={(e) => goTomorrow(e)}><Trans textKey="tasks:next" /></button>
 </div>
 
 <TaskList tasks={periodTasks} {deleteTask} {updateTask} />

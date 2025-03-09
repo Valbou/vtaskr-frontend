@@ -1,7 +1,9 @@
 <script>
     import { getStartOfMonth, getNextStartOfMonth, getPreviousStartOfMonth } from '../../utils/time'
     import { filterTasksByDate } from '../utils/tasks.js'
+    import { getText } from "../../i18n/services/translation.js"
 
+    import Trans from "../../i18n/components/Trans.svelte"
     import TaskList from '../components/TaskList.svelte'
 
     let { tasks, startPeriodDay, setDates, deleteTask, updateTask } = $props()
@@ -24,10 +26,10 @@
     }
 </script>
 
-<h2 title="from {start.toLocaleDateString()} {start.toLocaleTimeString()} to {end.toLocaleDateString()} {end.toLocaleTimeString()}">{start.toLocaleDateString().slice(3)}</h2>
+<h2 title="{getText("tasks:from_date")} {start.toLocaleDateString()} {start.toLocaleTimeString()} {getText("tasks:to_date")} {end.toLocaleDateString()} {end.toLocaleTimeString()}">{start.toLocaleDateString().slice(3)}</h2>
 <div>
-    <button onclick={(e) => prevMonth(e)}>Prev</button>
-    <button onclick={(e) => nextMonth(e)}>Next</button>
+    <button onclick={(e) => prevMonth(e)}><Trans textKey="tasks:prev" /></button>
+    <button onclick={(e) => nextMonth(e)}><Trans textKey="tasks:next" /></button>
 </div>
 
 {#key periodTasks.length }
