@@ -87,6 +87,19 @@
     let weekly = $state(false)
     let monthly = $state(false)
 
+    async function setTodayView() {
+        daily = true
+        weekly = false
+        monthly = false
+
+        let today = new Date()
+        startPeriodDay = getStartOfDay(today)
+        startDate = getStartOfDay(today)
+        endDate = getTomorrow(startPeriodDay)
+
+        await setDates(startDate, endDate)
+    }
+
     function setDailyView() {
         daily = true
         weekly = false
@@ -108,10 +121,10 @@
     onMount(async () => {
         let today = new Date()
         startPeriodDay = getStartOfDay(today)
-        startDate = getDistantDayMonth(startPeriodDay, -1)
-        endDate = getDistantDayMonth(startPeriodDay, 1)
+        startDate = getStartOfDay(today)
+        endDate = getTomorrow(startPeriodDay)
 
-        await loadTasks()
+        await setDates(startDate, endDate)
         await loadLateTasks()
     })
 </script>
@@ -124,6 +137,7 @@
             {/key}
 
             <ul class="tab">
+                <li onclick={() => setTodayView()}><Trans textKey="tasks:today" /></li>
                 <li onclick={() => setDailyView()} class="{daily ? "selected" : ""}"><Trans textKey="tasks:daily" /></li>
                 <li onclick={() => setWeeklyView()} class="{weekly ? "selected" : ""}"><Trans textKey="tasks:weekly" /></li>
                 <li onclick={() => setMonthlyView()} class="{monthly ? "selected" : ""}"><Trans textKey="tasks:monthly" /></li>

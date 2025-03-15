@@ -52,6 +52,7 @@ export const FR_TRAD = {
     "tasks:all_done_2": "Félicitations ! Vous pourriez faire une pause.",
 
     "tasks:group": "groupe",
+    "tasks:today": "Aujourd'hui",
     "tasks:daily": "Quotidien",
     "tasks:weekly": "Hebdomadaire",
     "tasks:monthly": "Mensuel",

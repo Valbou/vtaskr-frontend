@@ -51,6 +51,7 @@ export const EN_TRAD = {
     "tasks:all_done_1": "Actually no tasks are waiting to be done.",
     "tasks:all_done_2": "Good job ! You could take a break.",
     "tasks:group": "group",
+    "tasks:today": "Today",
     "tasks:daily": "Daily",
     "tasks:weekly": "Weekly",
     "tasks:monthly": "Monthly",
