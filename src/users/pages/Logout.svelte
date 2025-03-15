@@ -4,6 +4,7 @@
     import { resetToken } from '../store/auth.js'
     import { cleanupSession } from '../services/authService.js'
 
+    import Trans from "../../i18n/components/Trans.svelte"
     import LoginRequired from '../components/LoginRequired.svelte'
 
     onMount(async () => {
@@ -14,4 +15,4 @@
 
 <LoginRequired />
 
-<h1>See you soon !</h1>
+<h1><Trans textKey="users:logout" /></h1>

@@ -3,6 +3,7 @@
     import { getGroupRoletypes } from '../../api/roletypes_api.js'
     import { InvitationDTO } from '../../api/invitations_dto.js'
 
+    import Trans from "../../../i18n/components/Trans.svelte"
     import Spinner from '../../../lib/components/Spinner.svelte'
     import Toast from '../../../lib/components/Toast.svelte'
 
@@ -38,7 +39,7 @@
 {#snippet message(inviteResult)}
     {#if inviteResult.isOk}
         <p>
-            Invitation to join group sent to {inviteResult.data.to_user_email}.
+            <Trans textKey="users:forms:add_member:success" vars={inviteResult.data} />
         </p>
     {:else if inviteResult && !inviteResult.isOk}
         <p>
@@ -67,7 +68,7 @@
             {:then roletypes}
                 {#if roletypes.isOk}
                     <select id="roletype" name="with_roletype_id" bind:value={invitation.with_roletype_id}>
-                        <option value="" disabled>-- Role --</option>
+                        <option value="" disabled><Trans textKey="users:forms:add_membre:option_title" /></option>
                         {#each roletypes.data as roletype}
                             {#if roletype.group_id == groupId || roletype.group_id == null}
                                 <option value={roletype.id}>{roletype.name}</option>
@@ -80,7 +81,7 @@
             {/await}
         </div>
 
-        <button>Invite</button>
+        <button><Trans textKey="users:forms:add_membre:invite" /></button>
     </div>
 </form>
 

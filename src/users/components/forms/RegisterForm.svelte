@@ -3,6 +3,7 @@
     import { UserDTO } from '../../api/users_dto.js'
     import { delay } from '../../../utils/time.js'
 
+    import Trans from "../../../i18n/components/Trans.svelte"
     import Toast from '../../../lib/components/Toast.svelte'
 
     let user = $state(new UserDTO('', '', '', ''))
@@ -30,8 +31,7 @@
 {#snippet message(registerResult)}
     {#if registerResult.isOk}
         <p>
-            Welcome {registerResult.first_name} !<br />
-            Go <a href="/login" title="Go to login page">login</a> and enjoy !
+            <Trans textKey="users:register:success" />
         </p>
     {:else if registerResult && !registerResult.isOk}
         <p>
@@ -46,41 +46,41 @@
 
 <form class="form register" method="post" onsubmit={(e) => handleSubmit(e)}>
     <div>
-        <label for="email">Email (User)</label>
+        <label for="email"><Trans textKey="users:register:email" /></label>
         {#if validatedUser && validatedUser.email}
             <p class="error">{validatedUser.email}</p>
         {/if}
         <input type="email" id="email" name="email" bind:value={user.email} />
     </div>
     <div>
-        <label for="first_name">First name</label>
+        <label for="first_name"><Trans textKey="users:register:first_name" /></label>
         {#if validatedUser && validatedUser.first_name}
             <p class="error">{validatedUser.first_name}</p>
         {/if}
         <input type="text" id="first_name" name="first_name" bind:value={user.first_name} />
     </div>
     <div>
-        <label for="last_name">Last Name</label>
+        <label for="last_name"><Trans textKey="users:register:last_name" /></label>
         {#if validatedUser && validatedUser.last_name}
             <p class="error">{validatedUser.last_name}</p>
         {/if}
         <input type="text" id="last_name" name="last_name" bind:value={user.last_name} />
     </div>
     <div>
-        <label for="pass">Password</label>
+        <label for="pass"><Trans textKey="users:register:password" /></label>
         {#if validatedUser && validatedUser.password}
             <p class="error">{validatedUser.password}</p>
         {/if}
         <input type="password" id="pass" name="pass" bind:value={user.password} />
     </div>
     <div>
-        <label for="pass2">Password (repeat)</label>
+        <label for="pass2"><Trans textKey="users:register:password_bis" /></label>
         {#if validatedUser && validatedUser.password2}
             <p class="error">{validatedUser.password2}</p>
         {/if}
         <input type="password" id="pass2" name="pass2" bind:value={password2} />
     </div>
     <div>
-        <button>Register</button>
+        <button><Trans textKey="users:register:register" /></button>
     </div>
 </form>

@@ -9,6 +9,8 @@
     import { getGroupMembers } from '../api/groups_api.js'
     import { getWaitingInvitations } from '../api/invitations_api.js'
 
+    import Trans from "../../i18n/components/Trans.svelte"
+
     import AddTaskForm from '/src/tasks/components/forms/AddTaskForm.svelte'
     import ScheduledTasks from '/src/tasks/components/ScheduledTasks.svelte'
     import NotScheduledTasks from '/src/tasks/components/NotScheduledTasks.svelte'
@@ -92,11 +94,11 @@
 
             <details class="members">
                 <summary>
-                    <h2>Members ({ roles.length })</h2>
+                    <h2><Trans textKey="users:groups:members:title" /> ({ roles.length })</h2>
                 </summary>
                 <RolesList roles={roles} {updateRole} {deleteRole} />
 
-                <h2>Invitations</h2>
+                <h2><Trans textKey="users:groups:invitations:title" /></h2>
                 {#key invitations.length}
                     <InvitationsList invitations={invitations} />
                 {/key}
@@ -105,7 +107,7 @@
 
             <details class="tasks" open>
                 <summary>
-                    <h2>{ roles[0].group.name } Tasks</h2>
+                    <h2><Trans textKey="users:groups:tasks:title" vars={roles[0].group} /></h2>
                 </summary>
 
                 {#if currentUserData}

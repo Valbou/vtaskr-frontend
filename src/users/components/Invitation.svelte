@@ -3,6 +3,7 @@
 
     import { cancelInvitation } from '../api/invitations_api.js'
 
+    import Trans from "../../i18n/components/Trans.svelte"
     import Picto from '../../lib/components/Picto.svelte'
 
     const dispatch = createEventDispatcher()
@@ -25,7 +26,7 @@
 </script>
 
 <p>
-    { invitation.to_user_email } waiting for acceptation as { invitation.with_roletype.name }
+    { invitation.to_user_email } <Trans textKey="users:invitation:waiting_acceptation" /> { invitation.with_roletype.name }
     <button on:click={deleteInvitation} title="Cancel invitation">
         <Picto name="delete" />
     </button>

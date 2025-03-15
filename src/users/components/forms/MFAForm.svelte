@@ -2,6 +2,7 @@
     import { mfa as mfaCall } from '../../api/users_api.js'
     import { MFADTO } from '../../api/users_dto.js'
 
+    import Trans from "../../../i18n/components/Trans.svelte"
     import Toast from '../../../lib/components/Toast.svelte'
 
     const MAX_ATTEMPT = 3
@@ -40,7 +41,7 @@
     {#if mfaResult && !mfaResult.isOk}
         <p>
             {mfaResult.error}<br />
-            Attempt {attempts} / {MAX_ATTEMPT}
+            <Trans textKey="users:mfa:error" /> {attempts} / {MAX_ATTEMPT}
         </p>
     {/if}
 {/snippet}
@@ -51,13 +52,13 @@
 
 <form class="form mfa" method="post" onsubmit={(e) => handleSubmit(e)}>
     <div>
-        <label for="code">Code</label>
+        <label for="code"><Trans textKey="users:mfa:code" /></label>
         {#if validatedUser && validatedUser.code_2FA}
             <p class="error">{validatedUser.code_2FA}</p>
         {/if}
         <input type="text" id="code" name="code" bind:value={mfa.code_2FA} />
     </div>
     <div>
-        <button>Send</button>
+        <button><Trans textKey="users:mfa:send" /></button>
     </div>
 </form>

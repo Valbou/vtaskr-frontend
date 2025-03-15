@@ -1,7 +1,7 @@
 <script>
     import { getText } from "../services/translation.js"
 
-    let { textKey } = $props()
+    let { textKey, vars = {} } = $props()
 </script>
 
-{ getText(textKey) }
+{@html getText(textKey, vars) }

@@ -4,6 +4,7 @@
     import { createGroup } from '../../api/groups_api.js'
     import { GroupDTO } from '../../api/groups_dto.js'
 
+    import Trans from "../../../i18n/components/Trans.svelte"
     import Toast from '../../../lib/components/Toast.svelte'
 
     const dispatch = createEventDispatcher()
@@ -42,7 +43,7 @@
 {#snippet message(groupResult)}
     {#if groupResult.isOk}
         <p>
-            Group {groupResult.data.name} created.
+            <Trans textKey="users:forms:add_group:title" vars={groupResult.data} />
         </p>
     {:else if groupResult && !groupResult.isOk}
         <p>
@@ -56,16 +57,16 @@
 {/if}
 
 <form class="form newgroup" method="post" action="#" onsubmit={(e) => handleSubmit(e)}>
-    <h1>Add a New Group</h1>
+    <h1><Trans textKey="users:forms:add_group:title" /></h1>
     <div>
-        <label for="name">Name</label>
+        <label for="name"><Trans textKey="users:forms:add_group:name" /></label>
         {#if validatedGroup && validatedGroup.name}
             <p class="error">{validatedGroup.name}</p>
         {/if}
         <input type="text" id="name" name="name" bind:value={group.name} />
     </div>
     <div>
-        <label for="description">Description</label>
+        <label for="description"><Trans textKey="users:forms:add_group:description" /></label>
         {#if validatedGroup && validatedGroup.description}
             <p class="error">{validatedGroup.description}</p>
         {/if}
@@ -74,11 +75,11 @@
     <div>
         <div class="subgroup">
             <input type="checkbox" id="is_private" bind:checked={group.is_private} defaultChecked={true} />
-            <label for="is_private">Private</label>
+            <label for="is_private"><Trans textKey="users:forms:add_group:private" /></label>
         </div>
     </div>
     <div>
-        <button>Create</button>
+        <button><Trans textKey="users:forms:add_group:create" /></button>
     </div>
 </form>
 

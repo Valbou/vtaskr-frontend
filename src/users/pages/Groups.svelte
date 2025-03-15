@@ -5,9 +5,11 @@
 
     import { getAllGroups } from '../api/groups_api.js'
 
+    import Trans from "../../i18n/components/Trans.svelte"
+    import Spinner from '../../lib/components/Spinner.svelte'
+
     import AddGroupForm from '../components/forms/AddGroupForm.svelte'
     import GroupList from '../components/GroupList.svelte'
-    import Spinner from '../../lib/components/Spinner.svelte'
 
     let groups = $state([])
     let isLoading = $state(true)
@@ -55,7 +57,7 @@
 <section id="groups">
     <AddGroupForm {addGroup} />
 
-    <h1>All groups you are a member of</h1>
+    <h1><Trans textKey="users:groups:title" /></h1>
     {#if error}
         <p style="color: red">{error}</p>
     {:else if isLoading}
