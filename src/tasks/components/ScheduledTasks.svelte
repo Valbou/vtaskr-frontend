@@ -2,7 +2,7 @@
     import { onMount } from 'svelte'
 
     import { getStartOfDay, getTomorrow, getDistantDayMonth } from '../../utils/time'
-    import { getUserScheduledTasks, getGroupScheduledTasks } from '../api/tasks_api.js'
+    import { getUserScheduledTasks, getGroupScheduledTasks, getUserLateTasks, getGroupLateTasks } from '../api/tasks_api.js'
 
     import Trans from "../../i18n/components/Trans.svelte"
     import LateTasks from './LateTasks.svelte'
@@ -13,6 +13,7 @@
     let { user = null, group = null } = $props()
 
     let tasks = $state([])
+    let lateTasks = $state([])
     let isLoading = $state(true)
     let error = $state(null)
 
@@ -34,6 +35,26 @@
 
         if (resTasks.isOk) {
             tasks = [...resTasks.data]
+            isLoading = false
+        } else {
+            error = resTasks.error
+        }
+    }
+
+    async function loadLateTasks() {
+        let resTasks = null
+
+        let now = new Date()
+        let lastYear = getDistantDayMonth(now, -12)
+
+        if (user) {
+            resTasks = await getUserLateTasks(lastYear, now, user.id)
+        } else if (group) {
+            resTasks = await getGroupLateTasks(lastYear, now, group.id)
+        }
+
+        if (resTasks.isOk) {
+            lateTasks = [...resTasks.data]
             isLoading = false
         } else {
             error = resTasks.error
@@ -91,13 +112,16 @@
         endDate = getDistantDayMonth(startPeriodDay, 1)
 
         await loadTasks()
+        await loadLateTasks()
     })
 </script>
 
 {#if startDate != null && endDate != null}
     {#key keyPeriod}
         <div>
-            <LateTasks tasks={tasks} {deleteTask} {updateTask} />
+            {#key lateTasks.length}
+                <LateTasks tasks={lateTasks} {deleteTask} {updateTask} />
+            {/key}
 
             <ul class="tab">
                 <li onclick={() => setDailyView()} class="{daily ? "selected" : ""}"><Trans textKey="tasks:daily" /></li>

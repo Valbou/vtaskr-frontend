@@ -51,6 +51,34 @@ export async function getGroupNotScheduledTasks(groupId = null) {
     return request(url, 'GET')
 }
 
+export async function getUserLateTasks(startDate, endDate, userId = null) {
+    const qsArgs = [
+        `scheduled_at_gte=${startDate.toISOString()}`,
+        `scheduled_at_lt=${endDate.toISOString()}`,
+        `orderby=scheduled_at`,
+        `done__isnull=true`,
+        userId ? `assigned_to_eq=${userId}` : '',
+    ]
+
+    const querystring = makeQueryString(qsArgs)
+    const url = `${env.backend_api}/api/v1/tasks${querystring}`
+    return request(url, 'GET')
+}
+
+export async function getGroupLateTasks(startDate, endDate, groupId = null) {
+    const qsArgs = [
+        `scheduled_at_gte=${startDate.toISOString()}`,
+        `scheduled_at_lt=${endDate.toISOString()}`,
+        `orderby=scheduled_at`,
+        `done__isnull=true`,
+        groupId ? `tenant_id_eq=${groupId}` : '',
+    ]
+
+    const querystring = makeQueryString(qsArgs)
+    const url = `${env.backend_api}/api/v1/tasks${querystring}`
+    return request(url, 'GET')
+}
+
 export async function createTasks(task) {
     const url = env.backend_api + '/api/v1/tasks'
     return request(url, 'POST', task)
