@@ -15,8 +15,8 @@
                 ? getText('tasks:eisenhower:do_it')
                 : getText('tasks:eisenhower:delegate_it')
             : task.important
-            ? getText('tasks:eisenhower:schedule_it')
-            : getText('tasks:eisenhower:delete_it')
+                ? getText('tasks:eisenhower:schedule_it')
+                : getText('tasks:eisenhower:delete_it')
     })
 
     let isDone = $derived(!!task.done)
@@ -57,6 +57,9 @@
         <label>
             <input type="checkbox" onchange={() => changeDoneState()} {checked} />
             <h4>{task.title}</h4>
+            {#if task.description}
+                <span class="taskdescription" title={task.description}><Picto name="comment" /></span>
+            {/if}
         </label>
     </div>
     <div>
@@ -88,7 +91,7 @@
 
 <style>
     h4 {
-        margin: 10px 0px;
+        margin: 10px;
     }
 
     .task {
