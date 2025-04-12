@@ -1,7 +1,7 @@
 <script>
     import { onMount } from 'svelte'
 
-    import { getStartOfDay, getTomorrow, getDistantDayMonth } from '../../utils/time'
+    import { getStartOfDay, getTomorrow, getNextStartOfWeek, getNextStartOfMonth, getDistantDayMonth } from '../../utils/time'
     import { getUserScheduledTasks, getGroupScheduledTasks, getUserLateTasks, getGroupLateTasks } from '../api/tasks_api.js'
 
     import Trans from "../../i18n/components/Trans.svelte"
@@ -20,6 +20,10 @@
     let startPeriodDay = $state(null)
     let startDate = $state(null)
     let endDate = $state(null)
+    let daily = $state(true)
+    let weekly = $state(false)
+    let monthly = $state(false)
+
     let keyPeriod = $derived(
         startDate && endDate ? `${startDate.toLocaleTimeString()}|${endDate.toLocaleTimeString()}` : ''
     )
@@ -83,10 +87,6 @@
         return true
     }
 
-    let daily = $state(true)
-    let weekly = $state(false)
-    let monthly = $state(false)
-
     async function setTodayView() {
         daily = true
         weekly = false
@@ -100,22 +100,34 @@
         await setDates(startDate, endDate)
     }
 
-    function setDailyView() {
+    async function setDailyView() {
         daily = true
         weekly = false
         monthly = false
+
+        endDate = getTomorrow(startPeriodDay)
+
+        await setDates(startPeriodDay, endDate)
     }
 
-    function setWeeklyView() {
+    async function setWeeklyView() {
         daily = false
         weekly = true
         monthly = false
+
+        endDate = getNextStartOfWeek(startPeriodDay)
+
+        await setDates(startPeriodDay, endDate)
     }
 
-    function setMonthlyView() {
+    async function setMonthlyView() {
         daily = false
         weekly = false
         monthly = true
+
+        endDate = getNextStartOfMonth(startPeriodDay)
+
+        await setDates(startPeriodDay, endDate)
     }
 
     onMount(async () => {

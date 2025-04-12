@@ -32,6 +32,4 @@
     <button onclick={(e) => nextMonth(e)}><Trans textKey="tasks:next" /></button>
 </div>
 
-{#key periodTasks.length }
-    <TaskList tasks={periodTasks} {deleteTask} {updateTask} />
-{/key}
+<TaskList tasks={periodTasks} {deleteTask} {updateTask} />
