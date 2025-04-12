@@ -94,6 +94,10 @@
         margin: 10px;
     }
 
+    .actions span {
+        cursor: pointer;
+    }
+
     .task {
         border: 1px dashed var(--db);
         padding: 5px 20px;
@@ -137,10 +141,6 @@
         right: 5px;
     }
 
-    .actions span {
-        cursor: pointer;
-    }
-
     .task button {
         background-color: transparent;
         padding: 2px 10px;
@@ -150,4 +150,9 @@
         background-color: transparent;
         color: var(--lb);
     }
+
+    .task .taskdescription {
+        cursor: help;
+    }
+
 </style>
