@@ -5,7 +5,7 @@
 
     import { isAuthenticated } from '../../../domain/users/service.js'
 
-    import { getMe } from '../../domain/users/api/users_api.js_api.js'
+    import { getMe } from '../../../domain/users/api/users_api.js'
     import { getGroupMembers } from '../../../domain/users/api/groups_api.js'
     import { getWaitingInvitations } from '../../../domain/users/api/invitations_api.js'
 

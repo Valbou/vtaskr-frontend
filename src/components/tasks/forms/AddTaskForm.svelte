@@ -5,7 +5,7 @@
 
     import Trans from "../../../libs/i18n/components/Trans.svelte"
     import SelectTenant from '../../auth/SelectTenant.svelte'
-    import Toast from '../../components/generics/Toast.svelte'
+    import Toast from '../../../components/generics/Toast.svelte'
 
     let { addTask, defaultGroupId = '', members = [], currentUserId = '' } = $props()
 

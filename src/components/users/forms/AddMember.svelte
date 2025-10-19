@@ -4,8 +4,8 @@
     import { InvitationDTO } from '../../../domain/users/dto/invitations_dto.js'
 
     import Trans from "../../../libs/i18n/components/Trans.svelte"
-    import Spinner from '../../components/generics/Spinner.svelte'
-    import Toast from '../../components/generics/Toast.svelte'
+    import Spinner from '../../../components/generics/Spinner.svelte'
+    import Toast from '../../../components/generics/Toast.svelte'
 
     let { groupId, addRole } = $props()
 

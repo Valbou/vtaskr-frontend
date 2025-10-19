@@ -1,9 +1,9 @@
 <script>
     import { Link } from 'svelte-routing'
 
-    import VTaskrLogo from '../components/generics/vTaskrLogo.svelte'
+    import VTaskrLogo from '../components/globals/vTaskrLogo.svelte'
     import VTaskrMenu from '../components/globals/VTaskrMenu.svelte'
-    import Footer from '../components/generics/Footer.svelte'
+    import Footer from '../components/globals/Footer.svelte'
 
     let { isAuth, content, secondary } = $props();
 </script>

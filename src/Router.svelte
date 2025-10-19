@@ -1,6 +1,6 @@
 <script>
     import { Router, Link, Route } from 'svelte-routing'
-    import { isUserAuthenticated } from './domain/auth/authentication.jsn.js'
+    import { isUserAuthenticated } from './domain/auth/service.js'
 
     import BaseLayout from './layouts/BaseLayout.svelte'
 

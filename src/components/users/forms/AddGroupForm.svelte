@@ -5,7 +5,7 @@
     import { GroupDTO } from '../../../domain/users/dto/groups_dto.js'
 
     import Trans from "../../../libs/i18n/components/Trans.svelte"
-    import Toast from '../../components/generics/Toast.svelte'
+    import Toast from '../../../components/generics/Toast.svelte'
 
     const dispatch = createEventDispatcher()
 

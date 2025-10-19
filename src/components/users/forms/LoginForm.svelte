@@ -1,10 +1,10 @@
 <script>
     import { authenticate } from '../../../domain/users/api/users_api.js'
     import { LoginDTO } from '../../../domain/users/dto/users_dto.js'
-    import { updateToken } from '../../../domain/users/store/auth.jsrs/store/auth.js'
+    import { updateToken } from '../../../domain/users/store/auth.js'
 
     import Trans from "../../../libs/i18n/components/Trans.svelte"
-    import Toast from '../../components/generics/Toast.svelte'
+    import Toast from '../../../components/generics/Toast.svelte'
 
     let user = $state(new LoginDTO('', ''))
 

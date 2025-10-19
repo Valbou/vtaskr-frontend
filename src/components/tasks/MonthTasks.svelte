@@ -4,7 +4,7 @@
     import { getText } from "../../libs/i18n/services/translation.js"
 
     import Trans from "../../libs/i18n/components/Trans.svelte"
-    import TaskList from '../components/TaskList.svelte'
+    import TaskList from '../../components/tasks/TaskList.svelte'
 
     let { tasks, startPeriodDay, setDates, deleteTask, updateTask } = $props()
 

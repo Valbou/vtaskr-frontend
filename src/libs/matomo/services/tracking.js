@@ -1,4 +1,4 @@
-import { env } from '../../config/config.js'
+import { env } from '../../../config/config.js'
 
 
 export function init_matomo() {

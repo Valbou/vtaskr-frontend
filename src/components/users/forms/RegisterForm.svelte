@@ -4,7 +4,7 @@
     import { delay } from '../../../utils/time.js'
 
     import Trans from "../../../libs/i18n/components/Trans.svelte"
-    import Toast from '../../components/generics/Toast.svelte'
+    import Toast from '../../../components/generics/Toast.svelte'
 
     let user = $state(new UserDTO('', '', '', ''))
     let password2 = $state('')

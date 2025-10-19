@@ -2,7 +2,7 @@
     import { onMount } from 'svelte'
 
     import { getStartOfDay, getDistantDayMonth } from '/src/utils/time.js'
-    import { getMe } from '../../../domain/users/api/users_api.js_api.js'
+    import { getMe } from '../../../domain/users/api/users_api.js'
 
     import { isAuthenticated } from '../../../domain/users/service.js'
 
@@ -10,8 +10,8 @@
     import Spinner from '../../../components/generics/Spinner.svelte'
 
     import AddTaskForm from '../../../components/tasks/forms/AddTaskForm.svelte'
-    import ScheduledTasks from '../components/ScheduledTasks.svelte'
-    import NotScheduledTasks from '../components/NotScheduledTasks.svelte'
+    import ScheduledTasks from '../../../components/tasks/ScheduledTasks.svelte'
+    import NotScheduledTasks from '../../../components/tasks/NotScheduledTasks.svelte'
 
     let newTasks = $state(0)
     let currentUserData = $state(null)
