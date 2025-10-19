@@ -1,23 +1,24 @@
 <script>
     import { Router, Link, Route } from 'svelte-routing'
-    import { isUserAuthenticated } from './lib/iam/authentication.js'
+    import { isUserAuthenticated } from './domain/auth/authentication.jsn.js'
 
-    import BaseLayout from './global/layouts/BaseLayout.svelte'
+    import BaseLayout from './layouts/BaseLayout.svelte'
 
-    import About from './global/pages/About.svelte'
-    import Presentation from './global/pages/Presentation.svelte'
-    import Features from './global/pages/Features.svelte'
+    import About from './pages/publics/About.svelte'
+    import Presentation from './pages/publics/Presentation.svelte'
+    import Features from './pages/publics/Features.svelte'
 
-    import Register from './users/pages/Register.svelte'
-    import Login from './users/pages/Login.svelte'
-    import MFA from './users/pages/MFA.svelte'
-    import Logout from './users/pages/Logout.svelte'
-    import Groups from './users/pages/Groups.svelte'
-    import Group from './users/pages/Group.svelte'
-    import JoinGroup from './users/pages/JoinGroup.svelte'
+    import Register from './pages/publics/users/Register.svelte'
+    import Login from './pages/publics/users/Login.svelte'
+    import MFA from './pages/privates/users/MFA.svelte'
+    import Logout from './pages/privates/users/Logout.svelte'
+    import Groups from './pages/privates/users/Groups.svelte'
+    import Group from './pages/privates/users/Group.svelte'
+    import JoinGroup from './pages/privates/users/JoinGroup.svelte'
 
-    import MenuSecondary from './tasks/components/MenuSecondary.svelte'
-    import Dashboard from './tasks/pages/Dashboard.svelte'
+    import MenuSecondary from './components/tasks/MenuSecondary.svelte'
+    import Dashboard from './pages/privates/tasks/Dashboard.svelte'
+    import Settings from './pages/privates/settings/Settings.svelte'
 
     const { url = '', isAuth = isUserAuthenticated() } = $props()
 </script>
@@ -31,6 +32,7 @@
         <Route path="/mfa"><BaseLayout {isAuth} content={mfa} /></Route>
         <Route path="/logout"><BaseLayout {isAuth} content={logout} /></Route>
         <Route path="/dashboard"><BaseLayout {isAuth} content={dashboard} {secondary} /></Route>
+        <Route path="/settings"><BaseLayout {isAuth} content={settings} {settings} /></Route>
 
         <Route path="/groups"><BaseLayout {isAuth} content={groups} {secondary} /></Route>
         <Route path="/group/:id" let:params>
@@ -80,6 +82,10 @@
 
 {#snippet dashboard()}
     <Dashboard />
+{/snippet}
+
+{#snippet settings()}
+    <Settings />
 {/snippet}
 
 {#snippet groups()}
